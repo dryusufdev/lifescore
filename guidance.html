@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LifeScore | Request Guidance</title>
+    <meta name="description" content="Request an educational LifeScore guidance review for cards, banking, savings, brokerages, Roth IRA status, and goals.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Lifestyle</button>
+          <div class="nav-menu">
+            <a href="appearance.html">Appearance</a>
+            <a href="everyday-carry.html">Everyday Carry</a>
+            <a href="streetwear.html">Streetwear</a>
+            <a href="formal-attire.html">Formal Wear</a>
+            <a href="home-style.html">Home</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Finance</button>
+          <div class="nav-menu">
+            <a href="checking.html">Checking</a>
+            <a href="hysa.html">HYSA</a>
+            <a href="investing.html">Investing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Credit</button>
+          <div class="nav-menu">
+            <a href="cards.html">Cards</a>
+            <a href="travel-cards.html">Travel</a>
+          </div>
+        </div>
+        <a class="nav-wallet-link" href="wallet.html">Wallet</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero shell compact">
+        <div>
+          <h1>Request a LifeScore guidance review</h1>
+          <p>Want help understanding your setup? Submit your cards, checking account, savings setup, brokerage platform, and goals. LifeScore can provide educational guidance, not legal, tax, investment, or financial advice.</p>
+        </div>
+        <div class="disclosure-card"><strong>Educational only</strong><p>This is not personalized financial, legal, tax, or investment advice.</p></div>
+      </section>
+
+      <section class="notes-app shell">
+        <form class="guidance-form">
+          <label>Name<input type="text" name="name"></label>
+          <label>Email<input type="email" name="email"></label>
+          <label>Age range<select name="age"><option>18-24</option><option>25-34</option><option>35-44</option><option>45+</option></select></label>
+          <label>Main goal<input type="text" name="goal" placeholder="Build credit, save cash, start Roth IRA..."></label>
+          <label>Current cards<textarea name="cards" rows="3"></textarea></label>
+          <label>Checking account<input type="text" name="checking"></label>
+          <label>HYSA account<input type="text" name="hysa"></label>
+          <label>Brokerage account<input type="text" name="brokerage"></label>
+          <label>Roth IRA status<select name="roth"><option>Not opened</option><option>Opened, not invested</option><option>Opened and invested</option><option>Not sure</option></select></label>
+          <label>Travel goals<textarea name="travel" rows="3"></textarea></label>
+          <label>Biggest question<textarea name="question" rows="4"></textarea></label>
+          <label>Upload screenshots optional<input type="file" multiple></label>
+          <label class="consent-row"><input type="checkbox" required> <span>I understand LifeScore provides educational guidance only and does not provide personalized financial, legal, tax, or investment advice.</span></label>
+          <button class="button button-primary" type="submit">Request review</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <strong>LifeScore</strong>
+      <span>LifeScore is educational only. Verify rates, fees, bonuses, card terms, tax rules, and investment information before making financial decisions.</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

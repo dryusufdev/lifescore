@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LifeScore | Money Notebook</title>
+    <meta name="description" content="Save searchable finance notes with tags while comparing credit cards, HYSAs, checking accounts, brokerages, and Roth IRA topics.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Lifestyle</button>
+          <div class="nav-menu">
+            <a href="appearance.html">Appearance</a>
+            <a href="everyday-carry.html">Everyday Carry</a>
+            <a href="streetwear.html">Streetwear</a>
+            <a href="formal-attire.html">Formal Wear</a>
+            <a href="home-style.html">Home</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Finance</button>
+          <div class="nav-menu">
+            <a href="checking.html">Checking</a>
+            <a href="hysa.html">HYSA</a>
+            <a href="investing.html">Investing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Credit</button>
+          <div class="nav-menu">
+            <a href="cards.html">Cards</a>
+            <a href="travel-cards.html">Travel</a>
+          </div>
+        </div>
+        <a class="nav-wallet-link" href="wallet.html">Wallet</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero shell compact">
+        <div>
+          <h1>Your money notebook</h1>
+          <p>Keep the finance game simple: save questions, account ideas, card notes, and Roth IRA reminders while you research.</p>
+        </div>
+        <div class="disclosure-card">
+          <strong>Private to this browser</strong>
+          <p>Notes are stored locally on this device with localStorage. They are not synced or sent anywhere.</p>
+        </div>
+      </section>
+
+      <section class="notes-app shell" aria-labelledby="notes-title">
+        <div class="notes-toolbar">
+          <div>
+            <h2 id="notes-title">Research notes</h2>
+            <p>Search by text or click a tag to filter.</p>
+          </div>
+          <label>
+            <span>Search notes</span>
+            <input type="search" data-note-search placeholder="Search HYSA, bonus, Roth...">
+          </label>
+        </div>
+
+        <form class="note-form" data-note-form>
+          <label>
+            <span>Note</span>
+            <textarea data-note-text rows="5" placeholder="Example: Compare SoFi boost terms against CIT minimum balance requirement."></textarea>
+          </label>
+          <label>
+            <span>Tags</span>
+            <input data-note-tags type="text" placeholder="hysa, rates, compare">
+          </label>
+          <div class="note-form-actions">
+            <button class="button button-primary" type="submit" data-note-submit>Add note</button>
+            <button class="button button-ghost" type="button" data-note-cancel hidden>Cancel edit</button>
+          </div>
+        </form>
+
+        <div class="tag-filter" data-tag-filter aria-label="Note tag filters"></div>
+        <div class="notes-list" data-notes-list></div>
+      </section>
+    </main>
+
+    <footer class="site-footer shell">
+      <strong>LifeScore</strong>
+      <span>Use notes to organize research. Verify financial details before acting.</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

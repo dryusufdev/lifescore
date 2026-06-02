@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LifeScore | Build Your Wallet</title>
+    <meta name="description" content="Build a cleaner credit card wallet by matching your current cards to missing lanes and simple next-card ideas.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="wallet-page">
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Lifestyle</button>
+          <div class="nav-menu">
+            <a href="appearance.html">Appearance</a>
+            <a href="everyday-carry.html">Everyday Carry</a>
+            <a href="streetwear.html">Streetwear</a>
+            <a href="formal-attire.html">Formal Wear</a>
+            <a href="home-style.html">Home</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Finance</button>
+          <div class="nav-menu">
+            <a href="checking.html">Checking</a>
+            <a href="hysa.html">HYSA</a>
+            <a href="investing.html">Investing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Credit</button>
+          <div class="nav-menu">
+            <a href="cards.html">Cards</a>
+            <a href="travel-cards.html">Travel</a>
+          </div>
+        </div>
+        <a class="nav-wallet-link" href="wallet.html" aria-current="page">Wallet</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero shell compact">
+        <div>
+          <h1>Create your wallet.</h1>
+          <h2 class="hero-subtitle">Build a cleaner card setup.</h2>
+          <p>Tell LifeScore what you already have. The wallet builder finds your current lanes and suggests cards that could complete the setup.</p>
+        </div>
+        <div class="hero-side">
+          <div class="card-stack wallet-hero-stack" aria-label="Generated wallet card stack">
+            <span class="credit-card black"></span>
+            <span class="credit-card blue"></span>
+            <span class="credit-card green"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="quiz shell wallet-builder" aria-labelledby="wallet-title">
+        <div>
+          <h2 id="wallet-title">Your current wallet</h2>
+          <p>Select what you have, then answer a few simple questions. No score-chasing. Just lanes.</p>
+        </div>
+        <form class="fit-form" data-wallet-form>
+          <label>Your goal
+            <select data-wallet-goal>
+              <option value="simple">Simple cash back</option>
+              <option value="travel">Travel points</option>
+              <option value="premium">Lounge access</option>
+              <option value="build">Build credit</option>
+              <option value="business">Business spending</option>
+              <option value="lowfee">Lower fees</option>
+              <option value="food">Better food/dining rewards</option>
+            </select>
+          </label>
+          <label>Biggest spend
+            <select data-wallet-spend>
+              <option value="mixed">Everything is mixed</option>
+              <option value="dining">Dining / takeout</option>
+              <option value="groceries">Groceries</option>
+              <option value="gas">Gas / transit</option>
+              <option value="travel">Travel</option>
+              <option value="online">Online shopping</option>
+              <option value="business">Business expenses</option>
+            </select>
+          </label>
+          <label>Annual fees
+            <select data-wallet-fee>
+              <option value="avoid">Avoid fees</option>
+              <option value="low">Low fee is okay</option>
+              <option value="premium">Premium fee is okay if value is real</option>
+            </select>
+          </label>
+          <div class="wallet-filter-pills" data-wallet-filters aria-label="Filter card selector"></div>
+          <div class="wallet-options" data-wallet-options></div>
+          <button class="button button-primary" type="submit">Build My Setup</button>
+        </form>
+        <output class="wallet-output" data-wallet-result>
+          Choose your cards to see missing lanes and next-card ideas.
+        </output>
+      </section>
+
+    </main>
+
+    <footer class="site-footer shell">
+      <strong>LifeScore</strong>
+      <span>LifeScore is educational only. Verify rates, fees, bonuses, card terms, tax rules, and investment information before making financial decisions.</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

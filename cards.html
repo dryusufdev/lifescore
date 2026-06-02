@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LifeScore | Credit Card Comparison</title>
+    <meta name="description" content="Compare cash-back, student, credit-building, Apple Pay, and travel credit cards in plain English.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Lifestyle</button>
+          <div class="nav-menu">
+            <a href="appearance.html">Appearance</a>
+            <a href="everyday-carry.html">Everyday Carry</a>
+            <a href="streetwear.html">Streetwear</a>
+            <a href="formal-attire.html">Formal Wear</a>
+            <a href="home-style.html">Home</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Finance</button>
+          <div class="nav-menu">
+            <a href="checking.html">Checking</a>
+            <a href="hysa.html">HYSA</a>
+            <a href="investing.html">Investing</a>
+          </div>
+        </div>
+        <div class="nav-group">
+          <button class="nav-parent" type="button">Credit</button>
+          <div class="nav-menu">
+            <a href="cards.html" aria-current="page">Cards</a>
+            <a href="travel-cards.html">Travel</a>
+          </div>
+        </div>
+        <a class="nav-wallet-link" href="wallet.html">Wallet</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero shell compact">
+        <div>
+          <h1>Credit cards, sorted by lane.</h1>
+          <p>Compare simple cash back, Apple Pay cash back, student cards, credit builders, travel cards, and business cards without turning rewards into homework.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#card-comparison">Compare Cards</a>
+            <a class="button button-ghost" href="wallet.html">Build Wallet</a>
+          </div>
+          <a class="student-link" href="student-credit-guide.html">Student? Start here.</a>
+        </div>
+        <div class="card-stack" aria-label="Aesthetic generic credit cards">
+          <span class="credit-card black"></span>
+          <span class="credit-card blue"></span>
+          <span class="credit-card green"></span>
+        </div>
+      </section>
+
+      <section class="section shell" id="card-comparison">
+        <div class="section-heading">
+          <h2>Compare side by side</h2>
+          <p>Pick two cards. See the lane, fee, rewards, perks, and watchouts without digging.</p>
+        </div>
+        <div class="compare-controls">
+          <label>Card one
+            <select data-compare-left></select>
+          </label>
+          <label>Card two
+            <select data-compare-right></select>
+          </label>
+        </div>
+        <div class="side-by-side" data-card-side-by-side></div>
+      </section>
+
+      <section class="section shell compact-section">
+        <div class="section-heading">
+          <h2>Card database</h2>
+          <p>Filter by lane, then open the one you want. Business cards now live in their own lane.</p>
+        </div>
+        <div class="filter-pills" data-card-filters></div>
+        <div class="card-comparison" data-card-comparison></div>
+        <div class="card-detail" data-card-detail></div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer shell">
+      <strong>LifeScore</strong>
+      <span>LifeScore is educational only. Verify rates, fees, bonuses, card terms, tax rules, and investment information before making financial decisions.</span>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
