@@ -5185,6 +5185,7 @@ ul {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 18px;
+  scroll-margin-top: 130px;
 }
 
 .creator-connect-action > span {
