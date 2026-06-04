@@ -8,7 +8,7 @@
     <meta name="description" content="A simple student credit guide for learning credit cards, due dates, utilization, starter cards, and mistakes to avoid.">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="student-credit-page">
     <header class="site-header">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
       <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
@@ -18,7 +18,7 @@
           <div class="nav-menu">
             <a href="appearance.html">Appearance</a>
             <a href="everyday-carry.html">Everyday Carry</a>
-            <a href="streetwear.html">Streetwear</a>
+            <a href="closet.html">Closet</a>
             <a href="formal-attire.html">Formal Wear</a>
             <a href="home-style.html">Home</a>
           </div>
@@ -43,117 +43,92 @@
     </header>
 
     <main>
-      <section class="page-hero shell compact">
+      <section class="page-hero shell compact student-credit-hero">
         <div>
+          <span class="eyebrow">Student Credit Guide</span>
           <h1>Build good credit without overthinking it.</h1>
-          <p>A simple guide for students learning how credit cards work, how to avoid debt, and which beginner cards make sense.</p>
+          <p>Use your first card like a controlled tool: buy only what you can afford, keep the balance small, and pay in full every month.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="cards.html#card-comparison">Compare beginner cards</a>
-            <a class="button button-ghost" href="cards.html">Back to cards</a>
+            <a class="button button-ghost" href="cards.html">Back to credit</a>
           </div>
         </div>
-        <div class="disclosure-card">
-          <strong>Student Credit Guide</strong>
-          <p>Credit is your reputation for borrowing money and paying it back on time.</p>
+        <div class="student-credit-score-card student-rule-card" aria-label="LifeScore first card rule">
+          <span>LifeScore rule</span>
+          <strong>Start boring.</strong>
+          <p>One card. One purpose. Autopay on. Pay in full. No random applications.</p>
+          <div class="student-rule-ring" aria-hidden="true">
+            <span>First card rule</span>
+          </div>
+          <div class="student-ring-legend">
+            <i>Pay on time</i>
+            <i>Keep balance small</i>
+            <i>Apply slowly</i>
+          </div>
         </div>
       </section>
 
-      <section class="section shell">
-        <div class="plain-grid">
-          <article class="plain-box"><span>01</span><h3>Credit in one sentence</h3><p>Credit is your reputation for borrowing money and paying it back on time.</p></article>
-          <article class="plain-box"><span>02</span><h3>The simple rule</h3><p>Use the card like a debit card. Only spend money you already have. Pay the statement balance by the due date every month.</p></article>
-          <article class="plain-box"><span>LifeScore rule</span><h3>Keep it boring</h3><p>One beginner card, autopay on, statement balance paid in full, utilization low, and no random applications.</p></article>
+      <section class="section shell student-credit-system">
+        <div class="section-heading">
+          <h2>The first-card loop</h2>
+          <p>Three moves. Repeat monthly.</p>
+        </div>
+        <div class="student-loop-visual">
+          <div class="student-loop-chart" aria-label="First card loop">
+            <span>Spend controlled</span>
+            <span>Keep it small</span>
+            <span>Pay in full</span>
+          </div>
+          <div class="credit-loop-grid compact-loop-grid">
+            <article><span>01</span><h3>Spend like debit</h3><p>Only charge purchases you already had money for.</p></article>
+            <article><span>02</span><h3>Keep it small</h3><p>A low reported balance looks cleaner than a maxed-out card.</p></article>
+            <article><span>03</span><h3>Pay in full</h3><p>Pay the statement balance before the due date to avoid interest.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell student-pay-module tiny-pay-module">
+        <div class="pay-module-card">
+          <div class="pay-copy">
+            <span class="eyebrow">What do I pay?</span>
+            <h2>Pay the statement balance by the due date.</h2>
+            <p>The minimum payment keeps the account current, but it is not the habit to build.</p>
+          </div>
         </div>
       </section>
 
       <section class="section shell">
         <div class="section-heading">
-          <h2>What do I actually pay?</h2>
+          <h2>Beginner card lanes</h2>
+          <p>Educational examples only. Approval is not guaranteed. Always check the issuer's terms before applying.</p>
         </div>
-        <div class="lesson-grid">
-          <article><h3>Statement balance</h3><p>The amount you owe from your last billing cycle. Pay this in full by the due date to avoid interest.</p></article>
-          <article><h3>Current balance</h3><p>Everything currently on the card, including newer purchases that may not be due yet.</p></article>
-          <article><h3>Minimum payment</h3><p>The smallest amount required to keep the account current, but paying only the minimum can create interest and debt.</p></article>
-        </div>
-        <div class="warning-box"><strong>LifeScore rule</strong><p>Pay the statement balance in full every month.</p></div>
-      </section>
-
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>The due date is the deadline.</h2>
-          <p>Your card gives you a statement. That statement has a balance and a due date. Pay the full statement balance before the due date. This is the easiest way to build credit and avoid interest.</p>
+        <div class="student-card-lanes student-card-lanes-compact">
+          <article><span>Starter lane</span><h3>Chase Freedom Rise</h3><p>Simple starter lane for building a Chase relationship.</p></article>
+          <article><span>Student spending</span><h3>Capital One Savor Student</h3><p>Good to research if dining, groceries, and entertainment are already in your budget.</p></article>
+          <article><span>Flat cash back</span><h3>Quicksilver Student</h3><p>Simple flat cash-back lane with fewer categories to think about.</p></article>
         </div>
       </section>
 
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>What helps your score</h2>
-          <p>Payment history and amounts owed are major parts of FICO scoring. Payment history is 35% and amounts owed is 30%, so paying on time and keeping balances low matter most.</p>
-        </div>
-        <div class="lesson-grid">
-          <article><h3>Pay on time.</h3><p>Late payments can hurt more than rewards can help.</p></article>
-          <article><h3>Keep utilization low.</h3><p>Small balances are easier on your score than maxed-out cards.</p></article>
-          <article><h3>Do not apply for too many cards at once.</h3><p>Slow, steady credit building is cleaner.</p></article>
-          <article><h3>Keep old accounts open if there is no annual fee.</h3><p>Age and history can help over time.</p></article>
-          <article><h3>Check your credit report for mistakes.</h3><p>Do not let errors sit unnoticed.</p></article>
-        </div>
-      </section>
-
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>Credit utilization</h2>
-          <p>Utilization means how much of your credit limit you are using.</p>
-        </div>
-        <div class="best-table">
-          <div class="best-row head"><span>Example</span><span>Math</span><span>LifeScore read</span></div>
-          <div class="best-row"><strong>$500 limit</strong><span>$100 balance divided by $500 limit = 20% utilization.</span><span>Try to stay under 30%. Under 10% is even cleaner if you are trying to optimize your score.</span></div>
-        </div>
-      </section>
-
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>Best first-card lanes</h2>
-          <p>These are educational examples, not personalized recommendations. Approval is not guaranteed.</p>
-        </div>
-        <div class="rating-grid">
-          <article class="rating-card"><span>Best starter lane</span><h3>Chase Freedom Rise</h3><p>$0 annual fee, good for people trying to enter the Chase ecosystem, simple starter card, and autopay statement credit offers may encourage good payment habits.</p></article>
-          <article class="rating-card"><span>Food and student life</span><h3>Capital One Savor Student</h3><p>$0 annual fee, built for students, and useful if dining, entertainment, grocery, or streaming spend is already part of the budget.</p></article>
-          <article class="rating-card"><span>Other cards to research</span><h3>More student lanes</h3><p>Capital One Quicksilver Student and Bank of America Customized Cash Rewards for Students. Keep the first card simple.</p></article>
-        </div>
-      </section>
-
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>Student card comparison</h2>
-        </div>
-        <div class="compare-table">
-          <div class="compare-row head"><span>Card</span><span>Best for / annual fee / strength</span><span>Watch out</span></div>
-          <div class="compare-row"><strong>Chase Freedom Rise</strong><span>Starting with Chase. $0 annual fee. Simple starter card, Chase ecosystem path.</span><span>APR can be high, so paying in full matters.</span></div>
-          <div class="compare-row"><strong>Capital One Savor Student</strong><span>Dining and entertainment. $0 annual fee. Food/fun categories.</span><span>Rewards should not make you spend more.</span></div>
-          <div class="compare-row"><strong>Capital One Quicksilver Student</strong><span>Simple flat cash back. $0 annual fee. Easy everyday rewards.</span><span>Still pay in full.</span></div>
-        </div>
-      </section>
-
-      <section class="section shell">
-        <div class="section-heading">
-          <h2>Student credit mistakes to avoid</h2>
-        </div>
-        <div class="lesson-grid">
-          <article><h3>Do not max out the card.</h3></article>
-          <article><h3>Do not miss payments.</h3></article>
-          <article><h3>Do not only pay the minimum.</h3></article>
-          <article><h3>Do not apply for several cards at once.</h3></article>
-          <article><h3>Do not chase rewards by spending extra.</h3></article>
-          <article><h3>Do not treat your credit limit like free money.</h3></article>
-        </div>
-      </section>
-
-      <section class="calculator-band shell">
+      <section class="section shell student-mistake-strip student-mistake-list">
         <div>
-          <h2>The clean student setup</h2>
-          <p>One student card. Autopay on. Statement balance paid in full. Utilization kept low. No random applications. Credit score checked monthly.</p>
+          <h2>Mistakes to avoid</h2>
+          <ul>
+            <li>Do not max out the card.</li>
+            <li>Do not miss the due date.</li>
+            <li>Do not carry a balance for rewards.</li>
+            <li>Do not apply for several cards at once.</li>
+            <li>Do not treat the credit limit like extra income.</li>
+          </ul>
         </div>
-        <a class="button button-primary" href="cards.html#card-comparison">Compare beginner cards</a>
+      </section>
+
+      <section class="section shell student-next-step">
+        <div>
+          <span class="eyebrow">Next step</span>
+          <h2>Once your first card feels automatic, learn the score system.</h2>
+          <p>Move to Credit Score Maxing to learn how utilization, account age, and applications affect your score.</p>
+        </div>
+        <a class="button button-primary" href="credit-score.html">Go to Credit Score Maxing</a>
       </section>
     </main>
 
@@ -168,3 +143,4 @@
   <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
+

@@ -8,7 +8,7 @@
     <meta name="description" content="Investing education for common stocks, ETFs, brokerages, Roth IRA vs Traditional IRA, backdoor Roth IRA, and retirement basics.">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="investing-page">
     <header class="site-header">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
       <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
@@ -18,7 +18,7 @@
           <div class="nav-menu">
             <a href="appearance.html">Appearance</a>
             <a href="everyday-carry.html">Everyday Carry</a>
-            <a href="streetwear.html">Streetwear</a>
+            <a href="closet.html">Closet</a>
             <a href="formal-attire.html">Formal Wear</a>
             <a href="home-style.html">Home</a>
           </div>
@@ -86,25 +86,46 @@
       <section class="section shell" id="roth-etfs">
         <div class="section-heading">
           <h2>Best Roth IRA ETF starters</h2>
-          <p>A Roth IRA is the account. ETFs are what you can put inside it. These two are simple examples to understand first.</p>
+          <p>A Roth IRA is the account. VTI and VXUS are simple ETF examples people study first.</p>
         </div>
-        <div class="etf-starter-stage">
-          <figure class="etf-quote-card">
-            <img src="assets/creator-quote.jpg" alt="Handwritten reminder: Don't spend another year doing the same thing">
-          </figure>
-          <div class="etf-starter-grid">
-            <article class="etf-card vti-card">
-              <span>ETF</span>
-              <h3>VTI</h3>
-              <p>Broad U.S. stock ETF for long-term growth potential.</p>
-              <strong>Simple core U.S. market exposure.</strong>
+        <div class="etf-starter-stage roth-core-module">
+          <div class="roth-core-layout" data-allocation-module style="--vti: 70%; --vxus: 30%">
+            <article class="roth-allocation-card">
+              <div class="roth-mix-heading">
+                <span class="eyebrow">Beginner Roth IRA example</span>
+                <h3 data-allocation-title>Starter global mix</h3>
+              </div>
+              <div class="growth-projection-card" data-growth-module data-monthly="250" data-return="0.07">
+                <div class="growth-head">
+                  <div>
+                    <span>Hypothetical growth</span>
+                    <h4>See how time can matter more than changing the mix every week.</h4>
+                  </div>
+                  <strong data-growth-value>$43,300</strong>
+                </div>
+                <div class="growth-toggle" aria-label="Preview time horizon">
+                  <button type="button" data-growth-years="5">5Y</button>
+                  <button class="is-active" type="button" data-growth-years="10">10Y</button>
+                  <button type="button" data-growth-years="20">20Y</button>
+                </div>
+                <div class="growth-chart" aria-label="Hypothetical compounding curve">
+                  <svg viewBox="0 0 420 168" role="img" aria-label="Hypothetical growth curve">
+                    <path class="growth-grid-line" d="M24 132H396M24 92H396M24 52H396"/>
+                    <polyline data-growth-line class="growth-line" points=""></polyline>
+                    <circle data-growth-end class="growth-end-dot" cx="396" cy="32" r="5"></circle>
+                  </svg>
+                  <div class="growth-axis"><span>$0</span><span data-growth-horizon>10Y</span></div>
+                </div>
+                <p>Assumes $250/month and 7% annual return. Educational only. Actual returns vary.</p>
+              </div>
             </article>
-            <article class="etf-card vxus-card">
-              <span>ETF</span>
-              <h3>VXUS</h3>
-              <p>International stock ETF that adds non-U.S. diversification.</p>
-              <strong>Global diversification outside the U.S.</strong>
-            </article>
+            <div class="roth-explain-stack">
+              <article><span>Core</span><h3>Roth IRA</h3><p>The Roth IRA is the account. VTI and VXUS are example investments inside it.</p></article>
+              <article><span>ETF</span><h3>VTI</h3><p>Broad U.S. stock market exposure.</p><small>Tracks the broad U.S. stock market.</small></article>
+              <article><span>ETF</span><h3>VXUS</h3><p>Broad international stock market exposure.</p><small>Tracks global stocks outside the U.S.</small></article>
+              <article><span>Habit</span><h3>Repeat</h3><p>Pick a simple core and contribute consistently instead of overthinking every headline.</p></article>
+            </div>
+            <p class="roth-module-note">Educational only. This is not financial advice. The goal is to understand structure before choosing investments.</p>
           </div>
         </div>
       </section>
@@ -204,3 +225,4 @@
   <script defer src="/_vercel/insights/script.js"></script>
   </body>
 </html>
+
