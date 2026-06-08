@@ -39,6 +39,38 @@ navLinks?.addEventListener("click", (event) => {
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
+const studentLimitButtons = document.querySelectorAll("[data-limit-option]");
+
+function updateStudentCreditLimit(limit) {
+  const clean = limit * 0.1;
+  const high = limit * 0.3;
+  const maxed = limit * 0.9;
+  document.querySelectorAll("[data-student-limit]").forEach((node) => {
+    node.textContent = formatMoney(limit);
+  });
+  document.querySelectorAll("[data-clean-usage]").forEach((node) => {
+    node.textContent = formatMoney(clean);
+  });
+  document.querySelectorAll("[data-high-usage]").forEach((node) => {
+    node.textContent = formatMoney(high);
+  });
+  document.querySelectorAll("[data-max-usage]").forEach((node) => {
+    node.textContent = formatMoney(maxed);
+  });
+  document.querySelectorAll("[data-utilization-note]").forEach((node) => {
+    node.textContent = `With a ${formatMoney(limit)} limit, about ${formatMoney(clean)} reported is cleaner than ${formatMoney(maxed - clean)}.`;
+  });
+  studentLimitButtons.forEach((button) => {
+    button.classList.toggle("is-active", Number(button.dataset.limitOption) === limit);
+  });
+}
+
+studentLimitButtons.forEach((button) => {
+  button.addEventListener("click", () => updateStudentCreditLimit(Number(button.dataset.limitOption || 500)));
+});
+
+if (studentLimitButtons.length) updateStudentCreditLimit(500);
+
 const homeRange = document.querySelector("[data-calc-range]");
 const homeDeposit = document.querySelector("[data-calc-deposit]");
 const regularEarnings = document.querySelector("[data-regular-earnings]");
@@ -2138,3 +2170,218 @@ if (loungeMap) {
     pin.addEventListener("click", () => setActiveAirport(code));
   });
 }
+
+const scoreChatStorageKey = "lifescore-score-chat";
+const scoreChatVersionKey = `${scoreChatStorageKey}:version`;
+const scoreChatVersion = "score-panel-welcome-v2";
+const scoreStarterPrompts = [
+  { label: "Build my money plan", message: "Build my money plan" },
+  { label: "Check my credit setup", message: "Check my credit setup" },
+  { label: "Should I open a Roth IRA?", message: "Should I open a Roth IRA?" },
+  { label: "Build my wallet", message: "Build my wallet" },
+];
+
+function escapeHtml(value) {
+  const div = document.createElement("div");
+  div.textContent = value;
+  return div.innerHTML;
+}
+
+function formatScoreAnswer(value) {
+  const safe = escapeHtml(value || "");
+  return safe
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, href) => {
+      const cleanHref = href.trim();
+      if (!cleanHref.startsWith("/") && !cleanHref.startsWith("https://")) return label;
+      return `<a href="${cleanHref}">${label}</a>`;
+    })
+    .replace(/\n\n/g, "</p><p>")
+    .replace(/\n- /g, "<br><span class=\"score-chat-bullet\">-</span> ")
+    .replace(/\n/g, "<br>");
+}
+
+function readScoreHistory() {
+  try {
+    if (sessionStorage.getItem(scoreChatVersionKey) !== scoreChatVersion) {
+      sessionStorage.removeItem(scoreChatStorageKey);
+      sessionStorage.setItem(scoreChatVersionKey, scoreChatVersion);
+      return [];
+    }
+    return JSON.parse(sessionStorage.getItem(scoreChatStorageKey) || "[]");
+  } catch {
+    sessionStorage.removeItem(scoreChatStorageKey);
+    sessionStorage.setItem(scoreChatVersionKey, scoreChatVersion);
+    return [];
+  }
+}
+
+function saveScoreHistory(history) {
+  sessionStorage.setItem(scoreChatStorageKey, JSON.stringify(history.slice(-12)));
+}
+
+function buildScoreChat() {
+  if (document.querySelector("[data-score-chat]")) return;
+
+  const launcher = document.createElement("button");
+  launcher.type = "button";
+  launcher.className = "score-chat-launcher";
+  launcher.setAttribute("aria-label", "Ask Score");
+  launcher.innerHTML = `<span aria-hidden="true">✦</span><strong>Ask Score</strong>`;
+
+  const backdrop = document.createElement("button");
+  backdrop.type = "button";
+  backdrop.className = "score-chat-backdrop";
+  backdrop.hidden = true;
+  backdrop.setAttribute("aria-label", "Close Score");
+
+  const panel = document.createElement("section");
+  panel.className = "score-chat-panel";
+  panel.dataset.scoreChat = "true";
+  panel.hidden = true;
+  panel.setAttribute("aria-label", "Score chat");
+  panel.innerHTML = `
+    <header class="score-chat-header">
+      <div>
+        <span>Score</span>
+        <strong>Your LifeScore finance coach</strong>
+      </div>
+      <button type="button" class="score-chat-close" aria-label="Close Score">×</button>
+    </header>
+    <section class="score-chat-welcome" data-score-welcome>
+      <p>What can I help with today?</p>
+      <div class="score-chat-prompts" data-score-prompts></div>
+    </section>
+    <div class="score-chat-body" data-score-messages></div>
+    <form class="score-chat-form" data-score-form>
+      <label class="sr-only" for="score-chat-input">Ask Score</label>
+      <textarea id="score-chat-input" name="message" rows="1" placeholder="Ask about credit, saving, investing, or cards..." data-score-input></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <p class="score-chat-guardrail">Educational only. Verify terms and do not carry credit-card debt for rewards.</p>
+  `;
+
+  document.body.append(backdrop, panel, launcher);
+
+  const messagesEl = panel.querySelector("[data-score-messages]");
+  const welcomeEl = panel.querySelector("[data-score-welcome]");
+  const promptsEl = panel.querySelector("[data-score-prompts]");
+  const form = panel.querySelector("[data-score-form]");
+  const input = panel.querySelector("[data-score-input]");
+  const closeButton = panel.querySelector(".score-chat-close");
+
+  let history = readScoreHistory();
+  if (!history.some((message) => message.role === "user")) {
+    history = [];
+    saveScoreHistory(history);
+  }
+
+  function renderMessages() {
+    messagesEl.replaceChildren();
+    const hasMessages = history.length > 0;
+    messagesEl.hidden = !hasMessages;
+    welcomeEl.hidden = hasMessages;
+    if (!hasMessages) {
+      messagesEl.scrollTop = 0;
+      return;
+    }
+    history.forEach((message) => {
+      const bubble = document.createElement("article");
+      bubble.className = `score-chat-message is-${message.role}`;
+      bubble.innerHTML = `<p>${formatScoreAnswer(message.content)}</p>`;
+      messagesEl.append(bubble);
+    });
+    requestAnimationFrame(() => {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    });
+  }
+
+  function renderPrompts() {
+    promptsEl.replaceChildren();
+    scoreStarterPrompts.forEach((prompt) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = prompt.label;
+      button.addEventListener("click", () => {
+        input.value = prompt.message;
+        form.requestSubmit();
+      });
+      promptsEl.append(button);
+    });
+  }
+
+  function setOpen(isOpen) {
+    panel.hidden = !isOpen;
+    backdrop.hidden = !isOpen;
+    document.body.classList.toggle("score-chat-open", isOpen);
+    launcher.setAttribute("aria-expanded", String(isOpen));
+    if (isOpen) {
+      renderMessages();
+      requestAnimationFrame(() => input.focus());
+    }
+  }
+
+  function addMessage(role, content) {
+    history.push({ role, content });
+    history = history.slice(-12);
+    saveScoreHistory(history);
+    renderMessages();
+  }
+
+  async function sendScoreMessage(content) {
+    addMessage("user", content);
+    const loading = { role: "assistant", content: "Thinking through the LifeScore rules..." };
+    history.push(loading);
+    renderMessages();
+
+    try {
+      const response = await fetch("/api/score-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: content,
+          history: history.filter((item) => item !== loading).slice(-8),
+        }),
+      });
+      const data = await response.json();
+      history = history.filter((item) => item !== loading);
+      addMessage("assistant", data.answer || data.error || "Score could not answer that yet. Try again.");
+    } catch {
+      history = history.filter((item) => item !== loading);
+      addMessage("assistant", "Score is in demo mode.\n\n- Avoid carrying balances\n- Verify card terms\n- Educational only");
+    }
+  }
+
+  launcher.addEventListener("click", () => setOpen(true));
+  closeButton.addEventListener("click", () => setOpen(false));
+  backdrop.addEventListener("click", () => setOpen(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !panel.hidden) setOpen(false);
+  });
+
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+
+  input.addEventListener("input", () => {
+    input.style.height = "auto";
+    input.style.height = `${Math.min(input.scrollHeight, 110)}px`;
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const content = input.value.trim();
+    if (!content) return;
+    input.value = "";
+    input.style.height = "auto";
+    sendScoreMessage(content);
+  });
+
+  renderMessages();
+  renderPrompts();
+}
+
+buildScoreChat();

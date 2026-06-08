@@ -47,86 +47,177 @@
         <div>
           <span class="eyebrow">Student Credit Guide</span>
           <h1>Build good credit without overthinking it.</h1>
-          <p>Use your first card like a controlled tool: buy only what you can afford, keep the balance small, and pay in full every month.</p>
+          <p>Your first card should make life simpler, not more expensive. Charge small, keep the reported balance low, and pay the statement balance in full.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="cards.html#card-comparison">Compare beginner cards</a>
             <a class="button button-ghost" href="cards.html">Back to credit</a>
           </div>
         </div>
-        <div class="student-credit-score-card student-rule-card" aria-label="LifeScore first card rule">
-          <span>LifeScore rule</span>
-          <strong>Start boring.</strong>
-          <p>One card. One purpose. Autopay on. Pay in full. No random applications.</p>
-          <div class="student-rule-ring" aria-hidden="true">
-            <span>First card rule</span>
+        <aside class="first-card-dashboard" aria-label="First card dashboard" data-student-limit-module>
+          <div class="dashboard-topline">
+            <span>First card dashboard</span>
+            <b>Building</b>
           </div>
-          <div class="student-ring-legend">
-            <i>Pay on time</i>
-            <i>Keep balance small</i>
-            <i>Apply slowly</i>
+          <div class="starter-card-visual" aria-hidden="true">
+            <div>
+              <span>Example limit</span>
+              <strong data-student-limit>$500</strong>
+            </div>
+            <i></i>
           </div>
-        </div>
+          <div class="dashboard-metrics">
+            <div>
+              <span>Clean usage</span>
+              <strong data-clean-usage>$50</strong>
+            </div>
+            <div>
+              <span>Payment habit</span>
+              <strong>Pay statement balance</strong>
+            </div>
+          </div>
+          <p class="dashboard-rule">Start boring: one card, one purpose, autopay on, no random applications.</p>
+        </aside>
       </section>
 
-      <section class="section shell student-credit-system">
+      <section class="section shell utilization-dashboard">
         <div class="section-heading">
-          <h2>The first-card loop</h2>
-          <p>Three moves. Repeat monthly.</p>
+          <h2>Use a small slice</h2>
+          <p>A low reported balance looks cleaner than a card that is close to maxed out.</p>
         </div>
-        <div class="student-loop-visual">
-          <div class="student-loop-chart" aria-label="First card loop">
-            <span>Spend controlled</span>
-            <span>Keep it small</span>
-            <span>Pay in full</span>
-          </div>
-          <div class="credit-loop-grid compact-loop-grid">
-            <article><span>01</span><h3>Spend like debit</h3><p>Only charge purchases you already had money for.</p></article>
-            <article><span>02</span><h3>Keep it small</h3><p>A low reported balance looks cleaner than a maxed-out card.</p></article>
-            <article><span>03</span><h3>Pay in full</h3><p>Pay the statement balance before the due date to avoid interest.</p></article>
-          </div>
+        <div class="utilization-grid">
+          <article class="usage-donut-card">
+            <div class="usage-donut" role="img" aria-label="10 percent used safely and 90 percent available credit">
+              <span>10% clean usage</span>
+            </div>
+            <div class="usage-legend" aria-label="Utilization legend">
+              <span><i></i>Used safely: 10%</span>
+              <span><i></i>Available credit: 90%</span>
+            </div>
+            <p data-utilization-note>With a $500 limit, about $50 reported is cleaner than $400.</p>
+          </article>
+          <article class="limit-selector-card" data-student-limit-module>
+            <div>
+              <span class="eyebrow">Card limit</span>
+              <h3>Preview the habit.</h3>
+              <p>Pick a sample limit. The percentages stay the same; the dollar amounts change.</p>
+            </div>
+            <div class="limit-options" role="group" aria-label="Example card limit">
+              <button type="button" data-limit-option="300">$300</button>
+              <button type="button" data-limit-option="500" class="is-active">$500</button>
+              <button type="button" data-limit-option="1000">$1,000</button>
+              <button type="button" data-limit-option="2000">$2,000</button>
+            </div>
+            <div class="limit-readouts">
+              <div class="is-clean"><span>Clean</span><strong data-clean-usage>$50</strong><small>10%</small></div>
+              <div class="is-high"><span>High</span><strong data-high-usage>$150</strong><small>30%</small></div>
+              <div class="is-maxed"><span>Maxed</span><strong data-max-usage>$450</strong><small>90%</small></div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section class="section shell student-pay-module tiny-pay-module">
-        <div class="pay-module-card">
-          <div class="pay-copy">
-            <span class="eyebrow">What do I pay?</span>
-            <h2>Pay the statement balance by the due date.</h2>
-            <p>The minimum payment keeps the account current, but it is not the habit to build.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section shell">
+      <section class="section shell first-card-loop-section">
         <div class="section-heading">
-          <h2>Beginner card lanes</h2>
-          <p>Educational examples only. Approval is not guaranteed. Always check the issuer's terms before applying.</p>
+          <h2>The monthly loop</h2>
+          <p>Three moves. Repeat every month.</p>
         </div>
-        <div class="student-card-lanes student-card-lanes-compact">
-          <article><span>Starter lane</span><h3>Chase Freedom Rise</h3><p>Simple starter lane for building a Chase relationship.</p></article>
-          <article><span>Student spending</span><h3>Capital One Savor Student</h3><p>Good to research if dining, groceries, and entertainment are already in your budget.</p></article>
-          <article><span>Flat cash back</span><h3>Quicksilver Student</h3><p>Simple flat cash-back lane with fewer categories to think about.</p></article>
+        <div class="habit-loop" aria-label="First-card monthly habit loop">
+          <article>
+            <span>01</span>
+            <h3>Spend small</h3>
+            <p>Use the card for a few normal purchases you already planned.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Statement posts</h3>
+            <p>The statement creates the amount due and the deadline.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Pay in full</h3>
+            <p>Pay it in full before the due date and avoid interest.</p>
+          </article>
         </div>
       </section>
 
-      <section class="section shell student-mistake-strip student-mistake-list">
-        <div>
-          <h2>Mistakes to avoid</h2>
-          <ul>
-            <li>Do not max out the card.</li>
-            <li>Do not miss the due date.</li>
-            <li>Do not carry a balance for rewards.</li>
-            <li>Do not apply for several cards at once.</li>
-            <li>Do not treat the credit limit like extra income.</li>
-          </ul>
+      <section class="section shell payment-compare-section">
+        <div class="section-heading">
+          <h2>Minimum payment vs. statement balance</h2>
+          <p>Two numbers show up. Only one is the habit to build.</p>
         </div>
+        <div class="payment-compare-grid">
+          <article>
+            <span>Minimum payment</span>
+            <h3>Keeps the account current.</h3>
+            <p>Useful as a safety floor, but relying on it can create interest and make debt linger.</p>
+          </article>
+          <article class="is-best-pay">
+            <b>Pay this one</b>
+            <span>Statement balance</span>
+            <h3>Best beginner habit.</h3>
+            <p>Pay it in full by the due date to avoid interest on normal purchases.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section shell lane-picker-section">
+        <div class="section-heading">
+          <h2>Pick your lane</h2>
+          <p>These are educational examples. Choose the simplest card that matches how you already spend.</p>
+        </div>
+        <div class="lane-picker-grid">
+          <article>
+            <span>I'm new-new</span>
+            <h3>Starter relationship card</h3>
+            <p class="example-card">Example: Chase Freedom Rise</p>
+            <dl>
+              <div><dt>Best for</dt><dd>A simple first-card path.</dd></div>
+              <div><dt>Watch out</dt><dd>Applying before your basics are stable.</dd></div>
+              <div><dt>Habit rule</dt><dd>One small use case. Pay in full.</dd></div>
+            </dl>
+          </article>
+          <article>
+            <span>I already spend on food</span>
+            <h3>Student rewards card</h3>
+            <p class="example-card">Example: Capital One Savor Student</p>
+            <dl>
+              <div><dt>Best for</dt><dd>Food and entertainment already in your budget.</dd></div>
+              <div><dt>Watch out</dt><dd>Spending extra for rewards.</dd></div>
+              <div><dt>Habit rule</dt><dd>Rewards only count if you avoid interest.</dd></div>
+            </dl>
+          </article>
+          <article>
+            <span>I hate categories</span>
+            <h3>Flat cash-back card</h3>
+            <p class="example-card">Example: Quicksilver Student</p>
+            <dl>
+              <div><dt>Best for</dt><dd>Simple everyday cash back.</dd></div>
+              <div><dt>Watch out</dt><dd>Simple does not mean unlimited.</dd></div>
+              <div><dt>Habit rule</dt><dd>Use like debit. Pay like clockwork.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="section shell red-flag-section">
+        <div class="section-heading">
+          <h2>Credit mistakes that look small but hurt</h2>
+          <p>Most beginner problems start when the credit limit starts feeling like income.</p>
+        </div>
+        <ul class="red-flag-list">
+          <li><span></span><strong>Maxing out</strong><em>Your balance looks too close to your limit.</em></li>
+          <li><span></span><strong>Missing the due date</strong><em>Payment history is the habit lenders care about most.</em></li>
+          <li><span></span><strong>Carrying a balance for rewards</strong><em>Interest can erase rewards quickly.</em></li>
+          <li><span></span><strong>Applying too fast</strong><em>Too many applications can make you look risky.</em></li>
+          <li><span></span><strong>Treating the limit like income</strong><em>A credit limit is access to debt, not extra money.</em></li>
+        </ul>
       </section>
 
       <section class="section shell student-next-step">
         <div>
           <span class="eyebrow">Next step</span>
-          <h2>Once your first card feels automatic, learn the score system.</h2>
-          <p>Move to Credit Score Maxing to learn how utilization, account age, and applications affect your score.</p>
+          <h2>Once the habit feels automatic, learn the score system.</h2>
+          <p>Next, learn how utilization, account age, payment history, and applications shape your score.</p>
         </div>
         <a class="button button-primary" href="credit-score.html">Go to Credit Score Maxing</a>
       </section>
