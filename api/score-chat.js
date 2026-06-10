@@ -158,6 +158,26 @@ function extractOpenAIText(data) {
   return chunks.join("\n").trim();
 }
 
+async function readOpenAIJson(openAiResponse) {
+  const text = await openAiResponse.text();
+  if (!text) return {};
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { raw: text.slice(0, 500) };
+  }
+}
+
+function summarizeOpenAIError(error) {
+  return {
+    message: error?.message || "Unknown OpenAI error",
+    status: error?.status || null,
+    type: error?.type || null,
+    code: error?.code || null,
+    model: OPENAI_MODEL,
+  };
+}
+
 async function callOpenAI(message, history, context) {
   const system = [
     "You are Score, the LifeScore finance coach for students and young adults.",
@@ -169,7 +189,6 @@ async function callOpenAI(message, history, context) {
   ].join("\n");
 
   const input = [
-    { role: "system", content: system },
     ...history,
     {
       role: "user",
@@ -191,15 +210,20 @@ async function callOpenAI(message, history, context) {
     },
     body: JSON.stringify({
       model: OPENAI_MODEL,
+      instructions: system,
       input,
       temperature: 0.35,
       max_output_tokens: 650,
     }),
   });
 
-  const data = await openAiResponse.json();
+  const data = await readOpenAIJson(openAiResponse);
   if (!openAiResponse.ok) {
-    throw new Error(data?.error?.message || `OpenAI returned ${openAiResponse.status}`);
+    const error = new Error(data?.error?.message || data?.raw || `OpenAI returned ${openAiResponse.status}`);
+    error.status = openAiResponse.status;
+    error.type = data?.error?.type || null;
+    error.code = data?.error?.code || null;
+    throw error;
   }
 
   const answer = extractOpenAIText(data);
@@ -222,6 +246,10 @@ module.exports = async function handler(request, response) {
     const context = buildRuleContext(category, message);
 
     if (!OPENAI_API_KEY) {
+      console.warn("[Score chat] OPENAI_API_KEY is missing. Returning demo mode fallback.", {
+        category,
+        model: OPENAI_MODEL,
+      });
       return sendJson(response, 200, {
         answer: `Score is in demo mode.\n\n${fallbackAnswer(message, context)}`,
         category,
@@ -233,6 +261,10 @@ module.exports = async function handler(request, response) {
 
     try {
       const answer = await callOpenAI(message, history, context);
+      console.info("[Score chat] OpenAI response succeeded.", {
+        category,
+        model: OPENAI_MODEL,
+      });
       return sendJson(response, 200, {
         answer,
         category,
@@ -240,6 +272,7 @@ module.exports = async function handler(request, response) {
         source: "openai",
       });
     } catch (error) {
+      console.error("[Score chat] OpenAI request failed. Returning rules fallback.", summarizeOpenAIError(error));
       return sendJson(response, 200, {
         answer: fallbackAnswer(message, context),
         category,
@@ -248,7 +281,10 @@ module.exports = async function handler(request, response) {
         note: "AI response unavailable, so Score used the LifeScore rules engine.",
       });
     }
-  } catch {
+  } catch (error) {
+    console.error("[Score chat] Handler failed before it could answer.", {
+      message: error?.message || "Unknown handler error",
+    });
     return sendJson(response, 500, { error: "Score could not answer that yet. Try again in a second." });
   }
 };
