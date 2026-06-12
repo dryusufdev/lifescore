@@ -1,0 +1,122 @@
+[
+  {
+    "id": "2026-06-12-card-bonus",
+    "publishDate": "2026-06-12",
+    "category": "Cards",
+    "title": "Weekly tip",
+    "body": "A welcome bonus is only good if you can meet the requirement without overspending. Never spend extra just to chase a bonus.",
+    "ctaText": "Ask Score about card bonuses",
+    "scorePrompt": "Help me understand if a credit card welcome bonus is worth it.",
+    "status": "published"
+  },
+  {
+    "id": "2026-06-19-credit-utilization",
+    "publishDate": "2026-06-19",
+    "category": "Credit",
+    "title": "Weekly tip",
+    "body": "If you are optimizing credit, the balance that reports on statement day matters. Let a small amount report, then pay it down before the due date.",
+    "ctaText": "Ask Score about utilization",
+    "scorePrompt": "Explain credit utilization before the statement date in simple terms.",
+    "status": "published"
+  },
+  {
+    "id": "2026-06-26-taxes-wait-for-1099s",
+    "publishDate": "2026-06-26",
+    "category": "Taxes",
+    "title": "Weekly tip",
+    "body": "Do not file too early if you are still waiting on 1099s. HYSA interest, dividends, and sold investments can all create forms.",
+    "ctaText": "Ask Score for a tax form checklist",
+    "scorePrompt": "Build my tax form checklist before I file.",
+    "status": "published"
+  },
+  {
+    "id": "2026-07-03-roth-vs-brokerage",
+    "publishDate": "2026-07-03",
+    "category": "Investing",
+    "title": "Weekly tip",
+    "body": "A Roth IRA is built for retirement tax advantages. A brokerage account is more flexible, but it does not have the same retirement tax shelter.",
+    "ctaText": "Ask Score: Roth or brokerage",
+    "scorePrompt": "Help me understand Roth IRA versus brokerage account basics.",
+    "status": "published"
+  },
+  {
+    "id": "2026-07-10-hysa-interest-taxable",
+    "publishDate": "2026-07-10",
+    "category": "HYSA",
+    "title": "Weekly tip",
+    "body": "HYSA interest can be taxable. The account is still useful, but keep the 1099-INT in mind when tax season comes around.",
+    "ctaText": "Ask Score about HYSA taxes",
+    "scorePrompt": "Explain HYSA interest taxes and 1099-INT basics.",
+    "status": "published"
+  },
+  {
+    "id": "2026-07-17-checking-cash-separation",
+    "publishDate": "2026-07-17",
+    "category": "Checking",
+    "title": "Weekly tip",
+    "body": "Keep daily cash separate from savings. Checking is for bills and access; savings is for money you are trying not to touch.",
+    "ctaText": "Ask Score about checking setup",
+    "scorePrompt": "Help me set up checking and savings without mixing daily cash with emergency savings.",
+    "status": "published"
+  },
+  {
+    "id": "2026-07-24-travel-fee-job",
+    "publishDate": "2026-07-24",
+    "category": "Travel cards",
+    "title": "Weekly tip",
+    "body": "A travel card annual fee needs a job. If the credits, transfer partners, or trip benefits are not real for your life, the fee is just noise.",
+    "ctaText": "Ask Score about travel fees",
+    "scorePrompt": "Help me decide if a travel card annual fee has a real job in my setup.",
+    "status": "published"
+  },
+  {
+    "id": "2026-07-31-student-first-card",
+    "publishDate": "2026-07-31",
+    "category": "Student credit",
+    "title": "Weekly tip",
+    "body": "Your first card is for history, not flexing. One simple card, small purchases, autopay on, and paid in full beats a messy stack.",
+    "ctaText": "Ask Score about first cards",
+    "scorePrompt": "Help me choose a simple first credit card setup as a student.",
+    "status": "published"
+  },
+  {
+    "id": "2026-08-07-budgeting-automate-first",
+    "publishDate": "2026-08-07",
+    "category": "Budgeting",
+    "title": "Weekly tip",
+    "body": "Automate bills before investing. A clean system starts with no missed due dates, then savings, then long-term investing.",
+    "ctaText": "Ask Score for a money plan",
+    "scorePrompt": "Build me a simple money plan: bills, savings, and investing order.",
+    "status": "published"
+  },
+  {
+    "id": "2026-08-14-taxes-student-credits",
+    "publishDate": "2026-08-14",
+    "category": "Taxes",
+    "title": "Weekly tip",
+    "body": "Student tax credits may apply if you paid eligible education costs. A 1098-T starts the question, but eligibility still matters.",
+    "ctaText": "Ask Score about student credits",
+    "scorePrompt": "Explain AOTC and Lifetime Learning Credit basics for students.",
+    "status": "published"
+  },
+  {
+    "id": "2026-08-21-investing-account-vs-investment",
+    "publishDate": "2026-08-21",
+    "category": "Investing",
+    "title": "Weekly tip",
+    "body": "Do not confuse the account with the investment. A Roth IRA is the container; ETFs, funds, stocks, and bonds are what go inside.",
+    "ctaText": "Ask Score about Roth IRA basics",
+    "scorePrompt": "Explain the difference between an account and an investment inside a Roth IRA.",
+    "status": "published"
+  },
+  {
+    "id": "2026-08-28-credit-no-debt-rewards",
+    "publishDate": "2026-08-28",
+    "category": "Credit",
+    "title": "Weekly tip",
+    "body": "Never carry debt for rewards. Interest can erase cash back, points, and bonuses fast. Pay in full first; optimize second.",
+    "ctaText": "Ask Score about rewards discipline",
+    "scorePrompt": "Explain why carrying credit card debt for rewards is a bad idea.",
+    "status": "published"
+  }
+]

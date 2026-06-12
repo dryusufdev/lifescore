@@ -39,6 +39,83 @@ navLinks?.addEventListener("click", (event) => {
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
+function getNewYorkDateKey(date = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+function shiftIsoDate(dateKey, dayOffset) {
+  const [year, month, day] = dateKey.split("-").map(Number);
+  const utcDate = new Date(Date.UTC(year, month - 1, day + dayOffset));
+  return utcDate.toISOString().slice(0, 10);
+}
+
+function getCurrentFridayKey(date = new Date()) {
+  const todayKey = getNewYorkDateKey(date);
+  const [year, month, day] = todayKey.split("-").map(Number);
+  const dayOfWeek = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
+  const daysSinceFriday = (dayOfWeek + 2) % 7;
+  return shiftIsoDate(todayKey, -daysSinceFriday);
+}
+
+function selectWeeklyTip(tips, date = new Date()) {
+  if (!Array.isArray(tips)) return null;
+  const todayKey = getNewYorkDateKey(date);
+  return tips
+    .filter((tip) => tip?.status === "published" && tip.publishDate && tip.publishDate <= todayKey)
+    .sort((a, b) => String(b.publishDate).localeCompare(String(a.publishDate)) || String(b.id).localeCompare(String(a.id)))[0] || null;
+}
+
+async function hydrateWeeklyTip(options = {}) {
+  const card = document.querySelector("[data-weekly-tip]");
+  if (!card) return null;
+
+  const titleEl = card.querySelector("[data-weekly-tip-title]");
+  const bodyEl = card.querySelector("[data-weekly-tip-body]");
+  const ctaEl = card.querySelector("[data-weekly-tip-cta]");
+  const now = options.now instanceof Date ? options.now : new Date();
+  const weekKey = getCurrentFridayKey(now);
+
+  try {
+    const response = await fetch(`data/weekly-tips.json?v=${encodeURIComponent(weekKey)}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Weekly tips request failed with ${response.status}`);
+    const tips = await response.json();
+    const tip = selectWeeklyTip(tips, now);
+    if (!tip) return null;
+
+    if (titleEl && tip.title) titleEl.textContent = tip.title;
+    if (bodyEl && tip.body) bodyEl.textContent = tip.body;
+
+    if (ctaEl) {
+      const prompt = String(tip.scorePrompt || "").trim();
+      const ctaText = String(tip.ctaText || "").trim();
+      if (prompt && ctaText) {
+        ctaEl.textContent = ctaText;
+        ctaEl.hidden = false;
+        ctaEl.setAttribute("data-score-open", "");
+        ctaEl.dataset.scoreMessage = prompt;
+      } else {
+        ctaEl.hidden = true;
+        ctaEl.removeAttribute("data-score-open");
+        delete ctaEl.dataset.scoreMessage;
+      }
+    }
+
+    card.dataset.weeklyTipId = tip.id || "";
+    card.dataset.weeklyTipCategory = tip.category || "";
+    return tip;
+  } catch (error) {
+    console.warn("[LifeScore] Weekly tip fallback kept.", error);
+    return null;
+  }
+}
+
 const studentLimitButtons = document.querySelectorAll("[data-limit-option]");
 
 function updateStudentCreditLimit(limit) {
@@ -2173,13 +2250,31 @@ if (loungeMap) {
 
 const scoreChatStorageKey = "lifescore-score-chat";
 const scoreChatVersionKey = `${scoreChatStorageKey}:version`;
-const scoreChatVersion = "score-panel-welcome-v2";
+const scoreChatVersion = "score-panel-booking-v1";
+const scoreBookingStorageKey = `${scoreChatStorageKey}:booking`;
 const scoreStarterPrompts = [
-  { label: "Build my money plan", message: "Build my money plan" },
-  { label: "Check my credit setup", message: "Check my credit setup" },
-  { label: "Should I open a Roth IRA?", message: "Should I open a Roth IRA?" },
+  { label: "What tax situations apply to me?", message: "What tax situations might apply to me?" },
+  { label: "Build my tax form checklist", message: "Build my tax form checklist for W-2, 1099, 1098-T, and investing activity." },
+  { label: "Roth vs brokerage taxes", message: "Explain Roth IRA taxes versus brokerage taxes." },
+  { label: "Review my credit setup", message: "Review my credit card setup." },
+  { label: "Book a free tax-readiness consultation", message: "I want to book a free LifeScore tax-readiness consultation." },
   { label: "Build my wallet", message: "Build my wallet" },
 ];
+
+const consultationTopicOptions = [
+  "Portfolio review",
+  "Investing starter plan",
+  "Roth IRA / brokerage setup",
+  "Credit card wallet audit",
+  "Credit score setup",
+  "Tax filing after investing",
+  "Budget / money plan",
+  "Other",
+];
+
+const consultationMethodOptions = ["Discord", "Zoom", "No preference"];
+
+const consultationTriggerPattern = /\b(book a consultation|book a free|book free|book me|reserve a consultation|free consultation|tax-readiness consultation|tax readiness consultation|tax consultation|investing-tax readiness|talk to an advisor|portfolio audit|review my portfolio|review my roth ira|review my brokerage|audit my wallet|audit my credit card setup|audit my card setup|help me pick investments|tax help|help filing taxes|credit card setup review|roth ira help|brokerage account help|can i talk to someone|can someone review|schedule a call|zoom call|discord call)\b/i;
 
 function escapeHtml(value) {
   const div = document.createElement("div");
@@ -2199,6 +2294,67 @@ function formatScoreAnswer(value) {
     .replace(/\n\n/g, "</p><p>")
     .replace(/\n- /g, "<br><span class=\"score-chat-bullet\">-</span> ")
     .replace(/\n/g, "<br>");
+}
+
+function cleanScoreLink(link) {
+  if (!link || typeof link !== "object") return null;
+  const href = String(link.href || "").trim();
+  const label = String(link.label || "Open next page").trim();
+  const isInternalPath = href.startsWith("/") || /^[a-z0-9-]+\.html(?:#[a-z0-9_-]+)?$/i.test(href);
+  if (!isInternalPath || !label) return null;
+  return { href, label };
+}
+
+function isConsultationRequest(value) {
+  return consultationTriggerPattern.test(String(value || ""));
+}
+
+function isValidScoreEmail(value) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function inferConsultationTopic(value) {
+  const text = String(value || "").toLowerCase();
+  if (/\b(portfolio|review my portfolio|audit portfolio)\b/.test(text)) return "Portfolio review";
+  if (/\b(roth|ira|brokerage)\b/.test(text)) return "Roth IRA / brokerage setup";
+  if (/\b(card|wallet|credit card)\b/.test(text)) return "Credit card wallet audit";
+  if (/\b(score|fico|credit setup)\b/.test(text)) return "Credit score setup";
+  if (/\b(tax|1099|filing)\b/.test(text)) return "Tax filing after investing";
+  if (/\b(budget|money plan)\b/.test(text)) return "Budget / money plan";
+  if (/\b(invest|starter plan)\b/.test(text)) return "Investing starter plan";
+  return "";
+}
+
+function readScoreBookingState() {
+  try {
+    return JSON.parse(sessionStorage.getItem(scoreBookingStorageKey) || "null");
+  } catch {
+    sessionStorage.removeItem(scoreBookingStorageKey);
+    return null;
+  }
+}
+
+function saveScoreBookingState(state) {
+  if (!state) {
+    sessionStorage.removeItem(scoreBookingStorageKey);
+    return;
+  }
+  sessionStorage.setItem(scoreBookingStorageKey, JSON.stringify(state));
+}
+
+function enhanceLifeScoreNav() {
+  document.querySelectorAll(".nav-group").forEach((group) => {
+    const parent = group.querySelector(".nav-parent");
+    const menu = group.querySelector(".nav-menu");
+    if (!parent || !menu || parent.textContent.trim() !== "Finance") return;
+    if (!menu.querySelector('a[href="taxes.html"]')) {
+      const taxes = document.createElement("a");
+      taxes.href = "taxes.html";
+      taxes.textContent = "Taxes";
+      if (location.pathname.endsWith("/taxes.html")) taxes.setAttribute("aria-current", "page");
+      menu.append(taxes);
+    }
+  });
 }
 
 function readScoreHistory() {
@@ -2253,12 +2409,14 @@ function buildScoreChat() {
       <div class="score-chat-prompts" data-score-prompts></div>
     </section>
     <div class="score-chat-body" data-score-messages></div>
-    <form class="score-chat-form" data-score-form>
-      <label class="sr-only" for="score-chat-input">Ask Score</label>
-      <textarea id="score-chat-input" name="message" rows="1" placeholder="Ask about credit, saving, investing, or cards..." data-score-input></textarea>
-      <button type="submit">Send</button>
-    </form>
-    <p class="score-chat-guardrail">Educational only. Verify terms and do not carry credit-card debt for rewards.</p>
+    <footer class="score-chat-footer">
+      <form class="score-chat-form" data-score-form>
+        <label class="sr-only" for="score-chat-input">Ask Score</label>
+        <textarea id="score-chat-input" name="message" rows="1" placeholder="Ask about credit, saving, investing, or cards..." data-score-input></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <p class="score-chat-guardrail">Educational only. Verify terms before making financial decisions.</p>
+    </footer>
   `;
 
   document.body.append(backdrop, panel, launcher);
@@ -2271,9 +2429,18 @@ function buildScoreChat() {
   const closeButton = panel.querySelector(".score-chat-close");
 
   let history = readScoreHistory();
+  let bookingState = readScoreBookingState();
   if (!history.some((message) => message.role === "user")) {
     history = [];
     saveScoreHistory(history);
+    bookingState = null;
+    saveScoreBookingState(null);
+  }
+
+  function scrollScoreToBottom() {
+    requestAnimationFrame(() => {
+      messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: "smooth" });
+    });
   }
 
   function renderMessages() {
@@ -2286,14 +2453,36 @@ function buildScoreChat() {
       return;
     }
     history.forEach((message) => {
+      const link = cleanScoreLink(message.link);
+      const actions = Array.isArray(message.actions) ? message.actions : [];
       const bubble = document.createElement("article");
       bubble.className = `score-chat-message is-${message.role}`;
-      bubble.innerHTML = `<p>${formatScoreAnswer(message.content)}</p>`;
+      bubble.innerHTML = `
+        <p>${formatScoreAnswer(message.content)}</p>
+        ${message.role === "assistant" && link ? `<a class="score-chat-next-link" href="${escapeHtml(link.href)}">Next: ${escapeHtml(link.label)}</a>` : ""}
+        ${message.role === "assistant" && actions.length ? `<div class="score-chat-actions">${actions.map((action) => `<button type="button" data-score-action="${escapeHtml(action.type || "reply")}" data-score-value="${escapeHtml(action.value || action.label || "")}" data-score-label="${escapeHtml(action.label || action.value || "")}">${escapeHtml(action.label || action.value || "")}</button>`).join("")}</div>` : ""}
+      `;
       messagesEl.append(bubble);
     });
-    requestAnimationFrame(() => {
-      messagesEl.scrollTop = messagesEl.scrollHeight;
-    });
+    scrollScoreToBottom();
+  }
+
+  function resetScoreChatState() {
+    history = [];
+    bookingState = null;
+    sessionStorage.removeItem(scoreChatStorageKey);
+    sessionStorage.removeItem(scoreBookingStorageKey);
+    sessionStorage.setItem(scoreChatVersionKey, scoreChatVersion);
+    input.value = "";
+    input.style.height = "auto";
+    renderMessages();
+  }
+
+  async function openScoreChatWithMessage(message = "", options = {}) {
+    const cleanMessage = String(message || "").trim();
+    if (options.fresh) resetScoreChatState();
+    setOpen(true);
+    if (cleanMessage) await sendScoreMessage(cleanMessage);
   }
 
   function renderPrompts() {
@@ -2302,10 +2491,7 @@ function buildScoreChat() {
       const button = document.createElement("button");
       button.type = "button";
       button.textContent = prompt.label;
-      button.addEventListener("click", () => {
-        input.value = prompt.message;
-        form.requestSubmit();
-      });
+      button.addEventListener("click", () => openScoreChatWithMessage(prompt.message, { fresh: true }));
       promptsEl.append(button);
     });
   }
@@ -2321,14 +2507,231 @@ function buildScoreChat() {
     }
   }
 
-  function addMessage(role, content) {
-    history.push({ role, content });
+  function addMessage(role, content, link = null, actions = []) {
+    const nextMessage = { role, content };
+    const cleanLink = cleanScoreLink(link);
+    if (cleanLink) nextMessage.link = cleanLink;
+    if (Array.isArray(actions) && actions.length) nextMessage.actions = actions.slice(0, 8);
+    history.push(nextMessage);
     history = history.slice(-12);
     saveScoreHistory(history);
     renderMessages();
   }
 
+  function setBookingState(nextState) {
+    bookingState = nextState;
+    saveScoreBookingState(bookingState);
+  }
+
+  function actionList(options, type = "reply") {
+    return options.map((option) => ({ label: option.label || option, value: option.value || option, type }));
+  }
+
+  function askConsultationTopic() {
+    setBookingState({ ...bookingState, step: "topic" });
+    addMessage("assistant", "What should the session focus on?", null, actionList(consultationTopicOptions));
+  }
+
+  function askConsultationMethod() {
+    setBookingState({ ...bookingState, step: "method" });
+    addMessage("assistant", "How would you prefer to talk: Discord, Zoom, or no preference?", null, actionList(consultationMethodOptions));
+  }
+
+  async function askConsultationSlot() {
+    setBookingState({ ...bookingState, step: "slot" });
+    const loading = { role: "assistant", content: "Checking open consultation times..." };
+    history.push(loading);
+    renderMessages();
+    try {
+      const response = await fetch("/api/consultation-slots", { method: "GET" });
+      const data = await response.json();
+      history = history.filter((item) => item !== loading);
+      if (!response.ok || !data.available) {
+        addMessage("assistant", "Booking is almost ready, but scheduling is not enabled yet. You can still ask Score questions here. Once LifeScore scheduling is enabled, this flow will reserve your slot and send confirmation.");
+        setBookingState(null);
+        return;
+      }
+      addMessage(
+        "assistant",
+        "Perfect. Pick one of these open times. Times are Eastern. You can also type a clear time like Saturday at 11am.",
+        null,
+        actionList((data.slots || []).map((slot) => ({ label: slot.label, value: slot.iso })), "slot")
+      );
+    } catch {
+      history = history.filter((item) => item !== loading);
+      addMessage("assistant", "Booking is almost ready, but scheduling is not enabled yet. You can still ask Score questions here. Once LifeScore scheduling is enabled, this flow will reserve your slot and send confirmation.");
+      setBookingState(null);
+    }
+  }
+
+  function startConsultationBooking(seedMessage = "") {
+    const topic = inferConsultationTopic(seedMessage);
+    setBookingState({ step: "name", data: topic ? { topic } : {} });
+    addMessage(
+      "assistant",
+      "Got it. I can help book a free educational LifeScore consultation. What's your full name?\n\nDo not share SSNs, passwords, full account numbers, tax IDs, or login credentials."
+    );
+  }
+
+  function consultationSummary(data) {
+    const topic = data.topic || "Other";
+    const method = data.callMethod || "No preference";
+    const time = data.slotLabel || data.slotText || data.slotIso || "Selected time";
+    const notes = data.notes ? data.notes : "No notes";
+    return [
+      "Before I reserve it, here's what I have:",
+      "",
+      `Name: ${data.fullName}`,
+      `Email: ${data.email}`,
+      `Focus: ${topic}`,
+      `Method: ${method}`,
+      `Time: ${time}`,
+      `Notes: ${notes}`,
+      "",
+      "Confirm if this looks right."
+    ].join("\n");
+  }
+
+  async function submitConsultationBooking() {
+    const data = bookingState?.data || {};
+    const loading = { role: "assistant", content: "Reserving the slot and sending confirmation..." };
+    history.push(loading);
+    renderMessages();
+    try {
+      const response = await fetch("/api/book-consultation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      history = history.filter((item) => item !== loading);
+      if (!response.ok || !result.booked) {
+        const slotActions = Array.isArray(result.openSlots) ? actionList(result.openSlots.map((slot) => ({ label: slot.label, value: slot.iso })), "slot") : [];
+        if (slotActions.length) setBookingState({ ...bookingState, step: "slot" });
+        addMessage("assistant", result.error || "Score could not reserve that consultation right now.", null, slotActions);
+        if (!slotActions.length) setBookingState(null);
+        return;
+      }
+      addMessage("assistant", result.message || "Booked. You'll get a confirmation email now, and Amir will reply with next steps/the final Discord or Zoom link. Educational only - don't send SSNs, passwords, or full account numbers.");
+      setBookingState(null);
+    } catch {
+      history = history.filter((item) => item !== loading);
+      addMessage("assistant", "Booking is temporarily unavailable, but you can still ask Score tax questions here. Try again once scheduling is enabled.");
+      setBookingState(null);
+    }
+  }
+
+  async function processConsultationReply(value, displayValue = value) {
+    const reply = String(value || "").trim();
+    const state = bookingState || { step: "name", data: {} };
+    const data = { ...(state.data || {}) };
+
+    if (state.step === "name") {
+      if (reply.length < 2) {
+        addMessage("assistant", "Can you send your full name first?");
+        return;
+      }
+      data.fullName = reply;
+      setBookingState({ step: "email", data });
+      addMessage("assistant", "Thanks. What email should I use for the confirmation?");
+      return;
+    }
+
+    if (state.step === "email") {
+      if (!isValidScoreEmail(reply)) {
+        addMessage("assistant", "That email does not look right. Can you try typing it again?");
+        return;
+      }
+      data.email = reply.toLowerCase();
+      setBookingState({ step: "topic", data });
+      if (data.topic) {
+        addMessage("assistant", `Topic set: ${data.topic}.`);
+        askConsultationMethod();
+      } else {
+        askConsultationTopic();
+      }
+      return;
+    }
+
+    if (state.step === "topic") {
+      data.topic = consultationTopicOptions.includes(reply) ? reply : "Other";
+      setBookingState({ step: "method", data });
+      askConsultationMethod();
+      return;
+    }
+
+    if (state.step === "method") {
+      data.callMethod = consultationMethodOptions.includes(reply) ? reply : "No preference";
+      if (data.callMethod === "Discord") {
+        setBookingState({ step: "discord", data });
+        addMessage("assistant", "No problem. Send your Discord handle.");
+      } else {
+        setBookingState({ step: "slot", data });
+        await askConsultationSlot();
+      }
+      return;
+    }
+
+    if (state.step === "discord") {
+      data.discordHandle = reply;
+      setBookingState({ step: "slot", data });
+      await askConsultationSlot();
+      return;
+    }
+
+    if (state.step === "slot") {
+      if (/^\d{4}-\d{2}-\d{2}T/.test(reply)) {
+        data.slotIso = reply;
+        data.slotLabel = String(displayValue || reply).trim();
+        delete data.slotText;
+      } else {
+        data.slotText = reply;
+        delete data.slotLabel;
+        delete data.slotIso;
+      }
+      setBookingState({ step: "notes", data });
+      addMessage("assistant", "Any notes for Amir? Type skip if not. Do not include SSNs, passwords, full account numbers, or sensitive tax IDs.");
+      return;
+    }
+
+    if (state.step === "notes") {
+      data.notes = /^skip$/i.test(reply) ? "" : reply;
+      setBookingState({ step: "confirm", data });
+      addMessage("assistant", consultationSummary(data), null, [
+        { label: "Confirm booking", value: "__confirm_booking", type: "reply" },
+        { label: "Pick a different time", value: "__change_slot", type: "reply" },
+      ]);
+      return;
+    }
+
+    if (state.step === "confirm") {
+      if (reply === "__change_slot" || /\b(change|different|time|slot)\b/i.test(reply)) {
+        setBookingState({ step: "slot", data });
+        await askConsultationSlot();
+        return;
+      }
+      if (reply !== "__confirm_booking" && !/\b(confirm|book|yes|looks good|right)\b/i.test(reply)) {
+        addMessage("assistant", "Confirm the booking if it looks right, or pick a different time.");
+        return;
+      }
+      setBookingState({ step: "submitting", data });
+      await submitConsultationBooking();
+    }
+  }
+
   async function sendScoreMessage(content) {
+    if (bookingState) {
+      addMessage("user", content);
+      await processConsultationReply(content);
+      return;
+    }
+
+    if (isConsultationRequest(content)) {
+      addMessage("user", content);
+      startConsultationBooking(content);
+      return;
+    }
+
     addMessage("user", content);
     const loading = { role: "assistant", content: "Thinking through the LifeScore rules..." };
     history.push(loading);
@@ -2345,7 +2748,7 @@ function buildScoreChat() {
       });
       const data = await response.json();
       history = history.filter((item) => item !== loading);
-      addMessage("assistant", data.answer || data.error || "Score could not answer that yet. Try again.");
+      addMessage("assistant", data.answer || data.error || "Score could not answer that yet. Try again.", data.link);
     } catch {
       history = history.filter((item) => item !== loading);
       addMessage("assistant", "Score is in demo mode.\n\n- Avoid carrying balances\n- Verify card terms\n- Educational only");
@@ -2355,6 +2758,26 @@ function buildScoreChat() {
   launcher.addEventListener("click", () => setOpen(true));
   closeButton.addEventListener("click", () => setOpen(false));
   backdrop.addEventListener("click", () => setOpen(false));
+  messagesEl.addEventListener("click", async (event) => {
+    const action = event.target.closest("[data-score-action]");
+    if (!action) return;
+    const value = action.dataset.scoreValue || action.textContent.trim();
+    const label = action.dataset.scoreLabel || action.textContent.trim();
+    if (!bookingState && isConsultationRequest(value)) {
+      await openScoreChatWithMessage(value, { fresh: true });
+      return;
+    }
+    if (!bookingState) return;
+    addMessage("user", label);
+    await processConsultationReply(value, label);
+  });
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-score-open]");
+    if (!trigger) return;
+    event.preventDefault();
+    const message = trigger.dataset.scoreMessage || "I want to book a free LifeScore consultation";
+    openScoreChatWithMessage(message, { fresh: true });
+  });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !panel.hidden) setOpen(false);
   });
@@ -2382,6 +2805,20 @@ function buildScoreChat() {
 
   renderMessages();
   renderPrompts();
+
+  window.openScoreChatWithMessage = (message = "") => {
+    openScoreChatWithMessage(message, { fresh: true });
+  };
+  window.resetScoreChatState = resetScoreChatState;
 }
 
+enhanceLifeScoreNav();
+hydrateWeeklyTip();
 buildScoreChat();
+
+window.LifeScoreWeeklyTips = {
+  getNewYorkDateKey,
+  getCurrentFridayKey,
+  selectWeeklyTip,
+  hydrateWeeklyTip,
+};
