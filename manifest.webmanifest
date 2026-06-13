@@ -1,0 +1,33 @@
+{
+  "name": "LifeScore",
+  "short_name": "LifeScore",
+  "id": "/",
+  "description": "A practical playbook for money, credit, investing, travel, style, and daily systems.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#fbfaf7",
+  "theme_color": "#4bc4a3",
+  "icons": [
+    {
+      "src": "/assets/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

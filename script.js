@@ -2812,9 +2812,107 @@ function buildScoreChat() {
   window.resetScoreChatState = resetScoreChatState;
 }
 
+function registerLifeScorePwa() {
+  if (!("serviceWorker" in navigator)) return;
+  if (window.location.protocol === "file:") return;
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+  });
+}
+
+function buildLifeScoreInstallPrompt() {
+  const isStandalone =
+    window.matchMedia?.("(display-mode: standalone)")?.matches ||
+    window.navigator.standalone === true;
+  if (isStandalone || localStorage.getItem("lifescore-install-dismissed") === "true") return;
+
+  let deferredInstallPrompt = null;
+  const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+  const isChrome = /chrome|crios/i.test(window.navigator.userAgent) && !/edg|opr|samsung/i.test(window.navigator.userAgent);
+
+  const card = document.createElement("div");
+  card.className = "pwa-install-card";
+  card.hidden = true;
+  card.innerHTML = `
+    <button class="pwa-install-action" type="button" aria-label="Install LifeScore app">
+      <span>LifeScore app</span>
+      <strong>Install</strong>
+    </button>
+    <button class="pwa-install-close" type="button" aria-label="Dismiss install prompt">×</button>
+    <p class="pwa-install-help" hidden></p>
+  `;
+  document.body.append(card);
+
+  const action = card.querySelector(".pwa-install-action");
+  const actionLabel = action.querySelector("strong");
+  const close = card.querySelector(".pwa-install-close");
+  const help = card.querySelector(".pwa-install-help");
+
+  function showInstallCard(label = "Install") {
+    actionLabel.textContent = label;
+    card.hidden = false;
+  }
+
+  function showInstallHelp() {
+    help.hidden = false;
+    if (isIos) {
+      help.textContent = "On iPhone, open LifeScore in Safari, then Add to Home Screen. Chrome on iPhone does not allow a direct install button yet.";
+      return;
+    }
+    if (isChrome) {
+      help.textContent = "In Chrome, use the install icon in the address bar or the three-dot menu, then choose Install app or Add to Home screen.";
+      return;
+    }
+    help.textContent = "Use your browser menu and choose Install app or Add to Home screen.";
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    showInstallCard("Install");
+  });
+
+  window.addEventListener("appinstalled", () => {
+    localStorage.setItem("lifescore-install-dismissed", "true");
+    card.hidden = true;
+  });
+
+  window.addEventListener("load", () => {
+    window.setTimeout(() => {
+      if (!deferredInstallPrompt && !card.hidden) return;
+      if (!deferredInstallPrompt) showInstallCard(isIos ? "Add" : "Install");
+    }, 1800);
+  });
+
+  action.addEventListener("click", async () => {
+    if (!deferredInstallPrompt) {
+      showInstallHelp();
+      return;
+    }
+
+    deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice.catch(() => null);
+    deferredInstallPrompt = null;
+    if (choice?.outcome === "accepted") {
+      localStorage.setItem("lifescore-install-dismissed", "true");
+      card.hidden = true;
+      return;
+    }
+    showInstallHelp();
+  });
+
+  close.addEventListener("click", () => {
+    localStorage.setItem("lifescore-install-dismissed", "true");
+    card.hidden = true;
+  });
+}
+
 enhanceLifeScoreNav();
 hydrateWeeklyTip();
 buildScoreChat();
+registerLifeScorePwa();
+buildLifeScoreInstallPrompt();
 
 window.LifeScoreWeeklyTips = {
   getNewYorkDateKey,
