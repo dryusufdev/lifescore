@@ -1,14 +1,13 @@
 {
+  "id": "/",
   "name": "LifeScore",
   "short_name": "LifeScore",
-  "id": "/",
-  "description": "A practical playbook for money, credit, investing, travel, style, and daily systems.",
-  "start_url": "/index.html",
+  "description": "LifeScore helps students and beginners make better decisions with credit, wallets, investing, taxes, and lifestyle systems.",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui", "browser"],
-  "orientation": "portrait-primary",
-  "background_color": "#fbfaf7",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "background_color": "#fafaf7",
   "theme_color": "#4bc4a3",
   "icons": [
     {
@@ -24,7 +23,7 @@
       "purpose": "any"
     },
     {
-      "src": "/assets/pwa-icon-512.png",
+      "src": "/assets/pwa-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

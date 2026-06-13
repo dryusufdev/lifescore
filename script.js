@@ -2813,81 +2813,181 @@ function buildScoreChat() {
 }
 
 function registerLifeScorePwa() {
-  if (!("serviceWorker" in navigator)) return;
-  if (window.location.protocol === "file:") return;
+  const canUseServiceWorker =
+    "serviceWorker" in navigator &&
+    (location.protocol === "https:" ||
+      location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1");
+
+  if (!canUseServiceWorker) return;
 
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+    navigator.serviceWorker.register("/sw.js").catch((error) => {
+      console.warn("[LifeScore] Service worker registration failed.", error);
+    });
   });
 }
 
 function buildLifeScoreInstallPrompt() {
+  const debugEnabled = new URLSearchParams(window.location.search).get("pwaDebug") === "1";
   const isStandalone =
     window.matchMedia?.("(display-mode: standalone)")?.matches ||
     window.navigator.standalone === true;
-  if (isStandalone || localStorage.getItem("lifescore-install-dismissed") === "true") return;
 
   let deferredInstallPrompt = null;
-  const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-  const isChrome = /chrome|crios/i.test(window.navigator.userAgent) && !/edg|opr|samsung/i.test(window.navigator.userAgent);
+  let beforeInstallPromptFired = false;
+  let currentMode = "";
+  const userAgent = window.navigator.userAgent || "";
+  const isIos =
+    /iphone|ipad|ipod/i.test(userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isChrome =
+    /chrome|crios/i.test(userAgent) && !/edg|opr|samsung/i.test(userAgent);
+
+  function storageGet(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  function storageSet(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch {
+      // Private browsing can block localStorage. The prompt can still dismiss for this session.
+    }
+  }
+
+  function isDismissed() {
+    return storageGet("lifescore-install-dismissed") === "true";
+  }
 
   const card = document.createElement("div");
   card.className = "pwa-install-card";
   card.hidden = true;
   card.innerHTML = `
-    <button class="pwa-install-action" type="button" aria-label="Install LifeScore app">
+    <div class="pwa-install-copy">
       <span>LifeScore app</span>
-      <strong>Install</strong>
-    </button>
+      <strong data-pwa-install-title>Install LifeScore</strong>
+      <p data-pwa-install-body hidden></p>
+    </div>
+    <button class="pwa-install-action" type="button">Install</button>
     <button class="pwa-install-close" type="button" aria-label="Dismiss install prompt">×</button>
-    <p class="pwa-install-help" hidden></p>
   `;
   document.body.append(card);
 
+  const title = card.querySelector("[data-pwa-install-title]");
+  const body = card.querySelector("[data-pwa-install-body]");
   const action = card.querySelector(".pwa-install-action");
-  const actionLabel = action.querySelector("strong");
   const close = card.querySelector(".pwa-install-close");
-  const help = card.querySelector(".pwa-install-help");
 
-  function showInstallCard(label = "Install") {
-    actionLabel.textContent = label;
+  function setCardMode(mode) {
+    if (isStandalone || isDismissed()) return;
+    currentMode = mode;
+    body.hidden = false;
+
+    if (mode === "install") {
+      title.textContent = "Install LifeScore";
+      body.textContent = "Open LifeScore like an app from your home screen.";
+      action.textContent = "Install";
+      action.setAttribute("aria-label", "Install LifeScore app");
+    } else if (mode === "ios") {
+      title.textContent = "Add LifeScore to your Home Screen";
+      body.textContent =
+        "On iPhone, open LifeScore in Safari, tap Share, then tap Add to Home Screen.";
+      action.textContent = "Got it";
+      action.setAttribute("aria-label", "Dismiss Home Screen instructions");
+    } else if (mode === "chrome-fallback") {
+      title.textContent = "Install LifeScore in Chrome";
+      body.textContent =
+        "Chrome will show Install when the deployed site meets PWA requirements. You can also use Chrome menu → Cast, save, and share → Install page.";
+      action.textContent = "Got it";
+      action.setAttribute("aria-label", "Dismiss Chrome install instructions");
+    }
+
     card.hidden = false;
+    updatePwaDebug();
   }
 
-  function showInstallHelp() {
-    help.hidden = false;
-    if (isIos) {
-      help.textContent = "On iPhone, open LifeScore in Safari, then Add to Home Screen. Chrome on iPhone does not allow a direct install button yet.";
-      return;
+  let debugCard = null;
+
+  function updatePwaDebug() {
+    if (!debugEnabled) return;
+    if (!debugCard) {
+      debugCard = document.createElement("aside");
+      debugCard.className = "pwa-debug-card";
+      debugCard.setAttribute("aria-label", "LifeScore PWA diagnostics");
+      document.body.append(debugCard);
     }
-    if (isChrome) {
-      help.textContent = "In Chrome, use the install icon in the address bar or the three-dot menu, then choose Install app or Add to Home screen.";
-      return;
-    }
-    help.textContent = "Use your browser menu and choose Install app or Add to Home screen.";
+
+    const manifestLink = document.querySelector('link[rel="manifest"]');
+    const serviceWorkerSupported = "serviceWorker" in navigator;
+    const controllerActive = Boolean(navigator.serviceWorker?.controller);
+    const standaloneMode =
+      window.matchMedia?.("(display-mode: standalone)")?.matches ||
+      window.navigator.standalone === true;
+
+    const rows = [
+      ["protocol", window.location.protocol],
+      ["manifest link found", manifestLink ? manifestLink.getAttribute("href") || "yes" : "no"],
+      ["serviceWorker supported", serviceWorkerSupported ? "yes" : "no"],
+      ["serviceWorker controller active", controllerActive ? "yes" : "no"],
+      ["beforeinstallprompt fired", beforeInstallPromptFired ? "yes" : "no"],
+      ["standalone mode detected", standaloneMode ? "yes" : "no"],
+      ["user agent summary", userAgent.slice(0, 120)]
+    ];
+
+    debugCard.innerHTML = `
+      <strong>PWA debug</strong>
+      ${rows
+        .map(
+          ([label, value]) =>
+            `<span><em>${label}</em><b>${String(value).replace(/[<>&]/g, (char) => ({
+              "<": "&lt;",
+              ">": "&gt;",
+              "&": "&amp;"
+            }[char]))}</b></span>`
+        )
+        .join("")}
+    `;
   }
 
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
+    beforeInstallPromptFired = true;
     deferredInstallPrompt = event;
-    showInstallCard("Install");
+    setCardMode("install");
   });
 
   window.addEventListener("appinstalled", () => {
-    localStorage.setItem("lifescore-install-dismissed", "true");
+    storageSet("lifescore-install-dismissed", "true");
     card.hidden = true;
+    updatePwaDebug();
   });
 
   window.addEventListener("load", () => {
+    updatePwaDebug();
     window.setTimeout(() => {
-      if (!deferredInstallPrompt && !card.hidden) return;
-      if (!deferredInstallPrompt) showInstallCard(isIos ? "Add" : "Install");
-    }, 1800);
+      if (isStandalone || deferredInstallPrompt || isDismissed()) return;
+      if (isIos) {
+        setCardMode("ios");
+      } else if (isChrome) {
+        setCardMode("chrome-fallback");
+      }
+    }, 2400);
+
+    if (navigator.serviceWorker?.ready) {
+      navigator.serviceWorker.ready.then(updatePwaDebug).catch(updatePwaDebug);
+    }
   });
 
   action.addEventListener("click", async () => {
-    if (!deferredInstallPrompt) {
-      showInstallHelp();
+    if (currentMode !== "install" || !deferredInstallPrompt) {
+      storageSet("lifescore-install-dismissed", "true");
+      card.hidden = true;
+      updatePwaDebug();
       return;
     }
 
@@ -2895,17 +2995,20 @@ function buildLifeScoreInstallPrompt() {
     const choice = await deferredInstallPrompt.userChoice.catch(() => null);
     deferredInstallPrompt = null;
     if (choice?.outcome === "accepted") {
-      localStorage.setItem("lifescore-install-dismissed", "true");
+      storageSet("lifescore-install-dismissed", "true");
       card.hidden = true;
       return;
     }
-    showInstallHelp();
+    setCardMode(isChrome ? "chrome-fallback" : "ios");
   });
 
   close.addEventListener("click", () => {
-    localStorage.setItem("lifescore-install-dismissed", "true");
+    storageSet("lifescore-install-dismissed", "true");
     card.hidden = true;
+    updatePwaDebug();
   });
+
+  updatePwaDebug();
 }
 
 enhanceLifeScoreNav();

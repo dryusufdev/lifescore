@@ -1,23 +1,6 @@
-const CACHE_NAME = "lifescore-pwa-v1";
-const CORE_ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/manifest.webmanifest",
-  "/assets/favicon.png",
-  "/assets/apple-touch-icon.png",
-  "/assets/pwa-icon-192.png",
-  "/assets/pwa-icon-512.png"
-];
+const CACHE_NAME = "lifescore-shell-v1";
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => cache.addAll(CORE_ASSETS))
-      .catch(() => undefined)
-  );
   self.skipWaiting();
 });
 
@@ -33,35 +16,11 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  const { request } = event;
-  if (request.method !== "GET") return;
-
-  const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
-
-  if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match("/index.html")))
-    );
-    return;
-  }
+  if (event.request.method !== "GET") return;
 
   event.respondWith(
-    caches.match(request).then((cached) => {
-      const network = fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          return response;
-        })
-        .catch(() => cached);
-      return cached || network;
-    })
+    fetch(event.request)
+      .then((response) => response)
+      .catch(() => caches.match(event.request))
   );
 });

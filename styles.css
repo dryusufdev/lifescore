@@ -9701,12 +9701,12 @@ figure:has(> img) > img,
   bottom: clamp(16px, 3vw, 28px);
   z-index: 69;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px;
-  width: min(270px, calc(100vw - 32px));
-  padding: 8px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 9px;
+  width: min(360px, calc(100vw - 32px));
+  padding: 10px;
   border: 1px solid rgba(229, 226, 218, 0.86);
-  border-radius: 22px;
+  border-radius: 24px;
   background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 18px 52px rgba(11, 31, 58, 0.13);
   backdrop-filter: blur(16px);
@@ -9716,20 +9716,15 @@ figure:has(> img) > img,
   display: none;
 }
 
-.pwa-install-action {
+.pwa-install-copy {
   display: grid;
-  gap: 1px;
+  align-content: center;
+  gap: 4px;
   min-width: 0;
-  padding: 9px 12px;
-  border: 0;
-  border-radius: 16px;
-  background: rgba(251, 250, 247, 0.92);
-  color: var(--blue);
   text-align: left;
-  cursor: pointer;
 }
 
-.pwa-install-action span {
+.pwa-install-copy span {
   color: rgba(11, 31, 58, 0.52);
   font-size: 11px;
   font-weight: 800;
@@ -9737,13 +9732,35 @@ figure:has(> img) > img,
   text-transform: uppercase;
 }
 
-.pwa-install-action strong {
+.pwa-install-copy strong {
   color: var(--blue);
   font-size: 14px;
   font-weight: 900;
 }
 
+.pwa-install-copy p {
+  margin: 0;
+  color: rgba(11, 31, 58, 0.62);
+  font-size: 12px;
+  font-weight: 560;
+  line-height: 1.45;
+}
+
+.pwa-install-action {
+  align-self: center;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
 .pwa-install-close {
+  align-self: start;
   display: grid;
   place-items: center;
   width: 34px;
@@ -9757,14 +9774,45 @@ figure:has(> img) > img,
   cursor: pointer;
 }
 
-.pwa-install-help {
-  grid-column: 1 / -1;
-  margin: 0;
-  padding: 5px 8px 6px;
-  color: rgba(11, 31, 58, 0.62);
+.pwa-debug-card {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 70;
+  display: grid;
+  gap: 7px;
+  width: min(360px, calc(100vw - 32px));
+  padding: 14px;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 52px rgba(11, 31, 58, 0.14);
+  backdrop-filter: blur(16px);
+  color: var(--blue);
   font-size: 12px;
-  font-weight: 560;
-  line-height: 1.45;
+}
+
+.pwa-debug-card strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pwa-debug-card span {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.pwa-debug-card em {
+  color: rgba(11, 31, 58, 0.58);
+  font-style: normal;
+  font-weight: 760;
+}
+
+.pwa-debug-card b {
+  overflow-wrap: anywhere;
+  color: rgba(11, 31, 58, 0.82);
+  font-weight: 800;
 }
 
 @media (max-width: 760px) {
@@ -9772,15 +9820,25 @@ figure:has(> img) > img,
     left: 14px;
     right: auto;
     bottom: 14px;
-    width: min(235px, calc(100vw - 92px));
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: min(315px, calc(100vw - 28px));
   }
 
   .pwa-install-action {
+    grid-column: 1 / -1;
+    width: 100%;
     padding: 8px 10px;
   }
 
-  .pwa-install-action strong {
-    font-size: 13px;
+  .pwa-install-close {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .pwa-debug-card {
+    right: 14px;
+    bottom: 14px;
+    width: min(320px, calc(100vw - 28px));
   }
 }
 
