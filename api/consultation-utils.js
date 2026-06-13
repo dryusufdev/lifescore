@@ -39,6 +39,7 @@ function emailConfig() {
 
 function unavailableReason() {
   if (!storageConfig() || !emailConfig()) {
+    console.warn("Consultation booking disabled: missing storage or email env vars.");
     return "Booking is almost ready, but scheduling is not enabled yet. You can still ask Score questions here. Once LifeScore scheduling is enabled, this flow will reserve your slot and send confirmation.";
   }
   return null;
