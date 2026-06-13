@@ -848,6 +848,634 @@ p {
   padding: 18px 20px;
 }
 
+.score-helper-line {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 16px;
+  padding: 8px 12px;
+  color: rgba(11, 31, 58, 0.55);
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid rgba(229, 226, 218, 0.72);
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(11, 31, 58, 0.035);
+}
+
+.score-helper-line span {
+  font-size: 12.5px;
+  font-weight: 520;
+  line-height: 1.35;
+}
+
+.score-helper-line button {
+  padding: 0;
+  color: rgba(11, 31, 58, 0.78);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 720;
+  line-height: 1.35;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(63, 125, 90, 0.32);
+  text-underline-offset: 4px;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.score-helper-line button:hover {
+  color: var(--green);
+  text-decoration-color: rgba(63, 125, 90, 0.7);
+}
+
+.travel-lounge-feature {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(300px, 0.78fr);
+  gap: clamp(18px, 3vw, 30px);
+  align-items: stretch;
+  margin-top: 34px;
+}
+
+.travel-lounge-image,
+.travel-destination-mini {
+  overflow: hidden;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(229, 226, 218, 0.94);
+  border-radius: 26px;
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.06);
+}
+
+.travel-lounge-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.travel-destination-mini {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.travel-lounge-rule {
+  margin: 0 0 22px;
+  padding-bottom: 18px;
+  color: rgba(11, 31, 58, 0.68);
+  border-bottom: 1px solid rgba(229, 226, 218, 0.88);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.travel-destination-mini .eyebrow {
+  margin-bottom: 10px;
+}
+
+.travel-destination-mini h3 {
+  margin: 0;
+  color: var(--blue);
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.travel-destination-mini > p:not(.travel-lounge-rule) {
+  margin: 10px 0 0;
+  color: rgba(11, 31, 58, 0.58);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.travel-destination-mini ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.travel-destination-mini li {
+  display: flex;
+  min-height: 76px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  padding: 13px 14px;
+  background: #fbfaf7;
+  border: 1px solid rgba(229, 226, 218, 0.82);
+  border-radius: 16px;
+}
+
+.travel-destination-mini li strong {
+  color: var(--blue);
+  font-size: 16px;
+  font-weight: 680;
+  letter-spacing: -0.01em;
+}
+
+.travel-destination-mini li span {
+  color: var(--gold);
+  font-size: 10px;
+  font-weight: 820;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .travel-destination-mini ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+.travel-bag-page .site-header {
+  backdrop-filter: blur(22px) saturate(1.16);
+}
+
+.travel-bag-hero {
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.55fr);
+  align-items: center;
+}
+
+.travel-bag-hero h1 {
+  max-width: 720px;
+}
+
+.travel-bag-hero-card {
+  overflow: hidden;
+  margin: 0;
+  max-width: 420px;
+  justify-self: end;
+  padding: 0;
+  background: #fff;
+  border: 1px solid rgba(229, 226, 218, 0.9);
+  border-radius: 30px;
+  box-shadow: 0 28px 72px rgba(11, 31, 58, 0.12);
+}
+
+.travel-bag-page figure img {
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+}
+
+.travel-bag-hero-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  object-position: initial;
+}
+
+.travel-bag-hero-card figcaption {
+  padding: 14px 16px 16px;
+  color: rgba(11, 31, 58, 0.72);
+  font-size: 13px;
+  font-weight: 740;
+  line-height: 1.35;
+}
+
+.travel-philosophy {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1fr);
+  gap: clamp(24px, 4vw, 54px);
+  align-items: center;
+}
+
+.travel-philosophy h2,
+.travel-mood-section h2 {
+  margin: 0;
+  color: var(--blue);
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.travel-philosophy p,
+.travel-mood-section .section-heading p {
+  margin: 16px 0 0;
+  max-width: 620px;
+  color: rgba(11, 31, 58, 0.62);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.travel-principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.travel-principles article,
+.travel-spotlight-grid a,
+.travel-mood-card {
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 26px;
+  box-shadow: 0 18px 46px rgba(11, 31, 58, 0.055);
+}
+
+.travel-principles article {
+  padding: 20px;
+}
+
+.travel-principles span,
+.travel-spotlight-grid span {
+  display: block;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 830;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.travel-principles p {
+  margin: 9px 0 0;
+  color: rgba(11, 31, 58, 0.64);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.travel-essentials-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.14fr) minmax(0, 0.92fr);
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.travel-essential-group {
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.travel-essential-group.featured {
+  padding: 0;
+}
+
+.travel-essential-group.featured > span,
+.travel-essential-group.featured h3,
+.travel-essential-group.featured ul {
+  margin-inline: clamp(22px, 3vw, 30px);
+}
+
+.travel-essential-group.featured > span {
+  margin-top: 24px;
+}
+
+.travel-essential-group figure {
+  margin: 0;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(229, 226, 218, 0.92);
+}
+
+.travel-essential-group figure img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.travel-essential-group h3 {
+  margin: 10px 0 0;
+  color: var(--blue);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.travel-essential-group ul,
+.travel-formula-card ul {
+  display: grid;
+  gap: 0;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.travel-essential-group li {
+  padding: 14px 0;
+  border-top: 1px solid rgba(229, 226, 218, 0.82);
+}
+
+.travel-essential-group li strong,
+.travel-spotlight-grid strong {
+  color: var(--blue);
+  font-size: 15px;
+  font-weight: 780;
+  line-height: 1.25;
+}
+
+.travel-essential-group li p {
+  margin: 6px 0 0;
+  color: rgba(11, 31, 58, 0.58);
+  font-size: 13.5px;
+  line-height: 1.48;
+}
+
+.travel-essential-group a,
+.travel-spotlight-grid a em {
+  text-decoration: underline;
+  text-decoration-color: rgba(63, 125, 90, 0.35);
+  text-underline-offset: 4px;
+}
+
+.travel-uniform-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 52px);
+  align-items: center;
+}
+
+.travel-uniform-photo,
+.travel-layout-image {
+  overflow: hidden;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 30px;
+  box-shadow: 0 22px 54px rgba(11, 31, 58, 0.075);
+}
+
+.travel-uniform-photo img {
+  width: 100%;
+  height: clamp(460px, 48vw, 660px);
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+.travel-uniform-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.travel-uniform-list article {
+  padding: 18px;
+  background: #fbfaf7;
+  border: 1px solid rgba(229, 226, 218, 0.86);
+  border-radius: 20px;
+}
+
+.travel-uniform-list p {
+  margin: 8px 0 0;
+  color: rgba(11, 31, 58, 0.6);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.travel-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(280px, 0.72fr);
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 34px;
+}
+
+.travel-layout-image.large {
+  grid-row: span 2;
+}
+
+.travel-layout-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 310px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.travel-layout-image.large img {
+  min-height: 560px;
+}
+
+.travel-formula-card {
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.travel-formula-card h3 {
+  margin: 0;
+  color: var(--blue);
+  font-size: clamp(24px, 2.4vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.travel-formula-card li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  color: rgba(11, 31, 58, 0.74);
+  border-top: 1px solid rgba(229, 226, 218, 0.84);
+  font-size: 14px;
+  font-weight: 680;
+}
+
+.travel-formula-card li span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  color: var(--green);
+  background: var(--mint);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.travel-formula-card button {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 22px;
+  color: var(--blue);
+  background: #fff;
+  border: 1px solid rgba(63, 125, 90, 0.22);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 790;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.travel-formula-card button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(11, 31, 58, 0.07);
+}
+
+.travel-spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.travel-spotlight-grid a {
+  display: grid;
+  gap: 10px;
+  padding: 22px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.travel-spotlight-grid a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 56px rgba(11, 31, 58, 0.09);
+}
+
+.travel-spotlight-grid p {
+  margin: 0;
+  color: rgba(11, 31, 58, 0.58);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.travel-spotlight-grid em {
+  color: var(--green);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 780;
+}
+
+.travel-secondary-link {
+  margin: 18px 0 0;
+  color: rgba(11, 31, 58, 0.58);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.travel-secondary-link a {
+  color: var(--green);
+  font-weight: 760;
+  text-decoration: underline;
+  text-decoration-color: rgba(63, 125, 90, 0.3);
+  text-underline-offset: 4px;
+}
+
+.travel-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 3vw, 28px);
+  align-items: stretch;
+  margin-top: 32px;
+}
+
+.travel-mood-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border-radius: 28px;
+}
+
+.travel-mood-card img {
+  display: block;
+  width: 100%;
+  height: clamp(520px, 44vw, 620px);
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+}
+
+.travel-mood-card:first-child img {
+  object-position: center 42%;
+}
+
+.travel-mood-card figcaption {
+  margin: 0;
+  min-height: 52px;
+  padding: 14px 16px 16px;
+  color: rgba(11, 31, 58, 0.62);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.travel-final-cta {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(26px, 4vw, 42px);
+}
+
+.travel-final-cta .hero-actions {
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+@media (max-width: 960px) {
+  .travel-bag-hero,
+  .travel-philosophy,
+  .travel-essentials-grid,
+  .travel-uniform-section,
+  .travel-layout-grid,
+  .travel-mood-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-bag-hero-card {
+    justify-self: stretch;
+    max-width: 520px;
+  }
+
+  .travel-principles,
+  .travel-uniform-list {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-layout-image.large {
+    grid-row: auto;
+  }
+
+  .travel-layout-image.large img,
+  .travel-layout-image img {
+    min-height: 360px;
+  }
+
+  .travel-spotlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .travel-final-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .travel-final-cta .hero-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .travel-bag-hero-card figcaption {
+    padding: 14px 16px 16px;
+  }
+
+  .travel-essential-group figure img {
+    height: 240px;
+  }
+
+  .travel-spotlight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-final-cta .hero-actions,
+  .travel-bag-hero .hero-actions {
+    width: 100%;
+  }
+
+  .travel-mood-card img {
+    height: clamp(360px, 88vw, 520px);
+  }
+}
+
 .lifestyle-rail {
   --rail-image-height: 300px;
 }
@@ -4526,6 +5154,7 @@ ul {
   .scent-board,
   .watch-levels,
   .dress-code-board,
+  .travel-lounge-feature,
   .lounge-map-experience,
   .multi-tool,
   .home-offer-grid {
@@ -7958,6 +8587,348 @@ figure:has(> img) > img,
 
   .growth-toggle {
     gap: 6px !important;
+  }
+}
+
+/* Final Travel Bag setup image grid */
+.travel-bag-page .travel-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.7vw, 20px);
+  align-items: stretch;
+}
+
+.travel-bag-page .travel-mood-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: clamp(440px, 36vw, 540px);
+  overflow: hidden;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 28px;
+  box-shadow: 0 18px 42px rgba(11, 31, 58, 0.065);
+}
+
+.travel-bag-page .travel-mood-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.travel-bag-page .travel-mood-card:first-child img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(2) img {
+  object-position: center 45%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(3) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(4) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card figcaption {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 14px 16px 16px;
+  color: rgba(11, 31, 58, 0.68);
+  background: #fff;
+  border-top: 1px solid rgba(229, 226, 218, 0.75);
+  font-size: 13px;
+  font-weight: 680;
+  line-height: 1.35;
+}
+
+@media (max-width: 1080px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: clamp(480px, 58vw, 620px);
+  }
+}
+
+@media (max-width: 760px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: auto;
+  }
+
+  .travel-bag-page .travel-mood-card img {
+    height: clamp(330px, 88vw, 500px);
+    object-fit: cover;
+  }
+}
+
+/* Final Travel Bag setup image grid */
+.travel-bag-page .travel-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.7vw, 20px);
+  align-items: stretch;
+}
+
+.travel-bag-page .travel-mood-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: clamp(440px, 36vw, 540px);
+  overflow: hidden;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 28px;
+  box-shadow: 0 18px 42px rgba(11, 31, 58, 0.065);
+}
+
+.travel-bag-page .travel-mood-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.travel-bag-page .travel-mood-card:first-child img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(2) img {
+  object-position: center 45%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(3) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(4) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card figcaption {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 14px 16px 16px;
+  color: rgba(11, 31, 58, 0.68);
+  background: #fff;
+  border-top: 1px solid rgba(229, 226, 218, 0.75);
+  font-size: 13px;
+  font-weight: 680;
+  line-height: 1.35;
+}
+
+@media (max-width: 1080px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: clamp(480px, 58vw, 620px);
+  }
+}
+
+@media (max-width: 760px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: auto;
+  }
+
+  .travel-bag-page .travel-mood-card img {
+    height: clamp(330px, 88vw, 500px);
+    object-fit: cover;
+  }
+}
+
+/* Final inner Roth graph width override */
+.etf-starter-stage.roth-core-module,
+.roth-core-layout[data-allocation-module] {
+  width: 100% !important;
+  max-width: 880px !important;
+  margin-inline: auto !important;
+}
+
+.etf-starter-stage.roth-core-module {
+  display: block !important;
+  padding: clamp(24px, 3vw, 36px) !important;
+}
+
+.roth-core-layout[data-allocation-module] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.roth-core-layout[data-allocation-module] > .roth-allocation-card,
+.roth-allocation-card {
+  width: 100% !important;
+  max-width: 820px !important;
+  justify-self: center !important;
+  margin-inline: auto !important;
+}
+
+.roth-allocation-card .growth-projection-card,
+.growth-projection-card {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.growth-projection-card .growth-chart,
+.growth-chart {
+  width: 100% !important;
+}
+
+.growth-projection-card .growth-chart svg,
+.growth-chart svg {
+  width: 100% !important;
+  min-height: 220px !important;
+}
+
+.growth-toggle {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+}
+
+@media (max-width: 760px) {
+  .growth-projection-card .growth-chart svg,
+  .growth-chart svg {
+    min-height: 170px !important;
+  }
+}
+
+/* Focused Score prompt rows for money pages */
+.score-question-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 34px);
+  align-items: start;
+  margin-top: 28px;
+  padding: clamp(22px, 3vw, 30px);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 26px;
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.055);
+}
+
+.score-question-card h3 {
+  margin-top: 8px;
+  color: var(--blue);
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.score-question-card p {
+  margin-top: 10px;
+  color: rgba(11, 31, 58, 0.56);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.score-question-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.score-question-row button {
+  min-height: 38px;
+  padding: 0 14px;
+  color: rgba(11, 31, 58, 0.74);
+  background: #fbfaf7;
+  border: 1px solid rgba(229, 226, 218, 0.96);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 760;
+  cursor: pointer;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.score-question-row button:hover {
+  transform: translateY(-1px);
+  color: var(--blue);
+  background: #fff;
+  border-color: rgba(63, 125, 90, 0.24);
+  box-shadow: 0 12px 26px rgba(11, 31, 58, 0.07);
+}
+
+/* Roth ETF graph: target the actual inner module, not only the beige shell */
+.etf-starter-stage.roth-core-module,
+.roth-core-layout[data-allocation-module] {
+  width: 100% !important;
+  max-width: 880px !important;
+  margin-inline: auto !important;
+}
+
+.etf-starter-stage.roth-core-module {
+  display: block !important;
+  padding: clamp(24px, 3vw, 36px) !important;
+}
+
+.roth-core-layout[data-allocation-module] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.roth-core-layout[data-allocation-module] > .roth-allocation-card,
+.roth-allocation-card {
+  width: 100% !important;
+  max-width: 820px !important;
+  justify-self: center !important;
+  margin-inline: auto !important;
+}
+
+.roth-allocation-card .growth-projection-card,
+.growth-projection-card {
+  width: 100% !important;
+  max-width: none !important;
+  display: grid !important;
+  gap: 16px !important;
+}
+
+.growth-projection-card .growth-chart {
+  width: 100% !important;
+}
+
+.growth-projection-card .growth-chart svg,
+.growth-chart svg {
+  width: 100% !important;
+  min-height: 220px !important;
+}
+
+.growth-toggle {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  width: 100% !important;
+}
+
+@media (max-width: 760px) {
+  .score-question-card {
+    grid-template-columns: 1fr;
+  }
+
+  .score-question-row {
+    justify-content: flex-start;
+  }
+
+  .growth-projection-card .growth-chart svg,
+  .growth-chart svg {
+    min-height: 170px !important;
   }
 }
 
@@ -12384,5 +13355,87 @@ img[src$="formal-tabi.png"] {
 
   .growth-toggle {
     gap: 6px !important;
+  }
+}
+
+/* Final Travel Bag setup image grid */
+.travel-bag-page .travel-mood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.7vw, 20px);
+  align-items: stretch;
+}
+
+.travel-bag-page .travel-mood-card {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: clamp(440px, 36vw, 540px);
+  overflow: hidden;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  border-radius: 28px;
+  box-shadow: 0 18px 42px rgba(11, 31, 58, 0.065);
+}
+
+.travel-bag-page .travel-mood-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.travel-bag-page .travel-mood-card:first-child img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(2) img {
+  object-position: center 45%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(3) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card:nth-child(4) img {
+  object-position: center 46%;
+}
+
+.travel-bag-page .travel-mood-card figcaption {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 14px 16px 16px;
+  color: rgba(11, 31, 58, 0.68);
+  background: #fff;
+  border-top: 1px solid rgba(229, 226, 218, 0.75);
+  font-size: 13px;
+  font-weight: 680;
+  line-height: 1.35;
+}
+
+@media (max-width: 1080px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: clamp(480px, 58vw, 620px);
+  }
+}
+
+@media (max-width: 760px) {
+  .travel-bag-page .travel-mood-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .travel-bag-page .travel-mood-card {
+    height: auto;
+  }
+
+  .travel-bag-page .travel-mood-card img {
+    height: clamp(330px, 88vw, 500px);
+    object-fit: cover;
   }
 }

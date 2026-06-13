@@ -8,7 +8,7 @@
     <meta name="description" content="A simple travel carry guide for passports, documents, grooming, tech, and airport essentials.">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body class="travel-bag-page">
     <header class="site-header">
       <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span>LifeScore</a>
       <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
@@ -43,49 +43,95 @@
     </header>
 
     <main>
-      <section class="page-hero shell compact">
+      <section class="page-hero shell travel-bag-hero">
         <div>
-          <span class="eyebrow">Travel lifestyle</span>
-          <h1>What is in the bag.</h1>
-          <p>A clean airport setup is not about packing everything. It is about having the few things that keep you calm, presentable, and ready.</p>
+          <h1>Build a travel bag that looks as sharp as it works.</h1>
+          <p>Travel gets smoother when your carry is edited: documents handled, gear organized, and every piece doing a real job.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#travel-kit">Build the kit</a>
-            <a class="button button-ghost" href="travel-cards.html">Back to travel cards</a>
+            <a class="button button-primary" href="#travel-kit">See the four pieces</a>
+            <button class="button button-ghost" type="button" data-score-open data-score-message="Help me build a clean travel setup with luggage, tech, and carry-on essentials that actually fit how I travel.">Ask Score what gear is worth it</button>
           </div>
         </div>
-        <div class="hero-side">
-          <div class="disclosure-card">
-            <strong>Travel rule</strong>
-            <p>Quiet, useful, easy to reach. If it does not solve a real travel problem, it does not belong in the bag.</p>
-          </div>
-          <figure class="hero-media-card">
-            <img src="assets/travel-starter-layout.jpg" alt="Open suitcase with folded clothes, watch, headphones, sunglasses, card holder, and loafers">
-          </figure>
+        <figure class="travel-bag-hero-card">
+          <img src="assets-extra/travel-bag-passport-suitcase.jpg" alt="Passport, boarding pass, and carry-on suitcase at the airport">
+          <figcaption>Documents first. Everything else earns its spot.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section shell travel-philosophy">
+        <div>
+          <span class="eyebrow">Essentials intro</span>
+          <h2>What makes a travel bag performative?</h2>
+          <p>A good travel setup is not more stuff. It is a short system that keeps you calm in security, sharp at arrival, and ready when the day changes.</p>
+        </div>
+        <div class="travel-principles">
+          <article><span>Access</span><p>Passport, wallet, charger, and headphones should be reachable fast.</p></article>
+          <article><span>Shape</span><p>The bag should hold form instead of collapsing into clutter.</p></article>
+          <article><span>Restraint</span><p>Carry fewer things, but make each one cleaner and more useful.</p></article>
         </div>
       </section>
 
-      <section class="section shell" id="travel-kit">
+      <section class="section shell travel-spotlight-section" id="travel-kit">
         <div class="section-heading">
-          <h2>Airport kit</h2>
-          <p>Start with documents, hygiene, power, and one small grooming reset. Simple wins.</p>
+          <span class="eyebrow">Spotlight items</span>
+          <h2>Four pieces that earn the attention.</h2>
+          <p>Not a shopping list. Four anchors that make the rest of the setup easier to keep clean.</p>
         </div>
-        <div class="kit-board">
-          <figure class="kit-photo">
-            <img src="assets/lifestyle-passport.jpg" alt="Passport held above black luggage at the airport">
-            <figcaption>Documents first. Everything else is secondary.</figcaption>
-          </figure>
-          <article class="kit-node" style="--tilt: -0.8deg"><span>Documents</span><h3><a href="everyday-carry.html#documents">Passport cover</a></h3><p>Slim cover, backup ID, boarding pass, and cards in one place.</p></article>
-          <article class="kit-node" style="--tilt: 0.8deg"><span>Documents</span><h3><a href="everyday-carry.html#documents">Leather folder</a></h3><p>Printed confirmations, visas, insurance, receipts. Nothing crushed.</p></article>
-          <article class="kit-node" style="--tilt: 0.5deg"><span>Power</span><h3>Tech pouch</h3><p>Charger, cable, battery pack, and wall adapter. One pouch. No loose cords.</p></article>
-          <article class="kit-node" style="--tilt: -0.6deg"><span>Reset</span><h3>Wipes, sanitizer, gum</h3><p>Flights are public spaces. Keep the reset kit where your hand can reach it.</p></article>
-          <article class="kit-node" style="--tilt: -0.4deg"><span>Grooming</span><h3>Travel cologne</h3><p>Tiny atomizer. One spray after landing. Never turn the gate into a counter.</p></article>
-          <article class="kit-node" style="--tilt: 0.6deg"><span>Detail</span><h3>Microfiber cloth</h3><p>Phone, sunglasses, laptop, watch. Small detail, big difference.</p></article>
+        <div class="travel-spotlight-grid">
+          <a href="https://www.rimowa.com/us/en/luggage/colour/silver/cabin/92553004.html" target="_blank" rel="noopener">
+            <span>Carry-on</span>
+            <strong>RIMOWA Original Cabin</strong>
+            <p>Hard-shell structure for frequent travel and a cleaner airport presence.</p>
+            <em>View item</em>
+          </a>
+          <a href="https://arcteryx.com/us/en/c/packs" target="_blank" rel="noopener">
+            <span>Pack</span>
+            <strong>Arc'teryx Pack</strong>
+            <p>A technical personal item that keeps shape without looking overbuilt.</p>
+            <em>View item</em>
+          </a>
+          <a href="https://www.apple.com/airpods-pro/" target="_blank" rel="noopener">
+            <span>Audio</span>
+            <strong>AirPods Pro</strong>
+            <p>Compact noise control for airports, calls, walks, and short flights.</p>
+            <em>View item</em>
+          </a>
+          <a href="everyday-carry.html">
+            <span>Documents</span>
+            <strong>RFID Travel Wallet</strong>
+            <p>Passport, cards, and boarding basics in one place instead of pockets.</p>
+            <em>View setup</em>
+          </a>
         </div>
+        <p class="travel-secondary-link">
+          Prefer over-ear noise control for long flights?
+          <a href="https://www.apple.com/shop/buy-airpods/airpods-max-2" target="_blank" rel="noopener">View AirPods Max</a>
+        </p>
       </section>
 
-      <section class="section shell">
-        <div class="source-note brand-note">
-          Style notes blog coming soon. Short guides, no clutter.
+      <section class="section shell travel-mood-section">
+        <div class="section-heading">
+          <span class="eyebrow">Carry inspiration</span>
+          <h2>How the setup comes together.</h2>
+          <p>The point is not to pack more. It is to carry better.</p>
+        </div>
+        <div class="travel-mood-grid">
+          <figure class="travel-mood-card">
+            <img src="assets-extra/travel-bag-setup-01.jpg" alt="Open suitcase with polished clothes, shoes, headphones, glasses, and travel accessories">
+            <figcaption>Plan the outfit before the suitcase closes.</figcaption>
+          </figure>
+          <figure class="travel-mood-card">
+            <img src="assets-extra/travel-bag-setup-02.jpg" alt="Curated grey travel bin with white sneakers, headphones, small luggage, and essentials">
+            <figcaption>Keep tech, shoes, and small gear contained.</figcaption>
+          </figure>
+          <figure class="travel-mood-card">
+            <img src="assets-extra/travel-bag-setup-03.jpg" alt="Travel bin with headphones, passport, wallet, keys, phone, hat, and sneaker">
+            <figcaption>Documents and daily gear stay together.</figcaption>
+          </figure>
+          <figure class="travel-mood-card">
+            <img src="assets-extra/travel-bag-setup-04.jpg" alt="Cafe table with coffee, handbag, glasses, wallet, lipstick, and small essentials">
+            <figcaption>The small details should feel considered.</figcaption>
+          </figure>
         </div>
       </section>
     </main>
