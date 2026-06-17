@@ -1717,6 +1717,32 @@ p {
   color: var(--muted);
 }
 
+@media (min-width: 761px) {
+  .home-basics-panel {
+    align-items: start;
+  }
+
+  .home-basics-photo img {
+    height: clamp(560px, 50vw, 585px);
+    min-height: 0;
+  }
+
+  .home-basics-grid {
+    align-self: start;
+    grid-template-rows: repeat(3, 1fr);
+    height: clamp(560px, 50vw, 585px);
+  }
+
+  .home-basics-grid article {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+.home-style-page .image-rail.four-rail figcaption {
+  text-align: center;
+}
+
 .travel-page .hero-media-card img,
 .travel-page .image-rail img,
 .travel-page .media-band img {
