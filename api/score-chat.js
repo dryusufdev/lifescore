@@ -14,7 +14,7 @@ const pageLinks = {
   taxes: { label: "Tax Filing Guide", href: "/taxes.html" },
 };
 
-const walletLanes = ["Student / Beginner", "Cash Back", "Travel", "Premium", "Business"];
+const walletLanes = ["Student / Beginner", "Cash Back", "Travel", "Premium", "Business", "International"];
 
 const cardSignals = [
   { name: "Chase Freedom Rise", aliases: ["chase freedom rise", "freedom rise"], lane: "Student / Beginner", ecosystem: "Chase", beginner: true },
@@ -22,21 +22,26 @@ const cardSignals = [
   { name: "Capital One Platinum Secured", aliases: ["capital one platinum secured", "platinum secured"], lane: "Student / Beginner", ecosystem: "Capital One", beginner: true },
   { name: "Chase Freedom Unlimited", aliases: ["chase freedom unlimited", "freedom unlimited", "cfu"], lane: "Cash Back", ecosystem: "Chase", chaseFreedom: true },
   { name: "Chase Freedom Flex", aliases: ["chase freedom flex", "freedom flex", "cff"], lane: "Cash Back", ecosystem: "Chase", chaseFreedom: true },
-  { name: "Capital One Savor", aliases: ["capital one savor", "savor card", "savor"], lane: "Cash Back", ecosystem: "Capital One", food: true, capitalOneFoundation: true },
-  { name: "Capital One Quicksilver", aliases: ["capital one quicksilver", "quicksilver"], lane: "Cash Back", ecosystem: "Capital One", capitalOneFoundation: true },
-  { name: "Amex Gold", aliases: ["amex gold", "american express gold", "gold card"], lane: "Cash Back", ecosystem: "Amex", food: true },
+  { name: "Capital One Savor", aliases: ["capital one savor", "savor card", "savor"], lane: "Cash Back", ecosystem: "Capital One", food: true, capitalOneFoundation: true, internationalPrimary: true },
+  { name: "Capital One Quicksilver", aliases: ["capital one quicksilver", "quicksilver"], lane: "Cash Back", ecosystem: "Capital One", capitalOneFoundation: true, internationalPrimary: true },
+  { name: "Amex Gold", aliases: ["amex gold", "american express gold", "gold card"], lane: "Cash Back", ecosystem: "Amex", food: true, internationalCaveat: true },
   { name: "Amex Blue Cash Preferred", aliases: ["amex blue cash preferred", "blue cash preferred", "bcp"], lane: "Cash Back", ecosystem: "Amex", food: true },
   { name: "Amex Blue Cash Everyday", aliases: ["amex blue cash everyday", "blue cash everyday", "bce"], lane: "Cash Back", ecosystem: "Amex", food: true },
   { name: "Wells Fargo Active Cash", aliases: ["wells fargo active cash", "active cash"], lane: "Cash Back", ecosystem: "Wells Fargo" },
   { name: "Citi Double Cash", aliases: ["citi double cash", "double cash"], lane: "Cash Back", ecosystem: "Citi" },
-  { name: "Apple Card", aliases: ["apple card"], lane: "Cash Back", ecosystem: "Apple" },
-  { name: "Chase Sapphire Preferred", aliases: ["chase sapphire preferred", "sapphire preferred", "csp"], lane: "Travel", ecosystem: "Chase", transfer: true },
-  { name: "Chase Sapphire Reserve", aliases: ["chase sapphire reserve", "sapphire reserve", "csr"], lane: "Premium", ecosystem: "Chase", transfer: true, lounge: true },
-  { name: "Capital One VentureOne", aliases: ["capital one ventureone", "ventureone"], lane: "Travel", ecosystem: "Capital One" },
-  { name: "Capital One Venture", aliases: ["capital one venture", "venture card"], lane: "Travel", ecosystem: "Capital One" },
-  { name: "Capital One Venture X", aliases: ["capital one venture x", "venture x"], lane: "Premium", ecosystem: "Capital One", lounge: true },
-  { name: "Amex Platinum", aliases: ["amex platinum", "american express platinum", "platinum card"], lane: "Premium", ecosystem: "Amex", lounge: true },
-  { name: "Wells Fargo Autograph", aliases: ["wells fargo autograph", "autograph"], lane: "Travel", ecosystem: "Wells Fargo" },
+  { name: "Discover it Cash Back", aliases: ["discover it cash back", "discover it", "discover card", "discover"], lane: "Cash Back", ecosystem: "Discover", internationalCaveat: true },
+  { name: "Apple Card", aliases: ["apple card"], lane: "Cash Back", ecosystem: "Apple", internationalPrimary: true },
+  { name: "Chase Sapphire Preferred", aliases: ["chase sapphire preferred", "sapphire preferred", "csp"], lane: "Travel", ecosystem: "Chase", transfer: true, internationalPrimary: true },
+  { name: "Chase Sapphire Reserve", aliases: ["chase sapphire reserve", "sapphire reserve", "csr"], lane: "Premium", ecosystem: "Chase", transfer: true, lounge: true, internationalPrimary: true },
+  { name: "Capital One VentureOne", aliases: ["capital one ventureone", "ventureone"], lane: "Travel", ecosystem: "Capital One", internationalPrimary: true },
+  { name: "Capital One Venture", aliases: ["capital one venture", "venture card"], lane: "Travel", ecosystem: "Capital One", internationalPrimary: true },
+  { name: "Capital One Venture X", aliases: ["capital one venture x", "venture x"], lane: "Premium", ecosystem: "Capital One", lounge: true, internationalPrimary: true },
+  { name: "Amex Platinum", aliases: ["amex platinum", "american express platinum", "platinum card"], lane: "Premium", ecosystem: "Amex", lounge: true, internationalCaveat: true },
+  { name: "Wells Fargo Autograph", aliases: ["wells fargo autograph", "autograph"], lane: "Travel", ecosystem: "Wells Fargo", internationalPrimary: true },
+  { name: "Bank of America Travel Rewards", aliases: ["bank of america travel rewards", "boa travel rewards", "bofa travel rewards"], lane: "Travel", ecosystem: "Bank of America", internationalPrimary: true },
+  { name: "Citi Strata Premier", aliases: ["citi strata premier", "strata premier"], lane: "Travel", ecosystem: "Citi", internationalPrimary: true },
+  { name: "Bilt Mastercard", aliases: ["bilt mastercard", "bilt card", "bilt"], lane: "Travel", ecosystem: "Bilt", internationalPrimary: true },
+  { name: "U.S. Bank Altitude Connect", aliases: ["u.s. bank altitude connect", "us bank altitude connect", "altitude connect"], lane: "Travel", ecosystem: "U.S. Bank", internationalPrimary: true },
   { name: "Ink Business Cash", aliases: ["ink business cash"], lane: "Business", ecosystem: "Chase" },
   { name: "Ink Business Unlimited", aliases: ["ink business unlimited"], lane: "Business", ecosystem: "Chase" },
   { name: "Amex Blue Business Plus", aliases: ["amex blue business plus", "blue business plus", "bbp"], lane: "Business", ecosystem: "Amex" },
@@ -55,15 +60,18 @@ function normalizeText(value, maxLength = 1800) {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
 }
 
+const internationalCardPattern = /\b(internationally|overseas|accepted internationally|accepted overseas|use\b.*\binternationally|use\b.*\boverseas|discover\b.*\binternationally|discover\b.*\boverseas|amex\b.*\binternationally|amex\b.*\boverseas|american express\b.*\binternationally|american express\b.*\boverseas|outside the u\.?s\.?|outside usa|outside america|worldwide acceptance|international acceptance|worldwide|international card|travel abroad|abroad|foreign transaction fee|foreign fee|no ftf|no foreign|visa mastercard abroad)\b/;
+
 function classifyQuestion(message) {
   const text = message.toLowerCase();
   const checks = [
     ["consulting", /\b(book a consultation|book a free|book free|book me|reserve a consultation|free consultation|tax-readiness consultation|tax readiness consultation|tax consultation|investing-tax readiness|talk to an advisor|portfolio audit|review my portfolio|review my roth ira|review my brokerage|audit my wallet|audit my credit card setup|audit my card setup|schedule a call|zoom call|discord call|can i talk to someone|can someone review|credit card setup review)\b/],
     ["taxes", /\b(tax|taxes|file taxes|filing taxes|1099|1098-t|1098-e|w-2|w2|aotc|american opportunity credit|lifetime learning credit|llc tax credit|student loan interest|dividend|capital gains|sold stocks|hysa interest|roth ira taxes|brokerage taxes|side hustle taxes|self employment tax|business deduction|home office|mileage deduction|estimated taxes|irs|refund|standard deduction|itemize|free file)\b/],
     ["unsafe", /\b(carry a balance|minimum payment only|cash advance|borrow to invest|payday|gamble|options trading|meme coin|leverage)\b/],
-    ["credit_score", /\b(fico|credit score|utilization|statement date|reported balance|credit report|hard inquiry|inquiries)\b/],
+    ["credit_score", /\b(fico|credit score|utilization|statement date|reported balance|credit report|hard inquiry|inquiries|credit move|opening a card|opening a new credit card|open another credit card|new credit card impact|new card affect my score|how would a new card affect my score|what happens to my score if i open a card|what happens to my score if i close my oldest card|what happens if i close my oldest card|close my oldest card|score impact of a new card|closing oldest|credit limit increase|miss a payment|application denied|collections|negative mark)\b/],
+    ["cards", internationalCardPattern],
     ["wallet", /\b(wallet|next card|add next|card setup|covered lanes|missing lanes|which card|what card)\b/],
-    ["cards", /\b(credit card|best card|card for|annual fee|welcome bonus|cash back|travel card|sapphire|amex|capital one|chase|approval)\b/],
+    ["cards", /\b(credit card|best card|card for|annual fee|welcome bonus|cash back|travel card|sapphire|amex|american express|capital one|chase|approval|foreign transaction fee|no ftf|no foreign|outside the u\.?s\.?|internationally|overseas|international card|travel abroad|abroad)\b/],
     ["investing", /\b(roth|ira|invest|investing|etf|vti|vxus|brokerage|stocks|market)\b/],
     ["saving", /\b(hysa|savings|emergency fund|save|apy|interest rate|short term money)\b/],
     ["checking", /\b(checking|bank account|debit|atm|direct deposit|cash management)\b/],
@@ -86,7 +94,9 @@ function detectSubIntent(message) {
   if (/\b(business tax basics|business deduction|home office|mileage deduction|estimated taxes|small business tax)\b/.test(text)) return "tax_business_basics";
   if (/\b(tax|taxes|file taxes|filing taxes|1099|w-2|w2|irs|refund|free file|standard deduction|itemize)\b/.test(text)) return "tax_filing";
   if (/\b(first card|first credit card|student card|student credit card|beginner card|new to credit|starter card)\b/.test(text)) return "student_first_card";
+  if (/\b(simulate a credit move|credit move|opening a card|opening a new credit card|open a new credit card|open another credit card|new credit card impact|new card affect my score|how would a new card affect my score|what happens to my score if i open a card|what happens to my score if i close my oldest card|what happens if i close my oldest card|close my oldest card|score impact of a new card|closing my oldest|close oldest|increase balances|increasing balances|lower balances|lowering balances|pay down utilization|credit limit increase|miss a payment|missing a payment|paying on time|apply for a loan|applying for a loan|application denied|denied application|collections|negative mark)\b/.test(text)) return "credit_simulation";
   if (/\b(fico|credit score|utilization|statement date|reported balance|credit report|hard inquiry|inquiries|raise my credit)\b/.test(text)) return "credit_score";
+  if (internationalCardPattern.test(text)) return "international_card";
   if (/\b(wallet|build my setup|build my wallet|current cards|what next|next card|card setup|covered lanes|missing lanes)\b/.test(text)) return "wallet_build";
   if (/\b(lounge|airport lounge|amex platinum|centurion|priority pass|premium travel)\b/.test(text)) return "premium_lounge";
   if (/\b(travel points|miles|flights|hotel|transfer partners|sapphire|venture x|travel card)\b/.test(text)) return "travel_points";
@@ -113,6 +123,7 @@ function detectCurrentCards(message) {
 }
 
 function inferWalletGoal(text) {
+  if (internationalCardPattern.test(text) || /\b(international|overseas)\b/.test(text)) return "international";
   if (/\b(lounge|premium|amex platinum|venture x|sapphire reserve)\b/.test(text)) return "premium";
   if (/\b(travel|points|miles|flights|hotel|sapphire|venture)\b/.test(text)) return "travel";
   if (/\b(food|dining|restaurant|restaurants|groceries|grocery)\b/.test(text)) return "food";
@@ -142,6 +153,7 @@ function inferFeeTolerance(text) {
 function walletTargetLane(goal) {
   if (goal === "build") return "Student / Beginner";
   if (goal === "travel") return "Travel";
+  if (goal === "international") return "International";
   if (goal === "premium") return "Premium";
   if (goal === "business") return "Business";
   if (goal === "food") return "Food / Dining / Grocery";
@@ -154,10 +166,23 @@ function walletGoalCovered(cards, goal) {
   if (goal === "build") return lanes.has("Student / Beginner");
   if (goal === "simple" || goal === "lowfee") return lanes.has("Cash Back");
   if (goal === "food") return cards.some((card) => card.food);
+  if (goal === "international") return cards.some((card) => card.internationalPrimary);
   if (goal === "travel") return lanes.has("Travel") || lanes.has("Premium") || cards.some((card) => card.transfer);
   if (goal === "premium") return cards.some((card) => card.lounge);
   if (goal === "business") return lanes.has("Business");
   return false;
+}
+
+function goalFocusedMissingLanes(goal, spend, coveredLanes, targetLane, goalCovered) {
+  if (goalCovered) return [];
+  if (goal === "international") return coveredLanes.includes("International") ? [] : ["International"];
+  if (goal === "premium") return coveredLanes.includes("Premium") ? [] : ["Premium"];
+  if (goal === "travel") return coveredLanes.some((lane) => lane === "Travel" || lane === "Premium") ? [] : ["Travel"];
+  if (goal === "business") return coveredLanes.includes("Business") ? [] : ["Business"];
+  if (goal === "build") return coveredLanes.includes("Student / Beginner") ? [] : ["Student / Beginner"];
+  if (goal === "food" || spend === "dining" || spend === "groceries") return goalCovered ? [] : ["Food / Dining / Grocery"];
+  if (goal === "simple" || goal === "lowfee") return coveredLanes.includes("Cash Back") ? [] : ["Cash Back"];
+  return coveredLanes.includes(targetLane) ? [] : [targetLane];
 }
 
 function dedupeCards(cards) {
@@ -175,10 +200,10 @@ function buildWalletStyleContext(message) {
   const spend = inferWalletSpend(text);
   const fee = inferFeeTolerance(text);
   const currentCards = detectCurrentCards(message);
-  const coveredLanes = [...new Set(currentCards.map((card) => card.lane))];
-  const missingLanes = walletLanes.filter((lane) => !coveredLanes.includes(lane));
+  const coveredLanes = [...new Set(currentCards.flatMap((card) => card.internationalPrimary ? [card.lane, "International"] : [card.lane]))];
   const targetLane = walletTargetLane(goal);
   const goalCovered = walletGoalCovered(currentCards, goal);
+  const missingLanes = goalFocusedMissingLanes(goal, spend, coveredLanes, targetLane, goalCovered);
   const ecosystems = [...new Set(currentCards.map((card) => card.ecosystem))];
   const suggestions = suggestWalletCards({ goal, spend, fee, currentCards, goalCovered, ecosystems });
   const nextMove = nextWalletMove({ goal, spend, fee, currentCards, coveredLanes, missingLanes, targetLane, goalCovered, ecosystems });
@@ -198,7 +223,7 @@ function buildWalletStyleContext(message) {
   };
 }
 
-function suggestWalletCards({ goal, spend, fee, currentCards, ecosystems }) {
+function suggestWalletCards({ goal, spend, fee, currentCards, goalCovered, ecosystems }) {
   const current = new Set(currentCards.map((card) => card.name));
   const recs = [];
 
@@ -215,9 +240,27 @@ function suggestWalletCards({ goal, spend, fee, currentCards, ecosystems }) {
   }
 
   if (goal === "premium") {
-    if (ecosystems.includes("Amex")) add("Amex Platinum", "Amex lounge lane after food is already covered.");
-    else if (ecosystems.includes("Chase")) add("Chase Sapphire Reserve", "Premium Chase lane if transfer partners and lounges are real.");
-    else add("Capital One Venture X", "Cleaner premium lane if travel credits and lounge access fit your routes.");
+    add("Capital One Venture X", "Practical premium lounge comparison if credits, airports, and guest rules fit.");
+    add("Amex Platinum", ecosystems.includes("Amex") ? "Amex ecosystem lounge lane if the credits justify the fee." : "Premium lounge lane to compare if airport access and credits are real.");
+    add("Chase Sapphire Reserve", ecosystems.includes("Chase") ? "Chase upgrade path from Sapphire Preferred, not a casual stack." : "Premium Chase lane to compare if transfer partners and lounges are real.");
+    return recs.slice(0, 3);
+  }
+
+  if (goal === "international") {
+    if (goalCovered) return [];
+    if (fee === "premium") {
+      add("Capital One Venture X", "Premium no-FTF Visa/Mastercard lane if credits, routes, and lounges are real.");
+      add("Chase Sapphire Reserve", "Premium no-FTF Visa lane for Chase users who can use the travel credits.");
+      add("Amex Platinum", "Premium travel perks, but Amex acceptance varies abroad, so carry a Visa/Mastercard backup.");
+    } else if (fee === "low") {
+      add("Chase Sapphire Preferred", "No-FTF Visa travel starter with a moderate annual fee.");
+      add("Citi Strata Premier", "No-FTF travel category lane with a moderate annual fee.");
+      add("Capital One Venture", "No-FTF miles lane with simple travel usage.");
+    } else {
+      add("Wells Fargo Autograph", "No-fee, no-FTF Visa/Mastercard-style lane for travel-adjacent spend.");
+      add("Bank of America Travel Rewards", "No-fee, no-FTF travel backup to research.");
+      add("Capital One VentureOne", "No-fee, no-FTF travel learning lane.");
+    }
     return recs.slice(0, 3);
   }
 
@@ -257,7 +300,14 @@ function suggestWalletCards({ goal, spend, fee, currentCards, ecosystems }) {
 
 function nextWalletMove({ goal, spend, currentCards, coveredLanes, missingLanes, targetLane, goalCovered, ecosystems }) {
   const names = new Set(currentCards.map((card) => card.name));
+  if (!currentCards.length && goal === "international") return "Start with a no-foreign-transaction-fee Visa or Mastercard before optimizing rewards for travel abroad.";
   if (!currentCards.length) return "Start with one card that matches the goal before adding extra lanes.";
+  if (goal === "international" && !currentCards.some((card) => card.internationalPrimary)) {
+    if (currentCards.some((card) => card.ecosystem === "Amex")) return "Amex can help abroad, but acceptance varies. Add a no-foreign-transaction-fee Visa or Mastercard before relying on it outside the U.S.";
+    if (currentCards.some((card) => card.ecosystem === "Discover")) return "Discover should not be your only abroad card. Add a no-foreign-transaction-fee Visa or Mastercard first.";
+    return "Add a no-foreign-transaction-fee Visa or Mastercard before optimizing international rewards.";
+  }
+  if (goal === "international" && goalCovered) return "Hold here for now. You have the outside-the-U.S. card lane covered; pay in local currency when offered.";
   if ((goal === "travel" || goal === "premium") && ecosystems.includes("Capital One") && !names.has("Capital One VentureOne") && !names.has("Capital One Venture")) {
     return "Build the Capital One travel path before jumping to premium lounge fees.";
   }
@@ -280,7 +330,8 @@ function pickBestLink(category, subIntent, walletContext, message) {
   if (subIntent === "consultation_booking" || subIntent === "portfolio_audit" || subIntent === "credit_wallet_audit") return null;
   if (subIntent === "tax_filing" || subIntent === "tax_after_investing" || subIntent === "tax_student_credits" || subIntent === "tax_student_loan_interest" || subIntent === "tax_form_checklist" || subIntent === "tax_side_hustle" || subIntent === "tax_business_basics") return pageLinks.taxes;
   if (subIntent === "student_first_card" || subIntent === "build_credit") return pageLinks.student_credit;
-  if (subIntent === "credit_score") return pageLinks.credit_score;
+  if (subIntent === "credit_score" || subIntent === "credit_simulation") return pageLinks.credit_score;
+  if (subIntent === "international_card") return pageLinks.wallet;
   if (subIntent === "premium_lounge" || subIntent === "travel_points") return pageLinks.travel_cards;
   if (subIntent === "roth_ira") return pageLinks.roth;
   if (subIntent === "hysa") return pageLinks.saving;
@@ -329,10 +380,16 @@ function buildRuleContext(category, subIntent, walletContext, message) {
     flags.push("The question may involve debt, risky investing, or reward-chasing behavior. Warn clearly and redirect to safer basics.");
   }
 
-  if (category === "credit_score" || subIntent === "credit_score" || subIntent === "build_credit" || /\butilization\b/.test(text)) {
+  if (category === "credit_score" || subIntent === "credit_score" || subIntent === "credit_simulation" || subIntent === "build_credit" || /\butilization\b/.test(text)) {
     rules.push("For credit score optimization, a small reported balance can be cleaner than a maxed-out card.");
     rules.push("A common educational target is letting 1-10% report on statement day, then paying to $0 before the due date to avoid interest.");
     rules.push("For beginners, paying the statement balance in full by the due date matters more than score hacks.");
+  }
+
+  if (subIntent === "credit_simulation") {
+    rules.push("For credit move simulations, explain likely direction and risk only. Do not promise exact point changes.");
+    rules.push("FICO and VantageScore can react differently, and lender-specific models may vary.");
+    rules.push("Never ask for SSNs, full dates of birth, full account numbers, logins, or sensitive identity documents.");
   }
 
   if (category === "wallet" || category === "cards" || subIntent === "wallet_build") {
@@ -340,6 +397,12 @@ function buildRuleContext(category, subIntent, walletContext, message) {
     rules.push("If the user accepts annual fees and the higher-fee card is clearly stronger for their actual spending, do not also push the weaker no-fee duplicate.");
     rules.push("Do not promise approval, exact scores, or guaranteed welcome bonuses.");
     rules.push("Think like the Wallet Builder: goal, biggest spend, annual fee tolerance, current cards, covered lanes, missing lanes, next best move.");
+  }
+
+  if (subIntent === "international_card" || walletContext.goal === "international") {
+    rules.push("For outside-the-U.S. use, a no-foreign-transaction-fee Visa or Mastercard is the primary card lane.");
+    rules.push("Amex and Discover can be useful in some places, but acceptance varies; do not treat either as the only abroad card.");
+    rules.push("Warn users to pay in local currency when offered because dynamic currency conversion can be expensive.");
   }
 
   if (category === "investing" || subIntent === "roth_ira" || subIntent === "investing") {
@@ -385,6 +448,34 @@ function fallbackAnswer(message, context) {
   const walletRead = wallet
     ? `\n\nWallet read:\n- Goal: ${wallet.goal}\n- Biggest spend: ${wallet.spend}\n- Fee tolerance: ${wallet.fee}\n- Covered lanes: ${wallet.coveredLanes.length ? wallet.coveredLanes.join(", ") : "none mentioned"}\n- Missing lanes: ${wallet.missingLanes.join(", ")}\n- Next move: ${wallet.nextMove}`
     : "";
+  const internationalCardAnswer = (() => {
+    const text = message.toLowerCase();
+    const cardList = wallet?.currentCards?.length ? wallet.currentCards.join(", ") : "";
+    if (wallet?.goal === "international" && wallet.goalCovered) {
+      return `Got it. ${cardList || "Your current card"} already covers the outside-the-U.S. travel lane.\n\n- Use it where Visa/Mastercard is accepted\n- Pay in local currency when the terminal asks\n- Hold unless you specifically want premium lounge access, stronger travel credits, or a backup card\n\nNext step: Use Wallet Builder only if you want to compare a premium or backup lane.`;
+    }
+    if (wallet?.currentCards?.some((name) => /discover/i.test(name)) || /\bdiscover\b/.test(text)) {
+      return `Got it. Discover should not be your only international card.\n\n- Acceptance can be limited outside the U.S.\n- Carry a no-foreign-transaction-fee Visa or Mastercard backup\n- Use local currency when a terminal asks USD or local currency\n\nNext step: Use Wallet Builder with goal = Use outside the U.S.${suggestions}`;
+    }
+    if (wallet?.currentCards?.some((name) => /amex|american express/i.test(name)) || /\b(amex|american express)\b/.test(text)) {
+      return `Got it. Amex can work internationally, but acceptance varies by country, city, and merchant.\n\n- Do not rely on Amex as your only overseas card\n- Carry a no-foreign-transaction-fee Visa or Mastercard backup\n- Use local currency when a terminal asks USD or local currency\n\nNext step: Use Wallet Builder with goal = Use outside the U.S.${suggestions}`;
+    }
+    return `Got it. For outside-the-U.S. use, start with a no-foreign-transaction-fee Visa or Mastercard.\n\n- Visa/Mastercard acceptance is usually safer abroad\n- Amex can be useful, but acceptance varies\n- Discover should not be your only abroad card\n- Choose local currency when a terminal asks USD or local currency\n\nNext step: Use Wallet Builder with goal = Use outside the U.S.${suggestions}`;
+  })();
+  const premiumLoungeAnswer = (() => {
+    const current = new Set(wallet?.currentCards || []);
+    const hasCsp = current.has("Chase Sapphire Preferred");
+    const comparisons = [
+      ["Capital One Venture X", "practical first comparison for simpler premium lounge math"],
+      ["Amex Platinum", "Amex ecosystem fit if the credits justify the fee"],
+      ["Chase Sapphire Reserve", hasCsp ? "Chase upgrade path from CSP, not a casual stack" : "Chase premium lane if transfer partners and lounges are real"],
+    ].filter(([name]) => !current.has(name));
+    const comparisonText = comparisons.length
+      ? `\n\nCards to compare:\n${comparisons.map(([name, reason]) => `- ${name}: ${reason}.`).join("\n")}`
+      : "";
+    const cspLine = hasCsp ? "\n\nCSP is a strong starter travel card, but it does not solve lounge access by itself." : "";
+    return `Direct answer: Premium lounge cards only work if the perks are real for your routes.${cspLine}${comparisonText}\n\nBefore paying a premium fee, compare:\n- Your actual airports\n- Lounge networks and guest rules\n- Credits you would naturally use\n- Whether the annual fee math still feels real\n\nNext step: Use Travel Cards or Wallet Builder before applying.`;
+  })();
 
   const subIntentAnswers = {
     consultation_booking:
@@ -417,10 +508,12 @@ function fallbackAnswer(message, context) {
       "Direct answer: Build credit with boring repetition.\n\n- One beginner or secured card\n- Autopay on\n- Statement balance paid in full\n- Low reported balance\n\nNext step: Start with the Student Credit Guide before optimizing.",
     credit_score:
       "Direct answer: Optimize after the basics are automatic.\n\n- Pay on time\n- Let a small balance report if score-optimizing\n- Pay to $0 before the due date to avoid interest\n- Avoid random applications\n\nNext step: Use Credit Score Maxing.",
-    premium_lounge:
-      "Direct answer: Premium lounge cards only work if the perks are real for your route.\n\n- Check your home airport\n- Check lounge access and guest rules\n- Count credits only if you would naturally use them\n- Do not pay a premium fee for imaginary value\n\nNext step: Use Travel Cards.",
+    credit_simulation:
+      "Direct answer: I can help estimate the likely direction and risk, not guarantee exact points.\n\nPick one scenario:\n- Open a new credit card\n- Close your oldest card\n- Increase balances\n- Lower balances or pay down utilization\n- Get a credit limit increase\n- Miss a payment\n- Pay on time for several months\n- Apply for a loan or get denied\n- Collections or another negative mark\n\nNext step: tell me the scenario and I will keep it educational. Do not send SSNs, full DOBs, logins, or full account numbers.",
+    premium_lounge: premiumLoungeAnswer,
     travel_points:
       "Direct answer: Travel points should match real trips, not fantasy trips.\n\n- Starter travel comes before premium lounge cards\n- Transfer partners matter only if you will use them\n- Annual fees have to earn their place\n\nNext step: Use Travel Cards.",
+    international_card: internationalCardAnswer,
     flat_cashback:
       `Direct answer: Flat cash back is the clean base lane.\n\n- Good for mixed spending\n- Easy to keep long term\n- Useful before travel complexity\n\nNext step: Use Wallet Builder if you want the next card after your base.${suggestions}`,
     apple_pay:
