@@ -165,11 +165,11 @@ homeRange?.addEventListener("input", updateHomeCalc);
 updateHomeCalc();
 
 const hysaAccounts = [
-  { name: "SoFi Checking and Savings", apy: 4.0, min: 0, promoted: true, note: "Up to 4.00% APY snapshot with qualifying terms to verify.", lane: "Online bundle", simplicity: 8, access: 9 },
-  { name: "Barclays Tiered Savings Account", apy: 3.65, min: 0, promoted: true, note: "$200 bonus example from your provided research; terms apply.", lane: "Bonus watcher", simplicity: 7, access: 7 },
-  { name: "Marcus by Goldman Sachs Online Savings Account", apy: 3.5, min: 0, promoted: true, pick: true, note: "3.50% APY snapshot, no monthly fees, no minimum balance to earn APY, Member FDIC. Marcus does not offer a checking account.", lane: "Strong rate track record", simplicity: 9, access: 8 },
-  { name: "American Express High Yield Savings", apy: 3.1, min: 0, promoted: true, note: "3.10% APY snapshot as of the provided May 2026 research; verify current terms.", lane: "Simple parked cash", simplicity: 9, access: 8 },
-  { name: "Capital One 360 Performance Savings", apy: 3.1, min: 0, promoted: true, note: "3.10% APY snapshot, no monthly fees, no minimum balance, Member FDIC.", lane: "No-fee parked cash", simplicity: 9, access: 9 },
+  { name: "Varo Bank Savings Account", apy: 5.0, min: 0, promoted: true, note: "Up to 5.00% APY June 2026 snapshot on limited balances when direct deposit and other requirements are met. Lower base rates may apply; verify current terms.", lane: "Top promo rate", simplicity: 6, access: 7 },
+  { name: "LendingClub LevelUp Savings", apy: 4.0, min: 0, promoted: true, note: "4.00% APY June 2026 snapshot with a $250+ monthly deposit requirement. Lower standard rates can apply without the requirement; verify current terms.", lane: "Deposit habit boost", simplicity: 7, access: 7 },
+  { name: "Forbright Bank Growth Savings", apy: 3.85, min: 0, promoted: true, note: "Around 3.85% APY June 2026 snapshot, with a possible 0.30% eligible-new-customer boost if terms are met. Verify current terms.", lane: "Strong rate research", simplicity: 7, access: 7 },
+  { name: "SoFi Checking and Savings", apy: 3.8, min: 0, promoted: true, note: "Up to 3.80% APY June 2026 snapshot with qualifying direct deposit or deposit/boost terms. Verify current requirements.", lane: "Online bundle", simplicity: 8, access: 9 },
+  { name: "Marcus by Goldman Sachs Online Savings Account", apy: 3.5, min: 0, promoted: true, pick: true, note: "3.50% APY June 2026 snapshot; no monthly fees and no minimum balance to earn APY in current terms to verify. Marcus does not offer checking.", lane: "Simple parked cash", simplicity: 9, access: 8 },
 ];
 
 const hysaList = document.querySelector("[data-hysa-list]");
@@ -1007,6 +1007,36 @@ const cardProfiles = [
     complexity: "Medium",
     note: "More of an operations card lane: spending controls, team use, and cleaner business expense tracking.",
   },
+  {
+    name: "Bilt Mastercard",
+    category: "Travel",
+    fee: "$0",
+    lane: "No-fee travel starter",
+    bestFor: "Rent or housing-payment rewards, transferable points, and no-FTF Mastercard backup research.",
+    avoidIf: "You do not rent, do not want to track Bilt rules, or want the simplest cash-back setup.",
+    rewards: "Earn points on rent or housing payments through Bilt's program, plus everyday rewards categories. Verify current Bilt card tier and earning rules.",
+    bonus: "Offer can vary; verify current Bilt terms.",
+    travel: "Can be useful for travel transfer-partner research; verify current partners and redemption rules.",
+    lounge: "Not a lounge card.",
+    foreign: "No foreign transaction fee; verify current terms.",
+    complexity: "Medium",
+    note: "Worth researching if rent/housing rewards or transfer partners are a real lane, not just because the card is trendy.",
+  },
+  {
+    name: "U.S. Bank Altitude Connect",
+    category: "Travel",
+    fee: "$0 intro-style fee structures and benefits can change",
+    lane: "Travel category card",
+    bestFor: "Travel, gas/EV charging, and no-foreign-transaction-fee Visa backup research.",
+    avoidIf: "You want the simplest cash-back card or a full premium lounge ecosystem.",
+    rewards: "Travel Center hotels/car rentals, travel, gas/EV charging, dining, streaming, and grocery categories with caps/terms to verify.",
+    bonus: "20,000 bonus points after $1,000 in eligible purchases in the first 90 days; verify current U.S. Bank terms.",
+    travel: "Travel/gas category card with travel protections and TSA PreCheck/Global Entry-style benefits to verify.",
+    lounge: "May include limited airport lounge access or travel benefits depending on current terms; verify directly before relying on it.",
+    foreign: "No foreign transaction fee.",
+    complexity: "Medium",
+    note: "Good research lane for someone who wants a no-FTF Visa with travel and gas utility, but current terms matter.",
+  },
 ];
 
 const cardVisuals = {
@@ -1051,6 +1081,8 @@ const cardVisuals = {
   "Amex Business Platinum": { type: "Business", earn: "1x-5x points", perks: ["Premium business travel", "Amex lounges", "$895 annual fee"], pairs: ["Blue Business Plus", "Amex Gold"] },
   "Ink Business Cash": { type: "Business", earn: "1%-5% cash back", perks: ["$0 annual fee", "$750 intro offer", "Business categories"], pairs: ["Ink Business Unlimited", "Chase Sapphire Preferred"] },
   "Ramp Card": { type: "Business", earn: "1%-1.5% cash back", perks: ["$0 annual fee", "$1,000 intro offer", "Expense controls"], pairs: ["Business cash back", "Business checking"] },
+  "Bilt Mastercard": { type: "Travel", earn: "Rent/travel rewards research", perks: ["No annual fee", "No foreign transaction fee", "Mastercard backup"], pairs: ["Flat cash back", "Travel"] },
+  "U.S. Bank Altitude Connect": { type: "Travel", earn: "Travel and gas category research", perks: ["No foreign transaction fee", "Travel categories", "Verify current terms"], pairs: ["Flat cash back", "Travel"] },
 };
 
 const cardImageMap = {
@@ -1095,12 +1127,102 @@ const cardImageMap = {
   "Wells Fargo Autograph": "assets/card-wells-fargo-autograph.png",
   "United Explorer Card": "assets/card-united-explorer.png",
   "Southwest Rapid Rewards Priority": "assets/card-southwest-rapid-rewards-priority.png",
+  "Bilt Mastercard": "assets-extra/card-art/card-bilt-mastercard.png",
+  "U.S. Bank Altitude Connect": "assets-extra/card-art/card-us-bank-altitude-connect.png",
 };
 
-const cardTypes = ["All", "Student / Beginner", "Credit builder", "Flat cash back", "Category cash back", "Apple Pay cash back", "Food / Dining / Grocery", "Travel", "Premium Travel", "Business"];
+const cardTypes = ["All", "Student / Beginner", "Credit builder", "Flat cash back", "Category cash back", "Apple Pay cash back", "Food / Dining / Grocery", "Travel", "Premium Travel", "Business", "International"];
 let activeCardFilter = "All";
 const cardCategoryOrder = ["Cash back", "Food / Dining / Grocery", "Student and credit building", "Travel", "Business"];
 const lifeScoreCardPicks = new Set(["Amex Gold", "Chase Freedom Unlimited", "Chase Sapphire Preferred", "Amex Platinum", "Citi Strata Premier"]);
+
+const cardNetworkOverrides = {
+  "Amex Blue Cash Everyday": "Amex",
+  "Amex Blue Cash Preferred": "Amex",
+  "Amex Gold": "Amex",
+  "Amex Platinum": "Amex",
+  "Amex Blue Business Cash": "Amex",
+  "Amex Blue Business Plus": "Amex",
+  "Amex Business Platinum": "Amex",
+  "Delta SkyMiles Platinum Amex": "Amex",
+  "Hilton Honors Amex Surpass": "Amex",
+  "Discover it Cash Back": "Discover",
+  "Bilt Mastercard": "Mastercard",
+  "IHG One Rewards Premier": "Mastercard",
+};
+
+const internationalPrimaryNames = new Set([
+  "Wells Fargo Autograph",
+  "Bank of America Travel Rewards",
+  "Capital One VentureOne",
+  "Capital One Venture",
+  "Capital One Venture X",
+  "Chase Sapphire Preferred",
+  "Chase Sapphire Reserve",
+  "Citi Strata Premier",
+  "Apple Card",
+  "United Explorer Card",
+  "Capital One Savor",
+  "Capital One Quicksilver",
+  "Bilt Mastercard",
+  "U.S. Bank Altitude Connect",
+  "Wells Fargo Autograph Journey",
+  "Atmos Rewards Ascent Visa Signature",
+  "IHG One Rewards Premier",
+  "World of Hyatt Credit Card",
+  "Southwest Rapid Rewards Priority",
+  "Marriott Bonvoy Boundless",
+]);
+
+const internationalCaveatNames = new Set([
+  "Amex Platinum",
+  "Amex Gold",
+  "Delta SkyMiles Platinum Amex",
+  "Hilton Honors Amex Surpass",
+  "Discover it Cash Back",
+  "Amex Business Platinum",
+]);
+
+function cardNetwork(cardOrName) {
+  const name = typeof cardOrName === "string" ? cardOrName : cardOrName.name;
+  if (cardNetworkOverrides[name]) return cardNetworkOverrides[name];
+  if (name.includes("Mastercard")) return "Mastercard";
+  if (name.includes("Amex") || name.startsWith("Amex") || name.startsWith("Hilton Honors") || name.startsWith("Delta SkyMiles")) return "Amex";
+  if (name.startsWith("Discover")) return "Discover";
+  return "Visa/Mastercard";
+}
+
+function hasForeignTransactionFee(card) {
+  return /foreign transaction fee applies/i.test(card.foreign || "");
+}
+
+function hasNoForeignTransactionFee(card) {
+  return /no foreign transaction fee/i.test(card.foreign || "") && !hasForeignTransactionFee(card);
+}
+
+function isVisaMastercardNetwork(card) {
+  const network = card.network || cardNetwork(card);
+  return network === "Visa/Mastercard" || network === "Visa" || network === "Mastercard";
+}
+
+function isPrimaryInternationalCard(card) {
+  return hasNoForeignTransactionFee(card) && isVisaMastercardNetwork(card) && internationalPrimaryNames.has(card.name);
+}
+
+function isInternationalCaveatCard(card) {
+  return hasNoForeignTransactionFee(card) && internationalCaveatNames.has(card.name);
+}
+
+function deriveCardLanes(card) {
+  const lanes = new Set([card.type]);
+  if (card.type === "Premium Travel") lanes.add("Premium");
+  if (card.type === "Premium Travel" || card.type === "Travel") lanes.add("Travel");
+  if (["Flat cash back", "Category cash back", "Apple Pay cash back", "Food / Dining / Grocery"].includes(card.type)) lanes.add("Cash Back");
+  if (card.type === "Student / Beginner" || card.type === "Credit builder") lanes.add("Student / Beginner");
+  if (card.type === "Business") lanes.add("Business");
+  if (isPrimaryInternationalCard(card) || isInternationalCaveatCard(card)) lanes.add("International");
+  return [...lanes];
+}
 
 cardProfiles.forEach((card) => {
   const visual = cardVisuals[card.name] || {};
@@ -1108,6 +1230,9 @@ cardProfiles.forEach((card) => {
   card.earn = visual.earn || card.rewards;
   card.perks = visual.perks || [card.lane, card.fee, card.complexity];
   card.pairs = visual.pairs || [];
+  card.ecosystem = cardEcosystem(card);
+  card.network = cardNetwork(card);
+  card.lanes = deriveCardLanes(card);
 });
 
 function cardBadgeClass(card) {
@@ -1131,7 +1256,9 @@ function renderCardFilters() {
 }
 
 function filteredCards() {
-  const cards = activeCardFilter === "All" ? cardProfiles : cardProfiles.filter((card) => card.type === activeCardFilter);
+  const cards = activeCardFilter === "All"
+    ? cardProfiles
+    : cardProfiles.filter((card) => card.type === activeCardFilter || card.lanes?.includes(activeCardFilter));
   return [...cards].sort((a, b) => {
     const categorySort = cardCategoryOrder.indexOf(a.category) - cardCategoryOrder.indexOf(b.category);
     if (categorySort) return categorySort;
@@ -1245,7 +1372,7 @@ const walletForm = document.querySelector("[data-wallet-form]");
 const walletOptions = document.querySelector("[data-wallet-options]");
 const walletResult = document.querySelector("[data-wallet-result]");
 const walletFilters = document.querySelector("[data-wallet-filters]");
-const walletCategories = ["All", "Student / Beginner", "Cash Back", "Travel", "Premium", "Business"];
+const walletCategories = ["All", "Student / Beginner", "Cash Back", "Travel", "Premium", "Business", "International"];
 let activeWalletFilter = "All";
 let walletHasBuilt = false;
 const walletSelected = new Set();
@@ -1258,12 +1385,41 @@ function walletLaneGroup(card) {
   return "Travel";
 }
 
+function walletFilterGroups(card) {
+  const groups = new Set([walletLaneGroup(card)]);
+  if (card.lanes?.includes("International")) groups.add("International");
+  return [...groups];
+}
+
+function walletCoveredLanes(selectedCards) {
+  const lanes = new Set();
+  selectedCards.forEach((card) => {
+    lanes.add(walletLaneGroup(card));
+    if (isPrimaryInternationalCard(card)) lanes.add("International");
+  });
+  return [...lanes];
+}
+
+function hasPrimaryInternationalCard(selectedCards) {
+  return selectedCards.some(isPrimaryInternationalCard);
+}
+
+function hasInternationalCaveatOnly(selectedCards) {
+  return selectedCards.some(isInternationalCaveatCard) && !hasPrimaryInternationalCard(selectedCards);
+}
+
 const foodCardNames = new Set(["Amex Gold", "Capital One Savor", "Capital One Savor Student", "Amex Blue Cash Everyday", "Amex Blue Cash Preferred"]);
+const amexGoldOverlapNames = new Set(["Amex Gold", "Capital One Savor", "Capital One Savor Student"]);
 const loungeCardNames = new Set(["Amex Platinum", "Capital One Venture X", "Chase Sapphire Reserve"]);
 const transferUnlockNames = new Set(["Chase Sapphire Preferred", "Chase Sapphire Reserve"]);
 const beginnerCardNames = new Set(["Chase Freedom Rise", "Capital One Savor Student", "Capital One Platinum Secured", "Discover it Cash Back"]);
 const chaseFreedomNames = new Set(["Chase Freedom Unlimited", "Chase Freedom Flex", "Chase Freedom Rise"]);
 const capitalOneFoundationNames = new Set(["Capital One Savor", "Capital One Savor Student", "Capital One Quicksilver", "Capital One Platinum Secured"]);
+const gasTransitCardNames = new Set(["Amex Blue Cash Everyday", "Amex Blue Cash Preferred", "Wells Fargo Autograph", "Bank of America Customized Cash Rewards", "Citi Strata Premier"]);
+const groceryCardNames = new Set(["Amex Gold", "Amex Blue Cash Everyday", "Amex Blue Cash Preferred", "Capital One Savor", "Capital One Savor Student", "Citi Strata Premier"]);
+const diningCardNames = new Set(["Amex Gold", "Capital One Savor", "Capital One Savor Student", "Chase Sapphire Preferred", "Chase Sapphire Reserve", "Wells Fargo Autograph", "Citi Strata Premier"]);
+const onlineCardNames = new Set(["Amex Blue Cash Everyday", "Apple Card", "Prime Visa", "Bank of America Customized Cash Rewards"]);
+const travelSpendCardNames = new Set(["Chase Sapphire Preferred", "Chase Sapphire Reserve", "Capital One Venture", "Capital One VentureOne", "Capital One Venture X", "Wells Fargo Autograph", "Wells Fargo Autograph Journey", "Bank of America Travel Rewards", "Amex Platinum"]);
 
 function hasCard(selectedNames, name) {
   return selectedNames.has(name);
@@ -1277,6 +1433,10 @@ function isFoodCard(card) {
   return foodCardNames.has(card.name);
 }
 
+function isAmexGoldOverlapCard(card) {
+  return amexGoldOverlapNames.has(card.name);
+}
+
 function isLoungeCard(card) {
   return loungeCardNames.has(card.name);
 }
@@ -1284,7 +1444,7 @@ function isLoungeCard(card) {
 function cardEcosystem(cardOrName) {
   const name = typeof cardOrName === "string" ? cardOrName : cardOrName.name;
   if (name.startsWith("Chase") || name.startsWith("Ink ") || ["United Explorer Card", "Southwest Rapid Rewards Priority", "World of Hyatt Credit Card", "Marriott Bonvoy Boundless", "IHG One Rewards Premier", "Prime Visa"].includes(name)) return "Chase";
-  if (name.startsWith("Amex") || name.includes(" Amex") || name.startsWith("Hilton Honors")) return "Amex";
+  if (name.startsWith("Amex") || name.includes(" Amex") || name.startsWith("Hilton Honors") || name.startsWith("Delta SkyMiles")) return "Amex";
   if (name.startsWith("Capital One")) return "Capital One";
   if (name.startsWith("Citi")) return "Citi";
   if (name.startsWith("Wells Fargo")) return "Wells Fargo";
@@ -1337,10 +1497,44 @@ function walletGoalCovered(selectedCards, goal) {
   if (goal === "build") return lanes.has("Student / Beginner");
   if (goal === "simple" || goal === "lowfee") return hasSimpleCashBack(selectedCards);
   if (goal === "food") return selectedCards.some(isFoodCard);
+  if (goal === "international") return hasPrimaryInternationalCard(selectedCards);
   if (goal === "travel") return lanes.has("Travel") || hasAnyCard(selectedNames, transferUnlockNames);
   if (goal === "premium") return hasAnyCard(selectedNames, loungeCardNames);
   if (goal === "business") return lanes.has("Business");
   return false;
+}
+
+function cardCoversSpend(card, spend) {
+  if (spend === "mixed") return hasSimpleCashBack([card]) || walletLaneGroup(card) === "Travel";
+  if (spend === "dining") return diningCardNames.has(card.name) || isFoodCard(card);
+  if (spend === "groceries") return groceryCardNames.has(card.name) || isFoodCard(card);
+  if (spend === "gas") return gasTransitCardNames.has(card.name);
+  if (spend === "online") return onlineCardNames.has(card.name);
+  if (spend === "travel") return travelSpendCardNames.has(card.name) || walletLaneGroup(card) === "Travel" || walletLaneGroup(card) === "Premium";
+  if (spend === "business") return walletLaneGroup(card) === "Business";
+  return false;
+}
+
+function walletRelevantMissingLanes(lanes, goal) {
+  const laneSet = new Set(lanes);
+  const relevant = [];
+  if (goal === "build") relevant.push("Student / Beginner");
+  else if (goal === "premium") relevant.push("Premium");
+  else if (goal === "travel") relevant.push("Travel");
+  else if (goal === "international") relevant.push("International");
+  else if (goal === "business") relevant.push("Business");
+  else relevant.push("Cash Back");
+  return relevant.filter((lane) => !laneSet.has(lane));
+}
+
+function walletSpendLabel(spend) {
+  if (spend === "dining") return "dining";
+  if (spend === "groceries") return "groceries";
+  if (spend === "gas") return "gas and transit";
+  if (spend === "travel") return "travel";
+  if (spend === "online") return "online shopping";
+  if (spend === "business") return "business expenses";
+  return "everyday spend";
 }
 
 function businessCardsAllowed(goal, spend, walletScore) {
@@ -1348,7 +1542,7 @@ function businessCardsAllowed(goal, spend, walletScore) {
 }
 
 function shouldMentionBusinessLane(goal, spend, walletScore) {
-  return goal === "business" || spend === "business" || walletScore >= 70;
+  return goal === "business" || spend === "business";
 }
 
 function renderWalletFilters() {
@@ -1361,8 +1555,8 @@ function renderWalletFilters() {
 function renderWalletOptions() {
   if (!walletOptions) return;
   const visibleCards = cardProfiles
-    .map((card, index) => ({ card, index, group: walletLaneGroup(card) }))
-    .filter(({ group }) => activeWalletFilter === "All" || group === activeWalletFilter);
+    .map((card, index) => ({ card, index, group: walletLaneGroup(card), groups: walletFilterGroups(card) }))
+    .filter(({ groups }) => activeWalletFilter === "All" || groups.includes(activeWalletFilter));
 
   walletOptions.innerHTML = `
     <div class="wallet-options-head">
@@ -1370,17 +1564,20 @@ function renderWalletOptions() {
       <button class="clear-wallet-button" type="button" data-wallet-clear ${walletSelected.size ? "" : "disabled"}>Clear selections</button>
     </div>
     <div class="wallet-check-grid">
-      ${visibleCards.map(({ card, index, group }) => `
+      ${visibleCards.map(({ card, index, group, groups }) => {
+        const displayGroup = activeWalletFilter === "International" && groups.includes("International") ? "International" : group;
+        return `
         <label class="wallet-check-card">
           <input type="checkbox" value="${index}" data-wallet-card ${walletSelected.has(index) ? "checked" : ""}>
           <span class="wallet-chip-body">
             <span class="wallet-card-copy">
               <strong>${card.name}</strong>
-              <small>${group} | ${card.fee}</small>
+              <small>${displayGroup} | ${card.fee}</small>
             </span>
           </span>
         </label>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
   `;
 }
@@ -1389,6 +1586,7 @@ function recommendWalletCards(selectedCards, goal, spend, fee, walletScore = 0) 
   const selectedNames = new Set(selectedCards.map((card) => card.name));
   const selectedGroups = new Set(selectedCards.map(walletLaneGroup));
   const goalCovered = walletGoalCovered(selectedCards, goal);
+  const spendCovered = spend === "mixed" || selectedCards.some((card) => cardCoversSpend(card, spend));
   const businessAllowed = businessCardsAllowed(goal, spend, walletScore);
   const ecosystems = activeEcosystems(selectedCards);
   const hasAmexGold = hasCard(selectedNames, "Amex Gold");
@@ -1397,6 +1595,7 @@ function recommendWalletCards(selectedCards, goal, spend, fee, walletScore = 0) 
   const hasChaseFreedom = hasAnySelected(selectedNames, chaseFreedomNames);
   const hasCapitalOneFoundation = hasAnySelected(selectedNames, capitalOneFoundationNames);
   const beginnerWallet = isBeginnerWallet(selectedCards);
+  const hasSapphirePreferred = hasCard(selectedNames, "Chase Sapphire Preferred");
   const recs = [];
 
   function removeRec(name) {
@@ -1414,131 +1613,183 @@ function recommendWalletCards(selectedCards, goal, spend, fee, walletScore = 0) 
     return false;
   }
 
-  function add(name, reason) {
+  function add(name, reason, rank = 50, options = {}) {
     const card = cardProfiles.find((item) => item.name === name);
     if (!card) return;
-    if (!feeFits(card, fee)) return;
+    if (!options.ignoreFee && !feeFits(card, fee)) return;
     if (!businessAllowed && walletLaneGroup(card) === "Business") return;
     if (hasSapphireReserve && name === "Chase Sapphire Preferred") return;
-    if (hasAmexGold && isFoodCard(card)) return;
+    if (hasAmexGold && isAmexGoldOverlapCard(card)) return;
     if (hasPremiumLounge && isLoungeCard(card)) return;
     if (conflictsWithStrongerLane(name)) return;
     if (card && !selectedNames.has(card.name) && !recs.some((item) => item.card.name === card.name)) {
-      recs.push({ card, reason });
+      recs.push({ card, reason, rank });
     }
   }
 
   function addBusinessLevelUpCards() {
     if (ecosystems.has("Chase")) {
-      add("Ink Business Cash", "Chase business lane: office, internet, phone, and select business categories.");
-      add("Ink Business Unlimited", "Chase business lane: simple catch-all business spend.");
+      add("Ink Business Cash", "Chase business lane: office, internet, phone, and select business categories.", 12);
+      add("Ink Business Unlimited", "Chase business lane: simple catch-all business spend.", 18);
     }
     if (ecosystems.has("Amex")) {
-      add("Amex Blue Business Plus", "Amex business points lane for real business spend.");
-      add("Amex Blue Business Cash", "Amex business cash-back lane for separated expenses.");
+      add("Amex Blue Business Plus", "Amex business points lane for real business spend.", 14);
+      add("Amex Blue Business Cash", "Amex business cash-back lane for separated expenses.", 20);
     }
-    if (ecosystems.has("Capital One")) add("Capital One Spark Cash", "Capital One business cash-back lane when business spend is real.");
-    add("Ink Business Unlimited", "Business level-up lane: simple cash back for real business or side-hustle expenses.");
-    add("Amex Blue Business Cash", "Business level-up lane: no-fee cash back for separated expenses.");
-    if (fee === "premium") add("Amex Business Platinum", "Premium business lane: only if credits and travel perks are real.");
+    if (ecosystems.has("Capital One")) add("Capital One Spark Cash", "Capital One business cash-back lane when business spend is real.", 18);
+    add("Ink Business Unlimited", "Business level-up lane: simple cash back for real business or side-hustle expenses.", 26);
+    add("Amex Blue Business Cash", "Business level-up lane: no-fee cash back for separated expenses.", 30);
+    if (fee === "premium") add("Amex Business Platinum", "Premium business lane: only if credits and travel perks are real.", 36);
   }
 
   function addFlatCashBackCards() {
-    add("Wells Fargo Active Cash", "Flat 2% lane: simple catch-all cash rewards without category work.");
-    add("Citi Double Cash", "Flat cash-back lane: strong for random purchases if you pay in full.");
-    add("Capital One Quicksilver", "Low-complexity cash-back lane with no annual fee.");
+    add("Wells Fargo Active Cash", "Flat 2% lane: simple catch-all cash rewards without category work.", 22);
+    add("Citi Double Cash", "Flat cash-back lane: strong for random purchases if you pay in full.", 24);
+    add("Capital One Quicksilver", "Low-complexity cash-back lane with no annual fee.", 34);
+  }
+
+  function addPremiumLoungeCards() {
+    const allowPremiumFee = { ignoreFee: goal === "premium" };
+    const ventureRank = 10;
+    const platinumRank = fee === "premium" && ecosystems.has("Amex") ? 12 : fee === "low" ? 24 : 34;
+    const reserveRank = fee === "premium" && ecosystems.has("Chase") ? 14 : fee === "low" ? 30 : 36;
+    add("Capital One Venture X", "Premium lounge lane with simpler credit math than many luxury cards. Research it first if you want lounge access without the highest fee.", ventureRank, allowPremiumFee);
+    add("Amex Platinum", "Amex ecosystem lounge lane. Strong only if the airports, credits, and high annual fee actually fit.", platinumRank, allowPremiumFee);
+    add("Chase Sapphire Reserve", hasSapphirePreferred ? "Chase upgrade path from Sapphire Preferred: premium lounges and credits, but usually not something to stack casually." : "Chase premium lounge lane for users who already value Chase travel points.", reserveRank, allowPremiumFee);
+  }
+
+  function addInternationalCards() {
+    const allowPremiumFee = { ignoreFee: goal === "international" && fee === "premium" };
+    if (fee === "premium") {
+      add("Capital One Venture X", "Premium no-foreign-transaction-fee Visa/Mastercard lane with lounge upside if credits and routes are real.", ecosystems.has("Capital One") ? 8 : 12, allowPremiumFee);
+      add("Chase Sapphire Reserve", "Premium no-foreign-transaction-fee Visa lane for Chase users who actually use travel credits and lounges.", ecosystems.has("Chase") ? 10 : 16, allowPremiumFee);
+      add("Amex Platinum", "Premium travel perks can help, but Amex acceptance varies abroad. Carry a no-FTF Visa or Mastercard for wider acceptance.", ecosystems.has("Amex") ? 18 : 28, allowPremiumFee);
+      add("Chase Sapphire Preferred", "Lower-fee no-foreign-transaction-fee Visa travel starter if Reserve is too much fee.", 30);
+      return;
+    }
+    if (fee === "low") {
+      add("Chase Sapphire Preferred", "No-foreign-transaction-fee Visa travel starter with transfer partners and a moderate annual fee.", ecosystems.has("Chase") ? 8 : 10);
+      add("Citi Strata Premier", "No-foreign-transaction-fee travel lane with a moderate annual fee and broad categories.", ecosystems.has("Citi") ? 9 : 12);
+      add("Capital One Venture", "No-foreign-transaction-fee miles lane with simple travel usage.", ecosystems.has("Capital One") ? 10 : 14);
+      add("Wells Fargo Autograph", "No-fee, no-foreign-transaction-fee Visa/Mastercard-style travel-adjacent lane.", ecosystems.has("Wells Fargo") ? 12 : 18);
+      add("Bank of America Travel Rewards", "No-fee, no-foreign-transaction-fee travel backup lane.", ecosystems.has("Bank of America") ? 14 : 20);
+      return;
+    }
+    add("Wells Fargo Autograph", "No-fee, no-foreign-transaction-fee Visa/Mastercard-style lane for travel, transit, dining, and gas.", ecosystems.has("Wells Fargo") ? 8 : 10);
+    add("Bank of America Travel Rewards", "No-fee, no-foreign-transaction-fee travel backup card to research.", ecosystems.has("Bank of America") ? 10 : 12);
+    add("Capital One VentureOne", "No-fee, no-foreign-transaction-fee travel learning lane before bigger annual fees.", ecosystems.has("Capital One") ? 12 : 14);
+    add("Capital One Savor", "No-fee food card with no foreign transaction fee, useful if dining is real abroad.", ecosystems.has("Capital One") ? 16 : 18);
+    add("Apple Card", "No-fee Apple Pay option abroad where Mastercard and Apple Pay are accepted.", 22);
+    add("Bilt Mastercard", "No-fee Mastercard to research for international acceptance if rent or transfer partners are a real lane.", 24);
   }
 
   if (!selectedCards.length) {
     if (goal === "build") {
-      add("Chase Freedom Rise", "Starter lane: build payment history before chasing premium cards.");
-      add("Capital One Platinum Secured", "Credit-builder lane when approval odds matter more than rewards.");
-      add("Capital One Savor Student", "Student lane with useful food and entertainment categories.");
-    } else if (goal === "travel" || spend === "travel") {
-      add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent lane for gas, transit, dining, and travel categories." : "Starter travel lane: transfer partners without jumping to premium lounge fees.");
-      add("Capital One VentureOne", "No-fee travel learning lane before bigger annual fees.");
+      add("Chase Freedom Rise", "Starter lane: build payment history before chasing premium cards.", 10);
+      add("Capital One Platinum Secured", "Credit-builder lane when approval odds matter more than rewards.", 14);
+      add("Capital One Savor Student", "Student lane with useful food and entertainment categories.", 18);
     } else if (goal === "premium") {
-      add("Capital One VentureOne", "Beginner travel pathway before premium lounge cards.");
-      if (fee === "premium") add("Capital One Venture X", "Premium lane only if travel is real and credits are useful.");
+      addPremiumLoungeCards();
+    } else if (goal === "international") {
+      addInternationalCards();
+    } else if (goal === "travel" || spend === "travel") {
+      add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent lane for gas, transit, dining, and travel categories." : "Starter travel lane: transfer partners without jumping to premium lounge fees.", 10);
+      add("Capital One VentureOne", "No-fee travel learning lane before bigger annual fees.", 18);
     } else if (goal === "food" || spend === "dining" || spend === "groceries") {
-      add("Capital One Savor", "Food lane: dining, groceries, entertainment, and streaming.");
-      if (fee !== "avoid") add("Amex Blue Cash Preferred", "Stronger grocery, streaming, gas, and transit cash-back lane if the fee works.");
-      if (fee === "premium") add("Amex Gold", "Premium food-points lane for restaurants and U.S. supermarkets.");
+      add("Capital One Savor", "Food lane: dining, groceries, entertainment, and streaming.", 14);
+      if (fee !== "avoid") add("Amex Blue Cash Preferred", "Stronger grocery, streaming, gas, and transit cash-back lane if the fee works.", 12);
+      if (fee === "premium") add("Amex Gold", "Premium food-points lane for restaurants and U.S. supermarkets.", 10);
     } else {
       addFlatCashBackCards();
-      add("Chase Freedom Unlimited", "Starter Chase lane that can pair with Sapphire later.");
+      add("Chase Freedom Unlimited", "Starter Chase lane that can pair with Sapphire later.", 18);
     }
-    return recs.slice(0, 4);
+    return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
+  }
+
+  if (goal === "international") {
+    if (!hasPrimaryInternationalCard(selectedCards)) addInternationalCards();
+    if (!recs.length && spend !== "mixed" && !spendCovered) {
+      add("Wells Fargo Autograph", "No-foreign-transaction-fee card that can also help with gas, transit, dining, and travel categories.", 18);
+      if (fee !== "avoid") add("Chase Sapphire Preferred", "Moderate-fee no-FTF travel lane if transfer partners are useful.", 20);
+    }
+    return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
   }
 
   if (goal === "business" || spend === "business") {
     addBusinessLevelUpCards();
-    return recs.slice(0, 4);
+    return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
+  }
+
+  if (!spendCovered) {
+    if (spend === "gas") {
+      if (fee !== "avoid") add("Amex Blue Cash Preferred", "Gas, transit, grocery, and streaming cash-back lane if the annual fee is worth it.", 8);
+      add("Wells Fargo Autograph", "No-fee gas, transit, dining, and travel-adjacent category lane.", 10);
+      add("Amex Blue Cash Everyday", "No-fee gas, grocery, and online retail utility lane.", 14);
+      add("Bank of America Customized Cash Rewards", "Flexible category lane if gas or online shopping is the real gap.", 22);
+    }
+    if (spend === "online") {
+      add("Amex Blue Cash Everyday", "No-fee online retail, gas, and grocery utility lane.", 10);
+      add("Apple Card", "Apple Pay lane if most checkout happens through iPhone.", 18);
+      add("Bank of America Customized Cash Rewards", "Flexible category lane if online shopping is the real gap.", 20);
+    }
+    if (spend === "dining" || spend === "groceries") {
+      if (!hasAmexGold && fee === "premium") add("Amex Gold", "Premium food-points lane for restaurants and U.S. supermarkets.", 9);
+      if (fee !== "avoid") add("Amex Blue Cash Preferred", "Cash-back grocery, streaming, gas, and transit lane if the fee works.", spend === "groceries" ? 10 : 20);
+      add("Capital One Savor", "No-fee food, entertainment, and grocery cash-back lane.", 12);
+      if (fee === "avoid") add("Amex Blue Cash Everyday", "No-fee grocery, gas, and online retail utility lane.", 16);
+    }
+    if (spend === "travel") {
+      add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent lane for gas, transit, dining, and travel categories." : "Starter travel lane: transfer-partner unlock without lounge focus.", 10);
+      add("Capital One VentureOne", "No-fee travel learning lane before bigger annual fees.", 18);
+    }
+  }
+
+  if (goalCovered && spendCovered && (goal === "simple" || goal === "lowfee") && selectedGroups.has("Cash Back")) {
+    return [];
   }
 
   if (goal === "premium") {
-    if (beginnerWallet && hasCapitalOneFoundation) {
-      add("Capital One VentureOne", "Capital One pathway: no-fee travel learning before premium lounges.");
-      add("Capital One Venture", "Capital One pathway: simple miles once travel spend is real.");
-      if (fee === "premium") add("Capital One Venture X", "Capital One premium lane: lounge access after the foundation is ready.");
-      return recs.slice(0, 4);
-    } else {
-      if (hasAmexGold || ecosystems.has("Amex")) {
-        add("Amex Platinum", "Amex ecosystem fit: Gold earns on food, Platinum adds lounges and premium travel.");
-        return recs.slice(0, 4);
-      }
-      if (hasChaseFreedom || ecosystems.has("Chase")) {
-        add("Chase Sapphire Reserve", "Chase ecosystem fit: premium travel and lounge access for an existing Chase setup.");
-        return recs.slice(0, 4);
-      }
-      if (hasCapitalOneFoundation || ecosystems.has("Capital One")) {
-        add("Capital One Venture X", "Capital One ecosystem fit: simple premium travel and lounge value.");
-        return recs.slice(0, 4);
-      }
-      add("Capital One Venture X", "Premium lane: simple lounge value if you travel enough.");
-      add("Chase Sapphire Reserve", "Premium Chase lane: lounge access plus transfer partners.");
-      add("Amex Platinum", "Luxury lounge lane if credits, airports, and travel habits line up.");
-    }
-    return recs.slice(0, 4);
+    addPremiumLoungeCards();
+    return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
   }
 
   if (goal === "travel" || spend === "travel") {
     if (beginnerWallet && hasCapitalOneFoundation) {
-      add("Capital One VentureOne", "Capital One pathway: no-fee travel learning before bigger annual fees.");
-      add("Capital One Venture", "Capital One pathway: simple miles once travel spend is real.");
-      return recs.slice(0, 4);
+      add("Capital One VentureOne", "Capital One pathway: no-fee travel learning before bigger annual fees.", 10);
+      add("Capital One Venture", "Capital One pathway: simple miles once travel spend is real.", 16);
+      return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
     }
     if (hasChaseFreedom || ecosystems.has("Chase")) {
-      add("Chase Sapphire Preferred", "Chase ecosystem unlock: Freedom points become more useful with transfer partners.");
-      if (fee === "premium") add("Chase Sapphire Reserve", "Premium Chase travel lane if lounge access and credits are real.");
-      return recs.slice(0, 4);
+      add("Chase Sapphire Preferred", "Chase ecosystem unlock: Freedom points become more useful with transfer partners.", 10);
+      if (fee === "premium") add("Chase Sapphire Reserve", "Premium Chase travel lane if lounge access and credits are real.", 22);
+      return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
     }
     if (hasCapitalOneFoundation || ecosystems.has("Capital One")) {
-      add(fee === "avoid" ? "Capital One VentureOne" : "Capital One Venture", fee === "avoid" ? "Capital One travel starter with no annual fee." : "Capital One miles lane that keeps the setup simple.");
-      if (fee === "premium") add("Capital One Venture X", "Capital One premium travel lane when lounge value is real.");
-      return recs.slice(0, 4);
+      add(fee === "avoid" ? "Capital One VentureOne" : "Capital One Venture", fee === "avoid" ? "Capital One travel starter with no annual fee." : "Capital One miles lane that keeps the setup simple.", 10);
+      if (fee === "premium") add("Capital One Venture X", "Capital One premium travel lane when lounge value is real.", 22);
+      return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
     }
     if (!recs.length) {
-      add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent lane for gas, transit, dining, and travel categories." : "Starter travel lane: transfer-partner unlock without lounge focus.");
-      add("Capital One VentureOne", "No-fee travel starter lane if you want to learn miles first.");
-      add("Capital One Venture", "Simple miles lane with a moderate annual fee.");
+      add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent lane for gas, transit, dining, and travel categories." : "Starter travel lane: transfer-partner unlock without lounge focus.", 10);
+      add("Capital One VentureOne", "No-fee travel starter lane if you want to learn miles first.", 16);
+      add("Capital One Venture", "Simple miles lane with a moderate annual fee.", 20);
     }
-    return recs.slice(0, 4);
+    return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
   }
 
   if (goal === "food" || spend === "dining" || spend === "groceries") {
-    if (!hasAmexGold && fee === "premium") add("Amex Gold", "Premium food lane: restaurants and U.S. supermarkets when Membership Rewards fit.");
-    if (spend === "groceries" || spend === "gas" || fee !== "avoid") add("Amex Blue Cash Preferred", "Stronger grocery, streaming, gas, and transit cash-back lane if the fee works.");
-    if (!hasAmexGold) add("Capital One Savor", "Food lane: dining, groceries, entertainment, and streaming.");
-    if (fee === "avoid") add("Amex Blue Cash Everyday", "No-fee groceries, gas, and online retail lane.");
+    if (!hasAmexGold && fee === "premium") add("Amex Gold", "Premium food lane: restaurants and U.S. supermarkets when Membership Rewards fit.", 10);
+    if (spend === "groceries" || spend === "gas" || fee !== "avoid") add("Amex Blue Cash Preferred", "Stronger grocery, streaming, gas, and transit cash-back lane if the fee works.", 12);
+    if (!hasAmexGold) add("Capital One Savor", "Food lane: dining, groceries, entertainment, and streaming.", 14);
+    if (fee === "avoid") add("Amex Blue Cash Everyday", "No-fee groceries, gas, and online retail lane.", 16);
     if (hasAmexGold) addFlatCashBackCards();
   }
 
   if (goal === "build") {
-    if (ecosystems.has("Capital One")) add("Capital One Platinum Secured", "Credit-builder lane inside Capital One if approval odds matter.");
-    add("Chase Freedom Rise", "Chase starter lane: 1.5% back, autopay bonus, and upgrade review path.");
-    add("Chase Freedom Unlimited", "Beginner-to-Chase lane: simple rewards that can pair with Sapphire later.");
-    add("Capital One Savor Student", "Student lane with food and entertainment rewards.");
+    if (ecosystems.has("Capital One")) add("Capital One Platinum Secured", "Credit-builder lane inside Capital One if approval odds matter.", 10);
+    add("Chase Freedom Rise", "Chase starter lane: 1.5% back, autopay bonus, and upgrade review path.", 12);
+    add("Chase Freedom Unlimited", "Beginner-to-Chase lane: simple rewards that can pair with Sapphire later.", 18);
+    add("Capital One Savor Student", "Student lane with food and entertainment rewards.", 22);
   }
 
   if (goal === "simple" || goal === "lowfee" || spend === "mixed") {
@@ -1546,15 +1797,15 @@ function recommendWalletCards(selectedCards, goal, spend, fee, walletScore = 0) 
   }
 
   if (spend === "online") {
-    add("Apple Card", "Apple Pay lane: clean if you already pay with iPhone often.");
-    if (fee === "avoid") add("Amex Blue Cash Everyday", "Online retail lane with simple no-fee category value.");
-    else add("Amex Blue Cash Preferred", "Cash-back category lane if the fee makes sense with groceries, gas, transit, and streaming.");
+    add("Apple Card", "Apple Pay lane: clean if you already pay with iPhone often.", 26);
+    if (fee === "avoid") add("Amex Blue Cash Everyday", "Online retail lane with simple no-fee category value.", 12);
+    else add("Amex Blue Cash Preferred", "Cash-back category lane if the fee makes sense with groceries, gas, transit, and streaming.", 18);
   }
 
   if (spend === "gas") {
-    add("Wells Fargo Autograph", "No-fee gas, transit, travel-adjacent category lane.");
-    if (fee !== "avoid") add("Amex Blue Cash Preferred", "Gas, transit, grocery, and streaming cash-back lane with an annual fee.");
-    if (fee === "avoid") add("Amex Blue Cash Everyday", "Gas and grocery cash-back lane with a no-fee structure.");
+    add("Wells Fargo Autograph", "No-fee gas, transit, travel-adjacent category lane.", 14);
+    if (fee !== "avoid") add("Amex Blue Cash Preferred", "Gas, transit, grocery, and streaming cash-back lane with an annual fee.", 8);
+    if (fee === "avoid") add("Amex Blue Cash Everyday", "Gas and grocery cash-back lane with a no-fee structure.", 10);
   }
 
   if (businessAllowed && (goal === "business" || spend === "business" || (walletScore >= 85 && !selectedGroups.has("Business")))) {
@@ -1565,7 +1816,85 @@ function recommendWalletCards(selectedCards, goal, spend, fee, walletScore = 0) 
     addBusinessLevelUpCards();
   }
 
-  return recs.slice(0, 4);
+  return recs.sort((a, b) => a.rank - b.rank).slice(0, 4);
+}
+
+function walletRecommendationsFromMove(recs, selectedCards, nextMove, goal, fee, walletScore = 0) {
+  if (recs.length) return recs.slice(0, 3);
+
+  const text = (nextMove || "").toLowerCase();
+  if (!text || text.includes("hold here") || text.includes("pause before adding more") || text.includes("already covers this goal")) return [];
+
+  const selectedNames = new Set(selectedCards.map((card) => card.name));
+  const hasPremiumLounge = hasAnyCard(selectedNames, loungeCardNames);
+  const businessAllowed = businessCardsAllowed(goal, "", walletScore);
+  const implied = [];
+
+  function add(name, reason, rank = 50, options = {}) {
+    const card = cardProfiles.find((item) => item.name === name);
+    if (!card || selectedNames.has(card.name) || implied.some((item) => item.card.name === card.name)) return;
+    if (!options.ignoreFee && !feeFits(card, fee)) return;
+    if (!businessAllowed && walletLaneGroup(card) === "Business") return;
+    if (hasPremiumLounge && isLoungeCard(card)) return;
+    implied.push({ card, reason, rank });
+  }
+
+  if (text.includes("sapphire card") || text.includes("sapphire preferred") || text.includes("chase base")) {
+    add("Chase Sapphire Preferred", "Chase ecosystem unlock: useful when Freedom-style cash-back points need a real travel transfer lane.", 10, { ignoreFee: true });
+  }
+
+  if (text.includes("reserve") || text.includes("premium lounge") || text.includes("lounge lane") || text.includes("lounge access")) {
+    const ignoreFee = goal === "premium" || fee === "premium";
+    add("Capital One Venture X", "Premium lounge lane with simpler credit math if airport access and credits are real.", 12, { ignoreFee });
+    add("Amex Platinum", "Amex lounge lane if the airports, credits, and high annual fee actually fit.", 14, { ignoreFee });
+    add("Chase Sapphire Reserve", "Chase premium travel lane when lounge access and Chase credits are the job.", 16, { ignoreFee });
+  }
+
+  if (text.includes("platinum") && !text.includes("premium lounge")) {
+    add("Amex Platinum", "Clean Amex lounge add only if the fee, credits, and airports make sense.", 12, { ignoreFee: fee === "premium" || goal === "premium" });
+  }
+
+  if (text.includes("venture x")) {
+    add("Capital One Venture X", "Premium Capital One lane for lounge access and simple travel-credit math.", 10, { ignoreFee: fee === "premium" || goal === "premium" });
+  } else if (text.includes("ventureone") || text.includes("venture comes")) {
+    add("Capital One VentureOne", "No-fee Capital One travel learning lane before bigger annual fees.", 10);
+    add("Capital One Venture", "Simple Capital One miles lane once travel spend is real.", 14);
+  }
+
+  if (text.includes("no-foreign-transaction-fee") || text.includes("wider international acceptance") || text.includes("travel abroad")) {
+    if (fee === "premium") {
+      add("Capital One Venture X", "Premium no-foreign-transaction-fee Visa/Mastercard lane with lounge upside if routes are real.", 10, { ignoreFee: goal === "international" });
+      add("Chase Sapphire Reserve", "Premium no-foreign-transaction-fee Visa lane for Chase users who use travel credits.", 14, { ignoreFee: goal === "international" });
+    } else if (fee === "low") {
+      add("Chase Sapphire Preferred", "Moderate-fee no-foreign-transaction-fee Visa starter with transfer partners.", 10);
+      add("Citi Strata Premier", "Moderate-fee no-foreign-transaction-fee travel lane with broad categories.", 12);
+    } else {
+      add("Wells Fargo Autograph", "No-fee, no-foreign-transaction-fee travel-adjacent lane.", 10);
+      add("Bank of America Travel Rewards", "No-fee, no-foreign-transaction-fee travel backup lane.", 12);
+      add("Bilt Mastercard", "No-fee Mastercard backup to research if rent or transfer partners are a real lane.", 18);
+    }
+  }
+
+  if (text.includes("travel starter") || text.includes("starter travel")) {
+    add(fee === "avoid" ? "Wells Fargo Autograph" : "Chase Sapphire Preferred", fee === "avoid" ? "No-fee travel-adjacent category lane for gas, transit, dining, and travel." : "Starter travel lane with Chase transfer-partner access and a moderate fee.", 10);
+  }
+
+  if (text.includes("flat cash-back") || text.includes("simple flat cash-back")) {
+    add("Wells Fargo Active Cash", "Flat 2% style catch-all lane for everyday purchases without category work.", 10);
+  }
+
+  if (text.includes("food-first") || text.includes("dining or groceries")) {
+    if (fee === "premium") add("Amex Gold", "Premium food-points lane if restaurants and U.S. supermarkets are the real spend.", 10);
+    if (fee !== "avoid") add("Amex Blue Cash Preferred", "Stronger grocery, streaming, gas, and transit cash-back lane if the fee works.", 12);
+    add("Capital One Savor", "No-fee food, entertainment, grocery, and streaming lane.", 14);
+  }
+
+  if (text.includes("business") && businessAllowed) {
+    add("Ink Business Cash", "Business category lane only when side-hustle or business expenses are real.", 10);
+    add("Amex Blue Business Cash", "No-fee business cash-back lane for separated expenses.", 14);
+  }
+
+  return implied.sort((a, b) => a.rank - b.rank).slice(0, 3);
 }
 
 function walletScoreLabel(score) {
@@ -1579,6 +1908,7 @@ function walletScoreLabel(score) {
 function walletTargetLane(goal) {
   if (goal === "build") return "Student / Beginner";
   if (goal === "travel") return "Travel";
+  if (goal === "international") return "International";
   if (goal === "premium") return "Premium";
   if (goal === "business") return "Business";
   if (goal === "food") return "Food / Dining / Grocery";
@@ -1592,10 +1922,10 @@ function scoreWallet(selectedCards, lanes, goal, fee) {
   const laneSet = new Set(lanes);
   const selectedNames = new Set(selectedCards.map((card) => card.name));
   const ecosystems = activeEcosystems(selectedCards);
-  const foodCount = selectedCards.filter(isFoodCard).length;
+  const foodOverlapCount = selectedCards.filter(isAmexGoldOverlapCard).length;
   const loungeCount = selectedCards.filter(isLoungeCard).length;
   const covered = walletGoalCovered(selectedCards, goal);
-  const duplicatePenalty = Math.max(0, foodCount - 1) * 8 + Math.max(0, loungeCount - 1) * 6;
+  const duplicatePenalty = Math.max(0, foodOverlapCount - 1) * 8 + Math.max(0, loungeCount - 1) * 6;
   let score = 0;
 
   score += Math.min(30, laneSet.size * 6);
@@ -1625,25 +1955,41 @@ function scoreWallet(selectedCards, lanes, goal, fee) {
   score += selectedCards.length <= 5 ? 10 : 5;
 
   if (hasCard(selectedNames, "Chase Sapphire Reserve") && hasCard(selectedNames, "Chase Sapphire Preferred")) score -= 10;
-  if (hasCard(selectedNames, "Amex Gold") && foodCount > 1) score -= duplicatePenalty;
+  if (hasCard(selectedNames, "Amex Gold") && foodOverlapCount > 1) score -= duplicatePenalty;
   if (loungeCount > 1) score -= duplicatePenalty;
   if (selectedCards.length > 6) score -= 8;
   if (goal === "premium" && fee === "avoid") score -= 8;
+  if (goal === "international" && !hasPrimaryInternationalCard(selectedCards)) {
+    score = Math.min(score, hasInternationalCaveatOnly(selectedCards) ? 48 : 42);
+  }
+  if (goal === "business" && !covered) score = Math.min(score, 50);
 
   score = Math.min(100, Math.max(0, Math.round(score)));
   return { score, label: walletScoreLabel(score), targetLane };
 }
 
-function nextWalletMove(selectedCards, lanes, missing, targetLane, goal) {
+function nextWalletMove(selectedCards, lanes, missing, targetLane, goal, spend) {
   const selectedNames = new Set(selectedCards.map((card) => card.name));
   const ecosystems = activeEcosystems(selectedCards);
   const hasChaseFreedom = hasAnySelected(selectedNames, chaseFreedomNames);
   const hasCapitalOneFoundation = hasAnySelected(selectedNames, capitalOneFoundationNames);
+  const spendCovered = spend === "mixed" || selectedCards.some((card) => cardCoversSpend(card, spend));
+  if (!selectedCards.length && goal === "international") return "Start with a no-foreign-transaction-fee Visa or Mastercard before optimizing rewards for travel abroad.";
   if (!selectedCards.length) return "Start with one beginner or flat cash-back card before chasing premium perks.";
+  if (goal === "international" && !hasPrimaryInternationalCard(selectedCards)) {
+    if (selectedCards.some((card) => card.network === "Amex")) return "Amex can be useful abroad, but acceptance varies. Add a no-foreign-transaction-fee Visa or Mastercard for wider international acceptance.";
+    if (selectedCards.some((card) => card.network === "Discover")) return "Discover is not reliable enough as your only abroad card. Add a no-foreign-transaction-fee Visa or Mastercard first.";
+    return "Add a no-foreign-transaction-fee Visa or Mastercard before optimizing rewards for travel abroad.";
+  }
+  if (goal === "international" && walletGoalCovered(selectedCards, goal) && !spendCovered) return `Worldwide acceptance is covered. If you still care about ${walletSpendLabel(spend)}, add that lane only if it is real domestic spend.`;
+  if (goal === "international" && walletGoalCovered(selectedCards, goal)) return "Hold here for now. You have a usable no-foreign-transaction-fee Visa/Mastercard lane for abroad.";
   if ((goal === "travel" || goal === "premium") && isBeginnerWallet(selectedCards) && hasCapitalOneFoundation) return "Build the Capital One travel path first. VentureOne or Venture comes before jumping to premium lounges.";
   if (goal === "travel" && hasChaseFreedom && !hasAnyCard(selectedNames, transferUnlockNames)) return "Your Chase base is ready. The clean next move is a Sapphire card if travel points are real.";
+  if (goal === "premium" && hasCard(selectedNames, "Chase Sapphire Preferred") && !hasAnyCard(selectedNames, loungeCardNames)) return "Sapphire Preferred is travel, not lounge access. Research one premium lounge lane: Venture X for simpler value, Platinum for Amex credits, or Reserve as a Chase upgrade.";
   if (goal === "premium" && hasCard(selectedNames, "Amex Gold") && !hasCard(selectedNames, "Amex Platinum")) return "Amex Gold already covers food. Platinum is the clean lounge add if the fee and credits make sense.";
+  if (goal === "premium" && !hasAnyCard(selectedNames, loungeCardNames)) return "Add one premium lounge lane only if airports, credits, and annual fees are real.";
   if (goal === "business" && ecosystems.has("Chase")) return "Extend the Chase setup into business only when business spend is real.";
+  if (walletGoalCovered(selectedCards, goal) && !spendCovered) return `Your main goal has a base, but ${walletSpendLabel(spend)} is still the uncovered spend lane. Add one card for that job before adding extras.`;
   if (walletGoalCovered(selectedCards, goal) && missing.includes("Travel")) return "Your current goal is covered. If you want the next useful lane, research a travel starter only if trips are real.";
   if (walletGoalCovered(selectedCards, goal)) return "Pause before adding more. Your current wallet already covers this goal.";
   if (goal === "food") return "Add one food-first card only if dining or groceries are a real spend lane.";
@@ -1656,12 +2002,15 @@ function nextWalletMove(selectedCards, lanes, missing, targetLane, goal) {
 
 function walletWarning(selectedCards, lanes, goal, fee, targetLane, score) {
   const selectedNames = new Set(selectedCards.map((card) => card.name));
-  const foodCount = selectedCards.filter(isFoodCard).length;
+  const foodOverlapCount = selectedCards.filter(isAmexGoldOverlapCard).length;
   const loungeCount = selectedCards.filter(isLoungeCard).length;
   if (!selectedCards.length && score <= 30) return "No score-chasing. Start simple and build payment habits first.";
   if (hasCard(selectedNames, "Chase Sapphire Reserve") && hasCard(selectedNames, "Chase Sapphire Preferred")) return "Sapphire Reserve usually makes Sapphire Preferred redundant. Compare the annual fees before keeping both.";
-  if (hasCard(selectedNames, "Amex Gold") && foodCount > 1) return "Amex Gold already covers the food lane. Do not add another food card unless it has a specific job.";
+  if (hasCard(selectedNames, "Amex Gold") && foodOverlapCount > 1) return "Amex Gold already covers the points-based food lane. Add another food card only if it fills a different cash-back utility job.";
   if (loungeCount > 1) return "You already have lounge access. Duplicate premium lounge cards can create fee overlap.";
+  if (goal === "international" && selectedCards.some((card) => card.network === "Discover") && !hasPrimaryInternationalCard(selectedCards)) return "Discover can be weak abroad. Do not make it your only worldwide card.";
+  if (goal === "international" && selectedCards.some((card) => card.network === "Amex") && !hasPrimaryInternationalCard(selectedCards)) return "Amex acceptance varies abroad. Carry a no-foreign-transaction-fee Visa or Mastercard for wider acceptance.";
+  if (goal === "international" && hasPrimaryInternationalCard(selectedCards)) return "When abroad, pay in local currency when offered. Dynamic currency conversion can be expensive.";
   if (walletGoalCovered(selectedCards, goal)) return "";
   if (selectedCards.length > 6) return "More cards is not always better. Close the gap only if the card has a job.";
   if (goal === "premium" && fee === "avoid") return "Lounge access usually means annual fees, credits, and rules to track.";
@@ -1680,59 +2029,67 @@ function renderWalletResult() {
   const goal = walletForm.querySelector("[data-wallet-goal]").value;
   const spend = walletForm.querySelector("[data-wallet-spend]").value;
   const fee = walletForm.querySelector("[data-wallet-fee]").value;
-  const lanes = [...new Set(selectedCards.map(walletLaneGroup))];
-  const missing = walletCategories.filter((category) => category !== "All" && !lanes.includes(category));
+  const lanes = walletCoveredLanes(selectedCards);
   const rating = scoreWallet(selectedCards, lanes, goal, fee);
+  const missing = walletRelevantMissingLanes(lanes, goal);
   const businessAllowed = businessCardsAllowed(goal, spend, rating.score);
   const mentionBusinessLane = shouldMentionBusinessLane(goal, spend, rating.score);
-  const recs = recommendWalletCards(selectedCards, goal, spend, fee, rating.score);
-  const nextMove = nextWalletMove(selectedCards, lanes, missing, rating.targetLane, goal);
+  let recs = recommendWalletCards(selectedCards, goal, spend, fee, rating.score);
+  const nextMove = nextWalletMove(selectedCards, lanes, missing, rating.targetLane, goal, spend);
+  recs = walletRecommendationsFromMove(recs, selectedCards, nextMove, goal, fee, rating.score);
   const warning = walletWarning(selectedCards, lanes, goal, fee, rating.targetLane, rating.score);
   const businessLevelUpNote = "Business cards are a level-up lane. Build your personal wallet first, then separate business or side-hustle expenses when they are real.";
+  const coveredSetup = lanes.length ? lanes.join(" + ") : "No lanes yet";
+  const lanePills = lanes.length ? lanes.map((lane) => `<strong>${lane}</strong>`).join("") : "<strong>None yet</strong>";
+  const missingPills = missing.length ? missing.map((lane) => `<strong>${lane}</strong>`).join("") : "<strong>Core lanes covered</strong>";
+  const summaryCopy = selectedCards.length ? nextMove : "Start with one useful card before chasing extra categories or premium perks.";
 
   walletResult.innerHTML = `
-    <div class="wallet-rating wallet-rating-polished">
-      <div class="wallet-score-card" style="--wallet-score:${rating.score}">
-        <strong>${rating.score}</strong>
-        <span>${rating.label}</span>
+    <div class="wallet-result-simple">
+      <article class="wallet-top-summary">
+        <div class="wallet-score-compact" style="--wallet-score:${rating.score}">
+          <strong>${rating.score}</strong>
+          <span>/100</span>
+        </div>
+        <div>
+          <span>Wallet score</span>
+          <h3>${rating.label}</h3>
+          <p>${summaryCopy}</p>
+        </div>
+      </article>
+
+      <div class="wallet-lane-strip">
+        <article>
+          <span>Covered setup</span>
+          <strong>${coveredSetup}</strong>
+        </article>
+        <article>
+          <span>Covered lanes</span>
+          <div class="wallet-mini-pills">${lanePills}</div>
+        </article>
+        <article class="missing">
+          <span>Missing lanes</span>
+          <div class="wallet-mini-pills missing">${missingPills}</div>
+        </article>
       </div>
-      <div>
-        <span>Your wallet fit</span>
-        <h3>${rating.label}. ${nextMove}</h3>
-        <div class="wallet-score-line"><i style="width:${rating.score}%"></i></div>
-      </div>
-    </div>
-    <div class="wallet-readout-grid">
-      <div class="wallet-setup-tile">
-        <span>Covered setup</span>
-        <h3>${lanes.length ? lanes.join(" + ") : "No cards selected yet"}</h3>
-        <p>${selectedCards.length ? "Your setup has a foundation. These next cards could fill missing jobs." : "Start with a beginner or flat cash-back lane before premium travel cards."}</p>
-      </div>
-      <div class="wallet-lane-tile">
-        <span>Covered Lanes</span>
-        <div class="wallet-mini-pills">${lanes.length ? lanes.map((lane) => `<strong>${lane}</strong>`).join("") : "<strong>None yet</strong>"}</div>
-      </div>
-      <div class="wallet-lane-tile missing">
-        <span>Missing Lanes</span>
-        <div class="wallet-mini-pills missing">${missing.length ? missing.map((lane) => `<strong>${lane}</strong>`).join("") : "<strong>Core lanes covered</strong>"}</div>
-      </div>
-      <div class="wallet-next-move">
+
+      <article class="wallet-next-move wallet-next-clean">
         <span>Next Best Move</span>
         <strong>${nextMove}</strong>
-      </div>
+      </article>
     </div>
     <div class="wallet-suggested-title"><span>Suggested Cards</span></div>
     <div class="wallet-recs">
       ${recs.length ? recs.map(({ card, reason }) => `
         <article class="database-card">
           ${cardArtMarkup(card)}
-          <span>${walletLaneGroup(card)}</span>
+          <span>${goal === "international" && card.lanes?.includes("International") ? "International" : walletLaneGroup(card)}</span>
           <h3>${card.name}</h3>
           <div class="wallet-card-fee"><span>Annual fee</span><strong>${card.fee}</strong></div>
           <p>${reason}</p>
           <div class="perk-list">${card.perks.slice(0, 3).map((perk) => `<span>${perk}</span>`).join("")}</div>
         </article>
-      `).join("") : `<article class="database-card"><span>Wallet read</span><h3>No obvious gap</h3><p>Your selected cards already cover the main lane for this goal. Compare fees and real usage before adding more.</p></article>`}
+      `).join("") : `<article class="wallet-hold-state"><span>Wallet read</span><h3>Hold here for now.</h3><p>Your selected cards already cover the main job for this goal. Compare fees, real usage, and overlap before adding another card.</p></article>`}
     </div>
     ${!businessAllowed && mentionBusinessLane ? `<div class="wallet-warning"><span>Business lane</span><p>${businessLevelUpNote}</p></div>` : ""}
     ${warning ? `<div class="wallet-warning"><span>Quick warning</span><p>${warning}</p></div>` : ""}
