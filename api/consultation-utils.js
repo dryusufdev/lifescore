@@ -18,7 +18,7 @@ const BOOKING_INDEX_KEY = "lifescore:consultations:index";
 // KV_REST_API_TOKEN or UPSTASH_REDIS_REST_TOKEN
 // RESEND_API_KEY
 // LIFESCORE_FROM_EMAIL
-// LIFESCORE_ADMIN_EMAIL=may23@fsu.edu
+// LIFESCORE_ADMIN_EMAIL
 // Optional: LIFESCORE_ADVISOR_EMAILS
 function storageConfig() {
   const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
@@ -29,7 +29,7 @@ function storageConfig() {
 function emailConfig() {
   const resendKey = process.env.RESEND_API_KEY;
   const from = process.env.LIFESCORE_FROM_EMAIL;
-  const admin = process.env.LIFESCORE_ADMIN_EMAIL || "may23@fsu.edu";
+  const admin = process.env.LIFESCORE_ADMIN_EMAIL;
   const advisors = String(process.env.LIFESCORE_ADVISOR_EMAILS || "")
     .split(",")
     .map((item) => item.trim())
