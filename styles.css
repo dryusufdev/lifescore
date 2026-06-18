@@ -1664,7 +1664,7 @@ p {
 }
 
 .home-basics-photo figcaption {
-  padding: 12px 4px 0;
+  padding: 12px 4px 0 7px;
   color: var(--muted);
   font-size: 13px;
   font-weight: 780;
