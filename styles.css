@@ -8611,6 +8611,286 @@ figure:has(> img) > img,
   }
 }
 
+/* Final mobile-only polish pass */
+@media (max-width: 960px) {
+  .page-hero,
+  .hero,
+  .credit-score-hero,
+  .taxes-page .taxes-hero,
+  .travel-bag-hero {
+    gap: clamp(22px, 6vw, 36px);
+  }
+
+  .page-hero h1,
+  .hero h1,
+  .credit-score-hero h1,
+  .taxes-page .taxes-hero h1 {
+    overflow-wrap: anywhere;
+  }
+
+  .compare-controls,
+  .score-helper-line,
+  .taxes-page .hero-actions,
+  .taxes-page .tax-form-row,
+  .wallet-page .hero-actions {
+    max-width: 100%;
+  }
+
+  .database-card,
+  .wallet-output,
+  .checking-card,
+  .hysa-page .offer-card,
+  .hysa-page .offer-card.is-pick,
+  .taxes-page .tax-awareness-grid article,
+  .travel-destination-mini,
+  .travel-bag-page .travel-piece-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .nav-toggle,
+  .score-chat-close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .nav-links.is-open {
+    max-height: calc(100dvh - 86px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .nav-parent,
+  .nav-links > a,
+  .nav-menu a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .page-hero,
+  .hero {
+    padding-top: clamp(48px, 11vw, 64px);
+    padding-bottom: clamp(48px, 11vw, 64px);
+  }
+
+  .page-hero h1,
+  .hero h1,
+  .credit-score-hero h1,
+  .taxes-page .taxes-hero h1 {
+    font-size: clamp(38px, 11vw, 52px);
+    line-height: 0.98;
+  }
+
+  .page-hero p,
+  .hero p,
+  .credit-score-hero p,
+  .taxes-page .taxes-hero p {
+    font-size: 16px;
+    line-height: 1.58;
+  }
+
+  .hero-actions,
+  .taxes-page .hero-actions,
+  .score-helper-line {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .button,
+  .taxes-page .hero-actions .button,
+  .taxes-page .tax-awareness-grid button,
+  .taxes-page .tax-form-row button,
+  .fit-form .button {
+    min-height: 46px;
+  }
+
+  .wallet-page .fit-form,
+  .checking-fit-form,
+  .guidance-form,
+  .calc-fields {
+    gap: 14px;
+  }
+
+  .wallet-page .wallet-options-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .wallet-page .clear-wallet-button,
+  .wallet-page .wallet-filter-pills button,
+  .filter-pills button {
+    min-height: 40px;
+  }
+
+  .wallet-check-grid,
+  .wallet-options,
+  .database-grid,
+  .checking-grid,
+  .hysa-page .offer-list {
+    max-width: 100%;
+  }
+
+  .wallet-output.is-empty {
+    min-height: 112px;
+    padding: 20px;
+  }
+
+  .wallet-result-simple,
+  .wallet-result-meta,
+  .wallet-recs {
+    gap: 12px;
+  }
+
+  .wallet-recs .database-card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .wallet-recs .card-art {
+    width: 92px;
+    height: 58px;
+  }
+
+  .compare-controls > *,
+  .fit-form select,
+  .fit-form input,
+  .guidance-form select,
+  .guidance-form input,
+  .checking-fit-form select,
+  .checking-fit-form input,
+  .calc-fields input,
+  .calc-fields select {
+    min-height: 44px;
+  }
+
+  .card-comparison,
+  .database-grid,
+  .checking-grid,
+  .hysa-page .offer-list,
+  .taxes-page .tax-awareness-grid,
+  .taxes-page .tax-big-three,
+  .travel-lounge-feature,
+  .travel-destination-grid {
+    gap: 14px;
+  }
+
+  .database-card,
+  .card-detail,
+  .checking-card,
+  .hysa-page .offer-card,
+  .hysa-page .offer-card.is-pick,
+  .taxes-page .tax-awareness-grid article {
+    padding: clamp(18px, 5vw, 22px);
+  }
+
+  .card-art,
+  .database-card img,
+  .compare-card-art img {
+    max-width: 100%;
+  }
+
+  .credit-score-page .score-helper-line {
+    align-items: flex-start;
+    padding: 12px 14px;
+    line-height: 1.45;
+  }
+
+  .taxes-page .tax-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .taxes-page .tax-form-row button {
+    width: 100%;
+  }
+
+  .score-chat-panel {
+    width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+  }
+
+  .score-chat-body {
+    padding: 22px 16px 34px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .score-chat-message {
+    max-width: 84%;
+  }
+
+  .score-chat-footer {
+    padding: 14px 16px max(16px, env(safe-area-inset-bottom));
+  }
+
+  .score-chat-form {
+    gap: 8px;
+  }
+
+  .score-chat-form textarea {
+    min-height: 46px;
+  }
+
+  .score-chat-form button {
+    min-width: 58px;
+    min-height: 46px;
+  }
+}
+
+@media (max-width: 520px) {
+  .page-hero h1,
+  .hero h1,
+  .credit-score-hero h1,
+  .taxes-page .taxes-hero h1 {
+    font-size: clamp(34px, 10.8vw, 46px);
+  }
+
+  .hero-actions .button,
+  .taxes-page .hero-actions .button,
+  .wallet-page .fit-form .button[type="submit"],
+  .checking-fit-form .button,
+  .guidance-form .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card-comparison,
+  .wallet-check-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-recs .database-card {
+    grid-template-columns: 1fr;
+  }
+
+  .wallet-recs .card-art {
+    width: min(180px, 100%);
+    height: auto;
+    aspect-ratio: 1.58 / 1;
+  }
+
+  .compare-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .score-chat-launcher {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .score-chat-message {
+    max-width: 88%;
+  }
+}
+
 /* Final Travel Bag setup image grid */
 .travel-bag-page .travel-mood-grid {
   display: grid;
@@ -8690,6 +8970,158 @@ figure:has(> img) > img,
   .travel-bag-page .travel-mood-card img {
     height: clamp(330px, 88vw, 500px);
     object-fit: cover;
+  }
+}
+
+/* Final micro-polish: consistent focus, soft motion, and restrained depth */
+.button,
+.nav-parent,
+.nav-links > a,
+.nav-menu a,
+.filter-pills button,
+.database-card,
+.database-card button,
+.wallet-filter-pills button,
+.clear-wallet-button,
+.score-helper-line button,
+.score-chat-prompts button,
+.score-chat-actions button,
+.score-chat-form button,
+.score-chat-close,
+.score-chat-next-link,
+.checking-card,
+.hysa-page .offer-card,
+.wallet-readout-grid > *,
+.wallet-next-move,
+.taxes-page .tax-awareness-grid article,
+.taxes-page .tax-big-three article,
+.taxes-page .tax-form-row button,
+.taxes-page .tax-inline-cta {
+  transition-duration: 180ms;
+  transition-timing-function: ease;
+}
+
+.button:focus-visible,
+.nav-parent:focus-visible,
+.nav-links > a:focus-visible,
+.nav-menu a:focus-visible,
+.filter-pills button:focus-visible,
+.database-card button:focus-visible,
+.wallet-filter-pills button:focus-visible,
+.clear-wallet-button:focus-visible,
+.score-helper-line button:focus-visible,
+.score-chat-prompts button:focus-visible,
+.score-chat-actions button:focus-visible,
+.score-chat-form button:focus-visible,
+.score-chat-close:focus-visible,
+.score-chat-next-link:focus-visible,
+.checking-card:focus-within,
+.hysa-page .offer-card:focus-within,
+.taxes-page .tax-form-row button:focus-visible,
+.taxes-page .tax-inline-cta:focus-visible {
+  outline: 3px solid rgba(63, 125, 90, 0.22);
+  outline-offset: 3px;
+}
+
+.database-card:hover,
+.wallet-recs .database-card:hover,
+.hysa-page .offer-card:hover,
+.taxes-page .tax-awareness-grid article:hover,
+.taxes-page .tax-big-three article:hover {
+  border-color: rgba(63, 125, 90, 0.16);
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.075);
+}
+
+.score-helper-line {
+  gap: 8px 10px;
+}
+
+.score-helper-line button,
+.score-chat-prompts button,
+.score-chat-actions button {
+  letter-spacing: 0;
+}
+
+.wallet-readout-grid,
+.hysa-page .offers-grid,
+.taxes-page .hero-actions {
+  row-gap: clamp(14px, 1.8vw, 20px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .button:hover,
+  .nav-parent:hover,
+  .database-card:hover,
+  .wallet-recs .database-card:hover,
+  .hysa-page .offer-card:hover,
+  .taxes-page .tax-awareness-grid article:hover,
+  .taxes-page .tax-big-three article:hover {
+    transform: none !important;
+  }
+}
+
+/* Final Wallet page micro-polish */
+.wallet-page .page-hero .hero-subtitle {
+  max-width: 28ch;
+  margin-top: 10px;
+  color: rgba(11, 31, 58, 0.58);
+  font-size: clamp(17px, 1.35vw, 22px);
+  font-weight: 720;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.wallet-output.is-empty {
+  display: grid;
+  min-height: 132px;
+  place-items: center;
+  padding: clamp(22px, 2.4vw, 30px);
+  color: rgba(11, 31, 58, 0.58);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(63, 125, 90, 0.08), transparent 34%),
+    rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(229, 226, 218, 0.88);
+  border-radius: 24px;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 720;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .wallet-page .fit-form {
+    gap: 14px;
+  }
+
+  .wallet-page .wallet-filter-pills {
+    gap: 8px;
+  }
+
+  .wallet-page .wallet-filter-pills button {
+    min-height: 40px;
+    padding-inline: 13px;
+  }
+
+  .wallet-page .wallet-options {
+    margin-top: 2px;
+  }
+
+  .wallet-page .button[type="submit"] {
+    min-height: 48px;
   }
 }
 

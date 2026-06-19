@@ -2020,6 +2020,7 @@ function walletWarning(selectedCards, lanes, goal, fee, targetLane, score) {
 
 function renderWalletResult() {
   if (!walletResult || !walletForm) return;
+  walletResult.classList.toggle("is-empty", !walletHasBuilt);
   if (!walletHasBuilt) {
     walletResult.textContent = "Choose your cards to see missing lanes and next-card ideas.";
     return;
