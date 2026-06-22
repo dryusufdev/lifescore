@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="LifeScore credit money style and daily systems">
+  <rect width="1200" height="630" fill="#fbfaf7"/>
+  <rect x="64" y="64" width="1072" height="502" rx="54" fill="#ffffff" stroke="#e8e2d5"/>
+  <circle cx="982" cy="154" r="96" fill="#4bc4a3" opacity="0.13"/>
+  <circle cx="180" cy="490" r="118" fill="#d6a85f" opacity="0.13"/>
+  <g transform="translate(110 130)">
+    <rect x="0" y="0" width="148" height="148" rx="38" fill="#4bc4a3"/>
+    <rect x="33" y="33" width="82" height="82" rx="24" fill="#fbfaf7"/>
+    <path d="M57 89 L91 55" stroke="#4bc4a3" stroke-width="19" stroke-linecap="round"/>
+  </g>
+  <text x="300" y="220" font-family="Inter, Arial, sans-serif" font-size="92" font-weight="800" fill="#0b1f3a">LifeScore</text>
+  <text x="305" y="292" font-family="Inter, Arial, sans-serif" font-size="31" font-weight="650" fill="#526172">Credit, money, style, and daily systems.</text>
+  <g font-family="Inter, Arial, sans-serif" font-size="25" font-weight="750" fill="#0b1f3a">
+    <text x="305" y="395">Student credit</text>
+    <text x="515" y="395">HYSA</text>
+    <text x="640" y="395">Investing</text>
+    <text x="815" y="395">Wallet setup</text>
+  </g>
+  <g fill="#4bc4a3">
+    <circle cx="277" cy="386" r="7"/>
+    <circle cx="488" cy="386" r="7"/>
+    <circle cx="613" cy="386" r="7"/>
+    <circle cx="788" cy="386" r="7"/>
+  </g>
+</svg>
