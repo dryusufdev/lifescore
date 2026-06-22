@@ -14267,7 +14267,6 @@ img[src$="formal-tabi.png"] {
 
 
 /* SEO discovery and guide pages */
-.start-here-grid,
 .popular-guide-grid,
 .related-guide-grid,
 .seo-answer-grid,
@@ -14277,7 +14276,6 @@ img[src$="formal-tabi.png"] {
   gap: 14px;
 }
 
-.start-here-grid a,
 .popular-guide-grid a,
 .related-guide-grid a,
 .seo-answer-card,
@@ -14291,13 +14289,11 @@ img[src$="formal-tabi.png"] {
   padding: 18px;
 }
 
-.start-here-grid a,
 .related-guide-grid a {
   display: grid;
   gap: 8px;
 }
 
-.start-here-grid span,
 .related-guide-grid span,
 .seo-step-grid span,
 .last-updated,
@@ -14309,14 +14305,149 @@ img[src$="formal-tabi.png"] {
   letter-spacing: 0.08em;
 }
 
-.start-here-grid strong {
-  font-size: 18px;
+.start-here-section {
+  position: relative;
 }
 
-.start-here-grid small {
+.start-here-section::before {
+  position: absolute;
+  inset: 24% auto auto 50%;
+  width: min(520px, 70vw);
+  height: 220px;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(79, 196, 162, 0.12), transparent 68%);
+  transform: translateX(-50%);
+}
+
+.start-here-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) repeat(2, minmax(0, 0.91fr));
+  grid-auto-rows: minmax(142px, auto);
+  gap: 16px;
+}
+
+.start-here-card {
+  position: relative;
+  display: grid;
+  min-height: 154px;
+  gap: 10px;
+  align-content: end;
+  overflow: hidden;
+  color: var(--blue);
+  text-decoration: none;
+  border: 1px solid rgba(229, 226, 218, 0.92);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(251, 250, 247, 0.78)),
+    #fff;
+  border-radius: 28px;
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.055);
+  padding: 22px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: startCardIn 520ms ease forwards;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.start-here-card:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.start-here-card:nth-child(3) {
+  animation-delay: 150ms;
+}
+
+.start-here-card:nth-child(4) {
+  animation-delay: 220ms;
+}
+
+.start-here-card::after {
+  position: absolute;
+  inset: auto 18px 18px auto;
+  width: 84px;
+  height: 84px;
+  content: "";
+  pointer-events: none;
+  border-radius: 999px;
+  background: rgba(79, 196, 162, 0.08);
+  transform: translate(28px, 28px);
+}
+
+.start-here-card-primary {
+  grid-row: span 2;
+  min-height: 324px;
+  padding: 28px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(239, 248, 243, 0.86)),
+    #fff;
+}
+
+.start-here-card span {
+  width: max-content;
+  color: rgba(142, 106, 60, 0.92);
+  font-size: 12px;
+  font-weight: 840;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.start-here-card strong {
+  max-width: 12ch;
+  font-size: clamp(19px, 2vw, 24px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.start-here-card-primary strong {
+  max-width: 10ch;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.start-here-card small {
+  max-width: 26ch;
   color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.start-here-card em {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  margin-top: 4px;
+  color: rgba(11, 31, 58, 0.78);
   font-size: 13px;
-  line-height: 1.5;
+  font-style: normal;
+  font-weight: 820;
+}
+
+.start-here-card i {
+  font-style: normal;
+  transition: transform 180ms ease;
+}
+
+.start-here-card:hover {
+  border-color: rgba(79, 196, 162, 0.42);
+  box-shadow: 0 24px 58px rgba(11, 31, 58, 0.085);
+  transform: translateY(-5px);
+}
+
+.start-here-card:hover i {
+  transform: translateX(4px);
+}
+
+.start-here-card:focus-visible {
+  outline: 3px solid rgba(79, 196, 162, 0.38);
+  outline-offset: 4px;
+}
+
+@keyframes startCardIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .popular-guide-grid {
@@ -14387,6 +14518,24 @@ img[src$="formal-tabi.png"] {
     grid-template-columns: 1fr;
   }
 
+  .start-here-grid {
+    gap: 12px;
+  }
+
+  .start-here-card,
+  .start-here-card-primary {
+    min-height: 176px;
+    padding: 20px;
+  }
+
+  .start-here-card-primary {
+    grid-row: auto;
+  }
+
+  .start-here-card-primary strong {
+    font-size: clamp(24px, 8vw, 32px);
+  }
+
   .seo-score-nudge {
     align-items: stretch;
     border-radius: 24px;
@@ -14395,5 +14544,19 @@ img[src$="formal-tabi.png"] {
 
   .seo-score-nudge button {
     width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .start-here-card {
+    opacity: 1;
+    animation: none;
+    transform: none;
+    transition: none;
+  }
+
+  .start-here-card:hover,
+  .start-here-card:hover i {
+    transform: none;
   }
 }
