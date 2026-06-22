@@ -14264,3 +14264,136 @@ img[src$="formal-tabi.png"] {
     object-fit: cover;
   }
 }
+
+
+/* SEO discovery and guide pages */
+.start-here-grid,
+.popular-guide-grid,
+.related-guide-grid,
+.seo-answer-grid,
+.seo-step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.start-here-grid a,
+.popular-guide-grid a,
+.related-guide-grid a,
+.seo-answer-card,
+.seo-step-grid article {
+  color: var(--blue);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.76);
+  border-radius: 24px;
+  box-shadow: 0 18px 44px rgba(11, 31, 58, 0.055);
+  padding: 18px;
+}
+
+.start-here-grid a,
+.related-guide-grid a {
+  display: grid;
+  gap: 8px;
+}
+
+.start-here-grid span,
+.related-guide-grid span,
+.seo-step-grid span,
+.last-updated,
+.share-note {
+  color: rgba(11, 31, 58, 0.56);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.start-here-grid strong {
+  font-size: 18px;
+}
+
+.start-here-grid small {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.popular-guide-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.popular-guide-grid a {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+}
+
+.seo-guide-hero {
+  padding-bottom: clamp(48px, 7vw, 86px);
+}
+
+.seo-answer-grid {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.seo-answer-card h2 {
+  margin-top: 8px;
+}
+
+.seo-answer-card ul,
+.seo-example-panel ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.seo-step-grid article {
+  display: grid;
+  gap: 12px;
+}
+
+.seo-score-nudge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid rgba(75, 196, 163, 0.22);
+  background: rgba(251, 250, 247, 0.78);
+  border-radius: 999px;
+  padding: 12px 14px 12px 18px;
+  color: rgba(11, 31, 58, 0.66);
+  font-size: 14px;
+}
+
+.seo-score-nudge button {
+  border: 1px solid rgba(11, 31, 58, 0.1);
+  background: #fff;
+  color: var(--blue);
+  border-radius: 999px;
+  padding: 9px 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 760px) {
+  .start-here-grid,
+  .popular-guide-grid,
+  .related-guide-grid,
+  .seo-answer-grid,
+  .seo-step-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .seo-score-nudge {
+    align-items: stretch;
+    border-radius: 24px;
+    flex-direction: column;
+  }
+
+  .seo-score-nudge button {
+    width: 100%;
+  }
+}

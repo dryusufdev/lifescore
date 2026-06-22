@@ -36,6 +36,17 @@ navLinks?.addEventListener("click", (event) => {
   }
 });
 
+document.addEventListener("click", (event) => {
+  const target = event.target instanceof Element ? event.target.closest("[data-analytics]") : null;
+  const eventName = target?.getAttribute("data-analytics");
+  if (!eventName) return;
+  try {
+    window.va?.("event", { name: eventName });
+  } catch {
+    // Analytics should never block navigation or tools.
+  }
+});
+
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
