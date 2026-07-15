@@ -47,6 +47,26 @@ document.addEventListener("click", (event) => {
   }
 });
 
+if (document.body.classList.contains("featured-page")) {
+  const revealItems = [...document.querySelectorAll(".editorial-reveal")];
+  if (revealItems.length) {
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    } else {
+      document.body.classList.add("reveal-ready");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+      revealItems.forEach((item) => observer.observe(item));
+    }
+  }
+}
+
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
 
@@ -73,6 +93,92 @@ function getCurrentFridayKey(date = new Date()) {
   const dayOfWeek = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
   const daysSinceFriday = (dayOfWeek + 2) % 7;
   return shiftIsoDate(todayKey, -daysSinceFriday);
+}
+
+const currentFeaturedPage = {
+  active: true,
+  weekId: "2026-07-13",
+  title: "Cristian Prangikos",
+  category: "Career growth spotlight",
+  description: "New LifeScore spotlight is live.",
+  homeDescription: "Communication, professionalism, leadership, productivity, and consistent execution.",
+  url: "featured.html",
+  getFeaturedUrl: "get-featured.html",
+  ctaText: "Read",
+  startDate: "",
+  endDate: "",
+  instagram: "https://www.instagram.com/cprangikos/",
+};
+
+function hydrateFeaturedHomeSection(feature = currentFeaturedPage) {
+  const section = document.querySelector("[data-featured-home-section]");
+  if (!section || !feature?.active) return;
+
+  section.querySelectorAll("[data-featured-title]").forEach((node) => {
+    node.textContent = feature.title;
+  });
+  section.querySelectorAll("[data-featured-description]").forEach((node) => {
+    node.textContent = feature.homeDescription || feature.description;
+  });
+  section.querySelectorAll("[data-featured-category]").forEach((node) => {
+    node.textContent = "Featured Page";
+  });
+  section.querySelectorAll("[data-featured-dates]").forEach((node) => {
+    node.textContent = feature.startDate && feature.endDate
+      ? `${feature.category} - ${feature.startDate}-${feature.endDate}`
+      : feature.category;
+  });
+  section.querySelectorAll("[data-featured-url]").forEach((node) => {
+    if (node instanceof HTMLAnchorElement) node.href = feature.url;
+  });
+  section.querySelectorAll("[data-featured-get-url]").forEach((node) => {
+    if (node instanceof HTMLAnchorElement) node.href = feature.getFeaturedUrl;
+  });
+}
+
+function dismissFeaturedToast(feature = currentFeaturedPage) {
+  const toast = document.querySelector("[data-featured-toast]");
+  toast?.classList.add("is-dismissing");
+  window.setTimeout(() => toast?.remove(), 180);
+  try {
+    localStorage.setItem(`lifescoreFeaturedDismissed-${feature.weekId}`, "true");
+  } catch {
+    // Local storage can be blocked. The toast can still close for this session.
+  }
+}
+
+function showFeaturedToast(feature = currentFeaturedPage) {
+  const isHome = Boolean(document.querySelector("[data-featured-home-section]"));
+  if (!isHome || !feature?.active || document.querySelector("[data-featured-toast]")) return;
+
+  const storageKey = `lifescoreFeaturedDismissed-${feature.weekId}`;
+  try {
+    if (localStorage.getItem(storageKey) === "true") return;
+  } catch {
+    // If localStorage is blocked, show the toast and allow normal dismissal.
+  }
+
+  const toast = document.createElement("aside");
+  toast.className = "featured-toast shell";
+  toast.dataset.featuredToast = "";
+  toast.setAttribute("aria-label", "Featured page of the week");
+  toast.innerHTML = `
+    <div class="featured-toast-card">
+      <button class="featured-toast-close" type="button" aria-label="Dismiss featured page notification" data-analytics="featured-toast-dismiss">&times;</button>
+      <span>Featured this week</span>
+      <strong>${feature.title}</strong>
+      <p>${feature.description}</p>
+      <div class="featured-toast-actions">
+        <a class="button button-primary" href="${feature.url}" data-analytics="featured-toast-open">${feature.ctaText}</a>
+        <a class="button button-ghost" href="${feature.getFeaturedUrl}" data-analytics="get-featured-click">Get featured</a>
+      </div>
+      <small>Sponsored</small>
+    </div>
+  `;
+
+  toast.querySelector(".featured-toast-close")?.addEventListener("click", () => dismissFeaturedToast(feature));
+  const main = document.querySelector("main");
+  main?.prepend(toast);
 }
 
 function selectWeeklyTip(tips, date = new Date()) {
@@ -3345,7 +3451,7 @@ function buildLifeScoreInstallPrompt() {
       } else if (isChrome) {
         setCardMode("chrome-fallback");
       }
-    }, 2400);
+    }, 6500);
 
     if (navigator.serviceWorker?.ready) {
       navigator.serviceWorker.ready.then(updatePwaDebug).catch(updatePwaDebug);
@@ -3381,6 +3487,8 @@ function buildLifeScoreInstallPrompt() {
 }
 
 enhanceLifeScoreNav();
+hydrateFeaturedHomeSection();
+showFeaturedToast();
 hydrateWeeklyTip();
 buildScoreChat();
 registerLifeScorePwa();
@@ -3391,4 +3499,8 @@ window.LifeScoreWeeklyTips = {
   getCurrentFridayKey,
   selectWeeklyTip,
   hydrateWeeklyTip,
+  currentFeaturedPage,
+  hydrateFeaturedHomeSection,
+  showFeaturedToast,
+  dismissFeaturedToast,
 };
