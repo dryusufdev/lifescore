@@ -17855,8 +17855,17 @@ img[src$="formal-tabi.png"] {
   }
 
   .featured-page .featured-hero {
+    width: min(520px, calc(100% - 32px));
+    margin-inline: auto;
     padding-top: 38px;
     padding-bottom: 30px;
+    justify-items: center;
+  }
+
+  .featured-hero-copy {
+    width: 100%;
+    max-width: 420px;
+    justify-self: center;
   }
 
   .featured-page .featured-hero h1 {
@@ -17872,13 +17881,15 @@ img[src$="formal-tabi.png"] {
   .featured-portrait-card,
   .featured-portrait-card:hover {
     width: min(100%, 360px);
+    justify-self: center;
     transform: none;
   }
 
   .featured-editorial-main.shell {
-    width: calc(100% - 32px);
-    max-width: calc(100% - 32px);
+    width: min(520px, calc(100% - 32px));
+    max-width: min(520px, calc(100% - 32px));
     gap: 58px;
+    margin-inline: auto;
     padding-top: 42px;
     padding-bottom: 72px;
   }
@@ -17901,7 +17912,7 @@ img[src$="formal-tabi.png"] {
 
   .career-foundation {
     grid-template-columns: 1fr;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .career-foundation article {
