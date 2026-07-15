@@ -18002,3 +18002,38 @@ img[src$="formal-tabi.png"] {
     transform: none;
   }
 }
+
+/* Mobile centering lock: keep page shells visually centered across the site. */
+@media (max-width: 760px) {
+  .site-header,
+  .shell,
+  .hero.shell,
+  .page-hero.shell,
+  .section.shell,
+  .site-footer.shell,
+  main > .shell {
+    width: min(520px, calc(100% - 32px)) !important;
+    max-width: min(520px, calc(100% - 32px)) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .hero.shell,
+  .page-hero.shell,
+  .section.shell {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header,
+  .shell,
+  .hero.shell,
+  .page-hero.shell,
+  .section.shell,
+  .site-footer.shell,
+  main > .shell {
+    width: min(520px, calc(100% - 28px)) !important;
+    max-width: min(520px, calc(100% - 28px)) !important;
+  }
+}
